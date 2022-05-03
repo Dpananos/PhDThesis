@@ -10,3 +10,4 @@
 *.toc
 *.app
 *.pdf
+.DS_Store
