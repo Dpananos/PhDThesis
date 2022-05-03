@@ -10,5 +10,5 @@
 *.toc
 *.app
 *.pdf
-.DS_Store
+*.DS_Store
 *.app
