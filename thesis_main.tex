@@ -27,6 +27,35 @@
 %\usepackage{hyperref} %comment out for hardcopy
 \usepackage{txfonts}
 \usepackage{tocloft}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{glossaries}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{bayesnet}
+\usepackage{caption}
+\usepackage{url}
+\usepackage[noabbrev]{cleveref}
+\usepackage[ruled,vlined]{algorithm2e}
 \makeatletter
 \numberwithin{figure}{chapter}
 \newenvironment{acknowledgements}%
@@ -334,6 +363,10 @@ Chair of the Thesis Examination Board
 
 }
 
+% Defined commands
+\newcommand{\rhat}{\widehat{R}}
+
+
 \makeatother
 \begin{document}
 
@@ -393,8 +426,15 @@ Personalized Medicine is ipsum lorem blah blah Bayesian statistics blah blah dec
 %% "\input" makes each chapter start on a new page.                   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As an example...
-\include{chapters/chapter_1/introduction}
-\include{chapters/chapter_2/background}
+\chapter{Introduction}
+
+\chapter{Background}
+		\input{chapters/chapter_2/sections/differential_equations}
+		\input{chapters/chapter_2/sections/bayesian_statistics}
+		\input{chapters/chapter_2/sections/pharmacokinetics}
+		\input{chapters/chapter_2/sections/reinforcement_learning}
+
+		
 \include{chapters/chapter_3/lit_review}
 \include{chapters/chapter_4/paper_1}
 \include{chapters/chapter_5/paper_2}
@@ -407,7 +447,7 @@ Personalized Medicine is ipsum lorem blah blah Bayesian statistics blah blah dec
 %% ***   Set the bibliography style.   ***
 \bibliographystyle{plain} % (change according to your preference)
 %%% ***   Set the bibliography file.   ***
-\bibliography{westernthesis}{}
+\bibliography{bibliographies/thesis_bib}
 %% ***   NOTE   ***
 %% If you don't use bibliography files, comment out the previous line
 %% and use \begin{thebibliography}...\end{thebibliography}.  (In that

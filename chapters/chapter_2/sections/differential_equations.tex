@@ -1,0 +1,106 @@
+\subsection{Differential Equations}\label{sec:ODE}
+
+In this section, I discuss elements of differential equation theory.  The pharmacokinetic models used in the proposed research are written as systems of differential equations.  It is thus important to understand some theory of differential equations and their analytic/numerical solutions.
+
+I begin by delineating between different types of differential equations.  I then discuss sufficient conditions for existence and uniqueness of solutions to differential equations, followed by a discussion of computing analytic representations of said solutions.  I conclude this section with numerical methods for solving differential equations.
+
+\subsubsection{What is a Differential Equation}
+
+For the purposes of this proposal, a differential equation is an equation relating an unknown function of a single variable to its derivative. I will be concerned with differential equations of the form
+%
+\begin{equation}\label{ODE}
+\dfrac{d \mathbf{y}}{dt}  = \mathbf{F}(t,\mathbf{y}(t);\bm{\theta})
+\end{equation}
+%
+Here, $ \mathbf{F} : \mathbb{R} \times \mathbb{R}^n \rightarrow \mathbb{R}^n $ is a vector field, and $ \bm{\theta} \in \mathbb{R}^m $ is a vector of parameters for the differential equation which may have different dimension than $\mathbf{y}$.  From here forth, I suppress the dependency on $ \bm{\theta} $, but understand that $ \mathbf{F} $ may depend on unknown parameters. Differential equations of these forms are called \textit{ordinary differential equations} (ODEs) since they are deterministic and involve derivatives of a single variable.  Often, \cref{ODE} is accompanied by a value of $ \mathbf{y} $  evaluated at a point in its domain.  This is called an \textit{initial condition} and is written as $ \mathbf{y}(t_0) = \mathbf{y_0} $ for some $ t_0 \in \mathbb{R}$.  The conjunction of \cref{ODE} and an initial value is referred to as an \textit{initial value problem}.
+
+
+
+\subsubsection{Solutions for Ordinary Differential Equations}
+
+Not every differential equation which has a solution can have that solution written analytically (i.e. in terms of algebraic and transcendental functions).  This proposal is concerned with first order linear differential equations, which do have an analytic representation of their solution.  Consider a differential equation of the form
+
+\begin{equation}\label{ODE2}
+\dfrac{d\mathbf{y}}{dt} = \mathbf{A}(t)\mathbf{y}(t) + \mathbf{g}(t) \>.
+\end{equation}
+
+Here, $ \mathbf{A}: \mathbb{R} \rightarrow \mathbb{R}^{n \times n} $ is a matrix and $ \mathbf{g}:  \mathbb{R} \rightarrow \mathbb{R}^n $ is a vector.  In general, the solution to \cref{ODE2} can be written in terms of fundamental matrices.  Let $ \mathbf{y}_1(t), \mathbf{y}_{2}(t), \dots , \mathbf{y}_{n}(t) $ be a fundamental set of solutions for the differential equation $ \mathbf{y}' = \mathbf{A}(t)\mathbf{y}(t) $ (that is to say, the functions $ \mathbf{y}_{i}(t) $ are linearly independent).  Then, the matrix
+%
+\begin{equation*}
+\bm{\psi} (t)= \Big[\mathbf{y}_{1}(t) \>\vert\> \mathbf{y}_{2}(t) \>\vert\> \dots \>\vert\> \mathbf{y}_{n}(t)\Big]
+\end{equation*}
+% 
+is called a fundamental  matrix for the differential equation.
+
+
+The solution to \cref{ODE2} is then
+%
+\begin{equation}\label{ODE2_solution}
+\mathbf{y}(t) = \bm{\psi}(t)\bm{\psi}^{-1}(t_0)\mathbf{x}_0 + \bm{\psi}(t)\int_{t_0}^{t}\bm{\psi}^{-1}(s) \mathbf{g}(s) \, ds \>,
+\end{equation}
+%
+Here, $ \bm{\psi}(t) $ is a fundamental matrix for $\mathbf{y}' = \mathbf{A}(t)\mathbf{y}(t) $ . Our key observation here is that if  the ODE can be written in the form of \cref{ODE2}, then the solution may be written in terms of analytic functions provided the integral in \cref{ODE2_solution} is tractable.  
+
+\subsubsection{Numerical Solutions to Ordinary Differential Equations}
+
+Not every solution to an ODE which \textit{can} be expressed in terms of analytic functions \textit{should} be expressed in terms of analytic functions. If \cref{ODE} contains many parameters, then \cref{ODE2_solution} may be sufficiently complex so that evaluation of $\mathbf{y}(t)$ is not practical.  In cases like these, or in cases where the solution can not be found in terms of analytic functions, a rich literature of numerical solutions to differential equations exists.
+
+Consider a scalar form of \cref{ODE}
+%
+\begin{equation}\label{scalar_ODE}
+\dfrac{dy}{dt} = f(t,y) \>, \quad y(t_0) = y_0 \>.
+\end{equation}
+%
+By approximating the derivative via a finite difference,
+%
+\begin{equation}\label{EuerlMethod}
+\begin{aligned}[b]
+\dfrac{y(t_0 + h) - y(t_0)}{h} &\approx f(t_0,y(t_0)) \\
+y(t_0+h) &\approx y(t_0) + h\cdot f(t_0, y(t_0))\\
+y_{n+1} & \equiv y_{n}+ h \cdot f(t_n,y_n)
+\end{aligned}
+\end{equation}
+
+\Cref{EuerlMethod} is known as \textit{Euler's Method}.  The method successively approximates the true solution at a finite set of times. Euler's method is equivalent to numerical integration of the ODE.  From the fundamental theorem of calculus, \cref{scalar_ODE} is equivalent to
+%
+\begin{align*}
+y(t) - y(t_0) = \int_{t_0}^t f(s,y(s)) \, ds \>.
+\end{align*}
+%
+To evaluate the solution at $ t_0+h $, approximate the integral using a Reimann sum
+%
+\begin{equation}
+\begin{aligned}
+y(t_0+h) &= y(t_0) + \int_{t_0}^{t_0+h}f(s,y(s)) \, ds \\
+&\approx y(t_0) + (t_0 + h - t_0)\cdot f(t_0, y(t_0))
+\end{aligned}
+\end{equation}
+In either formulation of Euler's method, $ h $ is known as the \textit{step size}. Though in general $ y(t_0+h) \neq y(t_0) + hf(t_0,y(t_0)) $, if $ h $ is sufficiently small, then the result from Euler's method is an acceptable approximation, assuming that $ y $ changes linearly with $ f(t_0, y_0) $ as its slope. In principle, in the limit as $ h \rightarrow 0 $, the approximations should can become arbitrarily good\footnote{though some care should be taken to ensure the solution converges \cite{corless2013graduate}.}.  Of course, not all step sizes are practical, which has motivated the study of better numerical methods for approximating the solution to a differential equation.
+
+\subsubsection{Quality of a Numerical Solution}
+
+Euler's method is an approximation, it admits some error between the computed numerical solution and the exact solution.  Assessments of the quality of a numerical solution can be examined in terms of the \textit{residual}.  For any given ODE, if the analytic solution were known, then it would be the case that $ dy/dt - f(t,y(t))= 0 $ identically.  Since numerical methods return approximate solutions on a finite set of points (which can then be interpolated via a desired interpolation scheme) then for an interpolated solution, $ z(t) $, it will be the case that $ dz/dt - f(t,z(t)) = \Delta (t) \neq 0$ in general $ \forall t $.  The function $ \Delta (t) $ is called the \textit{residual}.
+
+The \textit{order of a method} is defined as $ \mathcal{O}(\Delta (t)) $ and is usually expressed in terms of the step size $ h $.  For instance, Euler's method can be shown to be a $ \mathcal{O}(h) $ method \cite{corless2013graduate}, which means the residual is proportional to the step size.  Smaller steps mean a smaller residual (and thus more accurate solution), but obtaining a desired accuracy may mean taking step sizes too small to be practical.
+
+Most texts on numerical solutions to differential equations use the \textit{local error} as a measure of the quality of a solution.  Local error can be interpreted as the error incurred on the $ n^{th} $ step when there is no error in the $ n-1^{st} $ step, and is usually expressed as a function of the step size $ h $.  Alternatively, the local error is the error between $ z(t_1) $ and $ y(t_1) $. It can be shown that Euler's method has $ \mathcal{O}(h^2) $ local error, assuming $ f $ has bounded third derivative \cite{corless2013graduate}.
+
+\subsubsection{Superior Methods for Numerical Solutions}
+
+Euler's method is not usually used in practice for solving differential equations because of its large local error.  Better methods, such as the suite of Runge-Kutta methods,  have local error up to  $ \mathcal{O}(h^5) $ \cite{corless2013graduate}.  The fourth order Runge-Kutta method is particularly popular for numerically solving ODEs.
+
+The method involves a weighted average of evaluations of $ f $ at various points.  The scheme is written as 
+%
+\begin{equation}\label{RK}
+y_{n+1} = y_n + h \left( \dfrac{k_{n1} + 2k_{n2} + 2k_{n3} + k_{n4}}{6}\right)
+\end{equation}
+%
+where
+\begin{align*}
+k_{n1} &= f(t_n, y_n) \\
+k_{n2} &= f(t+0.5h, y_n + 0.5hk_{n1}) \\
+k_{n3} &= f(t + 0.5h, y_n + 0.5hk_{n2})\\
+k_{n4} &= f(t_n + h, y_n + hk_{n3})
+\end{align*}
+%
+This method has residual $ \mathcal{O}(h^4) $ and local error $ \mathcal{O}(h^5) $ \cite{corless2013graduate}, making it an accurate solver for most problems of applied interest.  In cases where differential equations are solved numerically, a fourth order Runge-Kutta method is used unless explicitly stated otherwise.
