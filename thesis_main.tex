@@ -54,8 +54,15 @@
 \usetikzlibrary{bayesnet}
 \usepackage{caption}
 \usepackage{url}
+\usepackage{rotating}
 \usepackage[noabbrev]{cleveref}
 \usepackage[ruled,vlined]{algorithm2e}
+
+\newcommand{\Normal}{\operatorname{Normal}}
+\newcommand{\Gmma}{\operatorname{Gamma}}
+\newcommand{\Lognormal}{\operatorname{Lognormal}}
+
+
 \makeatletter
 \numberwithin{figure}{chapter}
 \newenvironment{acknowledgements}%
@@ -436,8 +443,24 @@ Personalized Medicine is ipsum lorem blah blah Bayesian statistics blah blah dec
 
 		
 \include{chapters/chapter_3/lit_review}
-\include{chapters/chapter_4/paper_1}
-\include{chapters/chapter_5/paper_2}
+
+		\input{chapters/chapter_4/sections/introduction}
+		\input{chapters/chapter_4/sections/background}
+		\input{chapters/chapter_4/sections/methods}
+		\input{chapters/chapter_4/sections/results}
+		\input{chapters/chapter_4/sections/conclusion}
+		\input{chapters/chapter_4/sections/appendix}
+		
+		
+		\input{chapters/chapter_5/sections/introduction}
+		\input{chapters/chapter_5/sections/background}
+		\input{chapters/chapter_5/sections/framework}
+		\input{chapters/chapter_5/sections/results}
+		\input{chapters/chapter_5/sections/discussion_and_conclusion}
+		\input{chapters/chapter_5/sections/appendix}
+
+
+
 \include{chapters/chapter_6/paper_3}
 \include{chapters/chapter_7/discussion}
 

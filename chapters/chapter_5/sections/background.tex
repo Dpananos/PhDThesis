@@ -1,0 +1,48 @@
+\section{Methods}\label{ss:background}
+
+We briefly review dynamic treatment regimes, which are used to develop optimal decision-making models, and Bayesian PK models, which are used to capture relationships among patient characteristics, measurements, pharmacokinetics, and dose so that optimal dosing decisions can be derived using the dynamic treatment regime framework.
+
+\subsection{Dynamic Treatment Regimes}
+
+A \textit{dynamic treatment regime} (DTR) is a mathematical formalism intended to model the practise of evaluating a patient, choosing a treatment, and observing a response. A DTR is defined as a sequence of decision rules $d = (d_1, \cdots, d_K)$, each of which is a function that takes information about a patient produces an \textit{action}, like a dose initiation or change, that is intended to affect the status of the patient, like their plasma concentration \cite{chakraborty2013statistical,lizotte17reinforcement,tsiatis2019dynamic}. The application of each decision rule is called a \textit{stage} in the DTR, and applying a DTR generates a \textit{trajectory} of data $O_1, A_1, O_2, A_2, ..., O_K, A_K, O_{K+1}$; these are are represented in upper case to emphasize that they are random variables which represent potentially noisy observations of a patient and actions which depend on the observations. We define the \textit{history} of the patient at stage $j$ to be $ H_j = (O_1, A_1, O_2, A_2, \cdots , O_{j-1}, A_{j-1}, O_j)$; this encompasses all information available for decision-making at stage $j$. 
+
+\subsubsection{Defining and Estimating Optimal DTRs}
+
+To define the performance of a decision rule (and of a DTR) we also define a \textit{reward} $ Y_j = Y_j(H_j, A_j, O_{j+1})$ which is a quantitative measure of success of the outcome that follows the stage $j$ action, coded so that higher values are preferable. The sum of the rewards achieved over a single trajectory is called the \textit{return}.  Given this definition, the \textit{value} of a DTR is given by
+\begin{equation}
+	V^d = \mathbb{E}\left[ \sum_{k=1}^K Y_k \right],
+\end{equation}
+which is the expectation of the return if we follow DTR $d$. Typically, a DTR is defined to be optimal if it achieves the highest possible value among those under consideration; this corresponds to the concept of maximizing utility or minimizing expected loss in statistical decision theory \cite{berger2013statistical}.
+
+There are different ways of estimating an optimal DTR \cite{tsiatis2019dynamic}. One way, called ``Q-learning'' relies on estimating the optimal Q function. We give an overview of Q-learning for DTRs here, and refer the reader to other sources for more detail \cite{chakraborty2013statistical}. The optimal Q function at stage $j < K$ is a function of the observed history $ h_j $ and a proposed action $ a_j $ given by
+\begin{equation}\label{eq:Qfunction}
+ Q_j^{\mathsf{opt}}(h_j, a_j) = \mathbb{E} \left[ Y_j(h_j, a_j, O_{j+1}) + \max_a Q_{j+1}^{\mathsf{opt}}(H_{j+1}, a) | H_j = h_j, A_j = a_j
+ \right].
+\end{equation}
+and $Q_K^{\mathsf{opt}}(h_K, a_K) = \mathbb{E}[ Y_j(h_K, a_K, O_{K+1}) | H_K = h_K, A_K = a_K]$. The function $Q_j^{\mathsf{opt}}$ represents the expected return if we choose action $a_j$ when history is $h_j$ and subsequently always choose actions that are optimal, that is, give highest expected return. Given the optimal Q function, an optimal DTR is given by choosing the action that maximizes it:
+\begin{equation}
+d_j^{\mathsf{opt}}(h_j) = \arg\max_{a\in \mathcal{A}} \left\{Q_j^{\mathsf{opt}}(h_j,a)\right\} \>.
+\end{equation}
+
+The Q-learning algorithm proceeds by first estimating $Q_K^{\mathsf{opt}}$, often by acquiring a dataset of tuples of the form $(h_K, a_K, y_K)$ and regressing the $y_K$ on the $h_K$ and $a_K$. The resulting $\hat{Q}_K^{\mathsf{opt}}$ can estimate the expected reward for any choice of $h_K$ and $a_K$. It is then used to estimate $Q_{K-1}$, which is in turn used to estimate $Q_{K-2}$, and so on. This ``backward induction'' approach emphasizes that the optimal decision rule at earlier stages depends on the decision rules at later stages, and that they cannot in general be optimized independently.
+
+%To use Q-learning for personalization in the context of optimal dosing and titration, we will define the actions to be possible doses or dose adjustments, and we define the reward to be a function of the resulting concentrations which implicitly rely on the actions, for example a measurement of how well concentrations are kept in a specified therapeutic range. The relationship between possible actions and rewards, which Q-learning can use to produce optimal policies, can be captured by Bayesian PK modelling. We review Bayesian PK modelling after the next section.
+
+%\subsection{Similarity to Statistical Decision Theory}
+
+%Dynamic treatment regimes and reinforcement learning concern learning a policy to obtain maximal value.  Thus, they are concerned with multi-stage decision making under uncertainty.  These frameworks bear a resemblance to statistical decision theory, in which a single decision is to be made under uncertainty. Following \cite{berger2013statistical}, there exists an unknown quantity or quantities $\boldsymbol{\theta} \in \boldsymbol{\Theta}$ called \textit{the state of nature} which affects the decision process and  which may require estimation using data, $\mathbf{X}$ .  Associated with every state of nature and decision (more commonly called an \textit{action}), $a$, is an associated loss incurred, $\mathcal{L}(\boldsymbol{\theta}, a)$.  From a Bayesian perspective, the goal is then to determine the action, $a^{\mathsf{opt}}$ which minimizes the Bayesian expected loss 
+
+
+%\begin{align}
+%	a^{\mathsf{opt}} &=  \arg\min_{a \in \mathcal{A}} \left\{ 	E^{\pi}\left[ \mathcal{L}(\boldsymbol{\theta},a) \right] \right\} \\
+%	E^{\pi}\left[ \mathcal{L}(\boldsymbol{\theta},a) \right] &= \int_{\boldsymbol{\Theta}} \mathcal{L}(\boldsymbol{\theta}, a)  \pi(\theta) \, d\theta\label{reimann_stieltjes}
+%\end{align}
+
+%\noindent Here $\pi$ is the believed probability distribution of $\boldsymbol{\theta}$ at the time of decision making.  If data and a model are available, then $\pi$ could be the posterior distribution of $\boldsymbol{\theta}$ after conditioning the model on $\mathbf{X}$.  Similar approaches exist when using a Frequentist perspective, but because we do not adopt such a framework here  we refer readers to \cite{berger2013statistical} for more.  Assuming a Bayesian perspective again, minimizing the expected Bayesian loss in statistical decision theory is equivalent to minimizing the negative reward in a single stage DTR.  Because our work focuses on multi-stage decision problems, not single stage decision problems, we use the language of DTRs and reinforcement learning.
+
+
+\subsection{Bayesian Models of Pharmacokinetics}
+
+In order to estimate the optimal Q functions, we need to be able to predict how a patient's concentration is likely to evolve over time in response to a hypothetical dose (action).  Our approach is to build a Bayesian model of patient pharmacokinetics that can use baseline clinical information, as well as any available concentration measurements, to make tailored predictions of future concentrations that are as accurate as possible given the model structure and available data. The model is flexible in that it can condition on whatever information is available---for example, if previous dose and measurement information is not available for a specific patient, the model will rely on baseline information alone. If it is available, the model will use it to (hopefully) make improved predictions. This allows us to optimize both initial doses and later dose adjustments after additional information about concentration is acquired.
+
+Bayesian models have another key property that we use in our framework. Once they are fit to data, and assuming the model is fit well, they are able to simulate the trajectories of patients drawn from a distribution that is similar to the distribution of the data that the models were trained on, but in the simulated data, \textit{all} variables---including normally-hidden PK parameters---are fully observed. This allows us to conduct a form of internal validation where we use the simulated patients to assess the relative benefits of different modes of static and dynamic personalization, because we can know for each simulated patient exactly what the effect of any dose would be. This process is described in detail in the next section, where we present our framework, and the details of the Bayesian model itself are provided in Appendix~\ref{ap:appendix}.
