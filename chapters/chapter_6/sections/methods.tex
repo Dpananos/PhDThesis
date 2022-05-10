@@ -1,0 +1,59 @@
+\section{Bayesian Model}
+
+
+Our model specifies a population level effect of covariates (age, sex, weight (kg), serum creatinine ($\mu \mbox{mol}$)) on patient clearance, time to max concentration, and the ratio between absorption and elimination rates (a unitless parameter we refer to as $\alpha$). These effects are shared between all populations, allowing information from one dataset to partially inform model fit on the other.  We also include a population level effect of concomitant amidarone on bioavailability of apixaban.  We fit our model using Stan [-@gelman2015stan], an open source probabilistic programming language with interfaces to Python, R, Stata, Matlab, and more.
+
+Let $s = 1 \dots K$ denote the number of studies being pooled together.  Each study has $j = 1 \dots N_s$ subjects, whom are observed at times $t_i$ for $i = 1 \dots T_j$.  For sparsely sampled data, $T_j=1$, meaning we have only one sample per subject.  For repeatedly sampled data, $1<T_j$, meaning we have multiple measurements from the same subject.  In our data, we use $K=2$ studies.  There are $N_1=36$ subjects in our repeatedly sampled data, and $N_2=402$ subjects in our sparsely sampled data.  The repeatedly sampled subjects are each sampled $T=8$ times.
+
+Our model assumes there are population level effects of each covariate on the pharmacokientic parameters, and that the distribution of pharmacokinetic parameters given covariates $\mathbf{x}_{j, s}$ from subject $j$ in study $s$ are the same between studies.  Let $\theta_{j, s}$ be a vector of pharmacokinetic parameters for subject $j$ in study $s$.  In our model, $\theta_{j, s}$ is comprised of subject clearance rate, time to max concentration, ratio between elimination and absorption rates, and bioavaiability respectively  $\theta_{j,s} = (Cl_{j, s}, t_{\max, j, s}, \alpha_{j, s}, F_{j, s})$.  Our model is depicted as a Bayes net in Figure 1.
+
+We estimate two non-pharmacokientic parameters from our data as well.  Let $\delta_{j, s}$ be the time delay between ingestion of the bolus dose and absorption into the blood stream, and let $c_{0, j, s}$ be the initial concentration of apixaban in the blood stream at the time of ingestion.  The time delay $\delta$ can not be estimated from the sparsely sampled data because only a single measurement was taken, but can be estimated from the repeatedly sampled data.  Therefore we assume $\delta_{j, 2}=0 \quad \forall j$.  Additionally, sparsely sampled patients are assumed to be in steady state and therefore have a non-zero initial concentration of apixaban in their blood at the time of ingestion, as compared to repeatedly sampled patients which had not taken apixaban prior to the study.  Therefore, $c_{0, j, 1} = 0 \quad \forall j$.  The quantity $c_{0, j , 2}$ can be estimated from the other pharmacokinetic parameters assuming subjects have been taking apixaban twice daily with perfect adherence for the last 5 days.  We provide a proof of this proposition in the appendix by solving the associated differential equation with forcing functions for each dose using the Laplace Transform.
+
+Each pharmacokinetic parameter has an associated set of regression coefficients and intercept term.  Each pharmacokinetic parameter is regressed on subject covariates $\mathbf{x}_{j, s}$ in the following way:
+
+$$ \log(Cl_{j, s}) = \mu_{Cl} + \mathbf{x}_{j, s}^{Cl} \beta_{Cl} $$
+$$ \log(t_{\max,j, s}) = \mu_{t} + \mathbf{x}_{j, s}^{t} \beta_{t} $$
+$$ \operatorname{logit}(\alpha_{j, s}) = \mu_{\alpha} + \mathbf{x}_{j, s}^\alpha \beta_{\alpha} $$
+$$ \operatorname{logit}(F_{j, s}) = \mu_{F} + \mathbf{x}_{j, s}^{F} \beta_{F} $$
+
+Here, we have added superscripts to the $\mathbf{x}$ to indicate that different covariates may be used in each regression. The $\beta$ are regression coefficients and $\mu$ are intercepts for the parameter indicated in the subscript. We include random effects for repeatedly sampled subjects. Each $\theta_{j, s}$ is used to predict the concentration profile $C(t)$.  We use a one compartment pharmacokinetic model with linear elimination as our $C(t)$, namely
+
+$$ C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} k_{e, j, s} k_{a, j, s}}{Cl_{j, s}(k_{e, j, s} - k_{a, j, s})} \Bigg( e^{-k_{a, j, s}(t_i - \delta_{j, s})} - e^{-k_{e, j, s}(t_i - \delta_{j, s})} \Bigg)  & \delta_{j, s} \leq t_i \\ 0 & \mbox{else} \end{cases}$$
+
+Again, if $s=1$ (indicating repeated sampling) then $c_{0, j, 1} = 0 \quad \forall j$ since patients from this study take apixaban for the first time.  If $s=2$ (indicating sparse sampling) then $\delta_{j, 2}$ is assumed to be 0 $\forall j$ since the delay can not be estimated from a single observation.  Finally, the predicted latent concentrations are used in the likelihood.  We use a lognormal likelihood for both datasets, with variance differing by study
+
+$$ y_{i,j,s} \sim \operatorname{Lognormal}\Big( \log(C_{j, s}(t_i)), \sigma_s \Big)  \>.$$
+
+
+\begin{figure}[t!]
+	
+	\centering
+	\begin{tikzpicture}
+		
+		\node[latent](b){$\beta$};
+		\node[latent, right=of b](mu){$\mu$};
+		
+		\node[latent, below = of b](theta){$\theta$};
+		\node[obs, left = of theta](x){$\mathbf{x}$};
+		
+		
+		\node[latent, below = of theta](C){$C(t)$};
+		\node[obs, left = of C](t){$t$};
+		\node[obs, below = of C](y){$y$};
+		\node[latent, left = of y, xshift=-2cm](s){$\sigma$};
+		
+		\edge{b}{theta};
+		\edge{mu}{theta};
+		\edge{x}{theta};
+		\edge{theta}{C};
+		\edge{t}{C};
+		\edge{C}{y};
+		\edge{s}{y};
+		
+		\plate[]{t_y_pairs}{(t)(y)(C)}{$i=1 \dots T_j$};
+		\plate[]{subjects}{(t_y_pairs)(x)(theta)}{$j=1 \dots N_s$};
+		\plate[]{study}{(subjects)(s)}{$s=1 \dots K$};
+	\end{tikzpicture}
+	\caption{Bayes net for our hierarchical apixaban pharmacokientics model.  Here, $\beta$ and $\mu$ are regression coefficients and intercepts for the effects of covariates on pharmacokientic parameters.  The effects are assumed to apply to all studies, meaning that the effect of age on time to max concentration (as an example) is the same for all studies.  If protocols are different between studies, then each study may have a different residual variance term $\sigma_s$.  This differing residual variance is what prevents subjects from being considered exchangeable between studies.  When permiting the joint distirbution of $\theta_{j, s}$, one needs to keep track of which $\theta$ requires which $\sigma$, thus preventing the subjects from being considered exchangeable.}
+\end{figure}
+
