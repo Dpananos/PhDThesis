@@ -1,6 +1,6 @@
 \chapter{Background}
 
-In this chapter, I describe the necessary background for the research presented in this thesis.  The focus of the first section is differential equations, specifically first order separable equations and the Laplace Transform.  Then, I discuss Bayesian statistics, touching on model design, model checking, and model fitting.  In the next section I discuss population pharmacokinetic models, touching on their derivation through differential equations as well as extensions to include multiple doses.  I conclude this chapter with a treatment of dynamic treatment regimes and estimation of an optimal policy through Q learning.
+In this chapter, I describe the necessary background for the research presented in this thesis.  The focus of the first section is differential equations, specifically first order separable equations and the Laplace Transform.  I briefly discuss conditions under which a differential equation has a unique solution, as well as techniques for qualitative analysis of a system's dynamics under famalies of eqivalent parameterizations.  Then, I discuss Bayesian statistics, touching on model design, model checking, and model fitting.  In the next section I discuss population pharmacokinetic models, touching on their derivation through differential equations as well as extensions to include multiple doses.  I conclude this chapter with a treatment of dynamic treatment regimes and estimation of an optimal policy through Q learning.
 
 \section{Differential Equations}\label{sec:ODE}
 
@@ -25,7 +25,7 @@ Not every IVP which can be written down has a solution, but there do exist gener
 
 \subsection{Solutions to First Order Linear Equations}
 
-So long as the function $f(t, y(t)) = Q(t) - I(t) y(t)$ satisfies the conditions for the Picard–Lindelöf theorem, then a solution exists and it is unique.  Assuming $Q(t)$ and $I(t)$ are written in terms of analytic functions, then the solution to \cref{IVP} can be written out analytically.  Let $P(t) = \exp(\int I(t) \, dt))$ be an \textit{integrating factor}.  Multiplying both sides of the ODE by $P(t)$ yields
+So long as the function $f(t, y(t)) = Q(t) - I(t) y(t)$ satisfies the conditions for the Picard–Lindelöf theorem, then a solution exists and it is unique.  Assuming $Q(t)$ and $I(t)$ are written in terms of analytic functions, then the solution to \cref{IVP} can be written out analytically.  Let $P(t) = \exp(\int I(t) \, dt)$ be an \textit{integrating factor}.  Multiplying both sides of the ODE by $P(t)$ yields
 
 \begin{align}
 	\dfrac{dy}{dt} + I(t)y(t) &= Q(t) \\
@@ -48,13 +48,27 @@ So long as the function $f(t, y(t)) = Q(t) - I(t) y(t)$ satisfies the conditions
 \noindent Wherein the constant of integration from the numerator is determined by using the initial condition. Our general takeaway is that so long as $f$ satisfies the conditions s for the Picard–Lindelöf theorem, and $Q(t)$ and $I(t)$ are not sufficiently complicated so as to prevent integration, then the solution to \cref{IVP} can be written down exactly.
 
 
+\subsection{Non-dimensionalization}
+
+Differential equations representing physical systems can often have several parameters, and the qualitative behavour for the solution can be similar across many different families of differential equations. A technique used by applied mathematicians to study the qualitative behavour of a differential equation is known as \textit{non-dimensionalization}.  The technique involves rescaling the solution $y(t)$ (which could have a variety of units depending on what is being modelled) and the time variable $t$ (which could be measured in seconds, hours, minutes, etc.) to be unitless. Let $a \neq 0$ be measured in the same units as $t$ and let $b \neq 0$ be measured in the same units as $y$.  Then, we can define non-dimensional variables as $t = a \tau $ and $y = b x)$.  The non-dimensionalization of the differential equation $dy/dt = f(t, y(t))$  in terms of $\tau$ and $x$ is obtained by applications of differention rules
+
+\begin{align}
+	\dfrac{d }{dt} \Big( y(t) \Big) &=  	\dfrac{d }{dt} \Big( b x(\tau) \Big)\\
+													&= b \dfrac{dx(\tau) }{d\tau} \dfrac{d \tau}{dt}\\
+													&= \dfrac{b}{a} \dfrac{dx(\tau)}{d\tau}
+\end{align}
+
+
+\noindent which yields $dx / d \tau = a/b f(a\tau, bx(\tau))$.  The approach is similar to normalization in statistics (e.g. subtracting the mean and dividing by the standard deviation).  The re-scaling allows one to examine families of solutions for which $a/b$ is constant, giving insight into the characteristic dynamics of the system. 
+
+
 \subsection{The Laplace Transform and Forcing Functions}
 
 Under the conditions that a function $f$ is piecewise continuous on an interval $0 \leq t \leq A$ for any positive $A$, and that $\vert f(t) \vert \leq K \exp(at)$ when $M \leq t$ for real constants $0< K, a, M $, then the integral
 
 $$ \int_0^\infty f(t) e^{-st} \, dt  $$ 
 
-\noindent exists and is called \textit{The Laplace Transform}, denoted $\mathcal{L}\left\{f\right\}(s)$.  The Laplace Transform can be used to turn a first order linear differential equation into an algebraic equation, which can then be solved and inverted from $s$ space to $t$ space.  The Laplace Transform can be used to solve differential equations with discontinuous forcing functions.  These differential equations take the form
+\noindent exists and is called \textit{The Laplace Transform}, denoted $\mathcal{L}\left\{f\right\}(s)$.  The Laplace Transform can be used to turn a first order linear differential equation into an algebraic equation due to the property that  $\mathcal{L}\left\{f'\right\}(s) = s\mathcal{L}\left\{f\right\}(s) - f(0) $, which can be demonstrated by applying integration by parts. The algebraic equation can then be solved and inverted from $s$ space to $t$ space.  The Laplace Transform can be used to solve differential equations with discontinuous forcing functions.  These differential equations take the form 
 
 \begin{equation}
 	\dfrac{dy}{dt} + I(t)y(t) = Q_1(t) + H(t)Q_2(t) \>.
@@ -63,7 +77,29 @@ $$ \int_0^\infty f(t) e^{-st} \, dt  $$
 \noindent Here, $H(t)$ is a Heaviside step function
 
 \begin{equation}
-	H(t) = \begin{cases}  1 & x>0 \\ 0 & \mbox{else} \end{cases}
+	H(t) = \begin{cases}  1 & t>0 \\ 0 & \mbox{else} \end{cases}
 \end{equation}
 
-\noindent  Discontinuous forcing functions appear in applications such as pharmacokinetics, wherein at some point in time the dynamics undergo a sudden forcing change (such as taking a scheduled oral dose of a drug).   Hence, the Laplace Transform is a useful technique for deriving analytical solutions to these differential equations.
+\noindent  When $t<0$,  $Q_2(t)$ is essentially ``turned off'' and its effect on the dynamics of $y$ is 0.  When $t>0$, the effect is then ``turned on''. As an example, we consider a differential equation which will be of great use in the remainder of this thesis
+
+\begin{equation}
+	\dfrac{dy}{dt} + \alpha y(t) = \exp(-t)  + H(t - t_1) \exp(-(t - t_1)) \quad y(0) = 0 \>.
+\end{equation}
+
+\noindent Here, the dynamics undergo a force of $\exp(-(t-t_1))$ when $0<t_1 \leq t$.  The Laplace Transform can be used on both sides (leveraging tables of Laplace Transforms for common functions \cite{boyce2021elementary}) of the differential equation to yield
+
+$$ s\mathcal{L}\left\{y\right\}(s) - y(0) + \alpha \mathcal{L}\left\{y\right\}(s) = \dfrac{1 + \exp(-st_1)}{1+s} \>.  $$
+
+\noindent The equation is now algebraic in terms of $\mathcal{L}\left\{y\right\}(s)$.  Solving for $\mathcal{L}\left\{y\right\}(s)$ yields
+
+\begin{equation}
+	\mathcal{L}\left\{y\right\}(s) =  \dfrac{1 + \exp(-st_1)}{1+s} \dfrac{1}{s+\alpha} \>,
+\end{equation}
+
+\noindent and applying the inverse Laplace Transform yields
+
+\begin{equation}
+	y(t) = \dfrac{\Big(\exp(-t) - \exp(-\alpha t)\Big) + H(t-t_1)\Big(\exp(-(t-t_1)) - \exp(-\alpha(t-t_1))\Big)}{\alpha-1}
+\end{equation}
+
+\noindent  Readers may note that because the two forcing functions in the differential equation were identical (one was just shifted $t_1$ units to the right) the solution to the differential equation is comprised of the same two functions, one of which is shifted $t_1$ units to the right.  The Laplace Transform will be of particular use when deriving solutions to differential equations which describe mass transit of a drug through the blood.  In these applications, multiple doses are taken through time and can be represented as discontinuous forcing functions using Heaviside functions.  When takes a dose of a drug, the effect of that dose on the system dynamics is ``turned on'' at the time of ingestion. Additionally, because the Laplace Transform is a linear operator, we can consider arbitrarily many discontinuous forcing functions, to which I have limited my exposition to one for economy of thought.

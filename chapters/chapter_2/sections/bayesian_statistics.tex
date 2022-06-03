@@ -1,40 +1,37 @@
-\subsection{Bayesian Statistics}
+\section{Bayesian Statistics}
 
-In this section, I introduce some key concepts of Bayesian statistics to be used in the remainder of the proposal.  Bayesian models play an important role in the proposed research, forming the core tool for further investigation.  The limited samples obtained by the personalized medicine initiative only become useful when coupled with the expert pharmacological knowledge of the initiative's members.  Incorporation  of this knowledge into the modelling practice is naturally accomplished with Bayesian Models.
-
-I begin with explaining how Bayesianism differs from Frequentism in philosophy.  I then introduce Bayes Nets as a tool for writing down complex Bayesian models in such a way as to preserve economy of thought.  Finally, I discuss some finer points of Bayesian modelling, such as model diagnostics and MCMC computation.
+In this section, I introduce some key concepts of Bayesian statistics to be used in the remainder of the thesis.  I begin with explaining how Bayesianism differs from Frequentism in philosophy.  I then introduce Bayes Nets as a tool for visualizing the factorization of joint distirbutions.  Finally, I discuss some finer points of Bayesian modelling, such as model diagnostics and MCMC computation.
 
 
-\subsubsection{Bayesians v. Frequentists}
+\subsection{Bayesians v. Frequentists}
 
-Statistical methods taught in most  university classes are Frequentist methods.  In Frequentism, probability is understood as the long term relative frequency of an event occurring.  Consequently, Statisticians assess estimators by considering the estimator's frequency properties (i.e. the behaviour of the estimator under repeated construction).  
-
-This is exemplified by the confidence interval, which is named so not because it has a 95\% probability of containing the true estimand\footnote{To the dismay of students learning about probability for the first time.}, but because the long term relative frequency of confidence intervals containing the true estimated is 95\%.  Thus, Frequentists never make probabilistic statements about any one confidence interval in particular, only about the behaviour of confidence intervals constructed \textit{ad infinitum}.  Frequentistism is strongly contrasted against Bayesianism, where probability represents a strength in a belief \cite{gelman2013bayesian}.  Under the Bayesian paradigm, it is completely acceptable to make probabilistic statements about a particular interval.  In fact, all inferences made from a Bayesian data analysis are made in terms of probabilistic statements.
-
-
-\subsubsection{Bayesian Networks}
+In Frequentism, probability is understood as the long term relative frequency of an event occurring.  Consequently, Statisticians assess estimators by considering the estimator's frequency properties (i.e. the behaviour of the estimator under repeated construction).  Frequentistism is strongly contrasted against Bayesianism, where probability represents a strength in a belief \cite{gelman2013bayesian}.
 
 Core to Bayesian statistics is Bayes' Theorem
-%
+
 \begin{equation}\label{Bayes}
-	p( \theta \vert x) \propto p(x \vert \theta) p(\theta) \>.
+	p( \bm{\theta} \vert y) \propto p(y \vert \bm{\theta}) p(\bm{\theta}) \>.
 \end{equation}
-%
-Here, $ \theta $ will refer to model parameters, and $ x $ to observed data.  Bayesians refer to $ p( \theta \vert x) $, $ p(x \vert \theta) $, and $p(\theta)$ as the \textit{posterior}, \textit{the likelihood}, and \textit{the prior} respectively.  Since the product of Bayes' theorem is a probability distribution (i.e. the probability of the parameters conditioned on the data), inferences resulting from a Bayesian analysis are expressed in probabilistic statements. Bayesian modelling begins by specifying a full probability model for the phenomenon.  A likelihood for the data generating process is specified, and prior knowledge about the parameters is codified in terms of a probability distribution (i.e.\ the prior).  Conditioning on the observed data is performed, and the posterior is calculated and interpreted.  Finally, the resulting model is evaluated and the implications of the resulting posterior are assessed.
 
-Bayesian models can become quite complex, so for economy of thought, Bayesian networks (Bayes nets) can be used to exposit the relationship amongst the various parameters and observed data.  A Bayes net is a directed acyclic graph which represents a factorization of the joint probability distribution of the model. The nodes of the graph denote random variables, while the edges denote dependence of the \textit{child} node on the parent node \cite{Bishop2006pattern}. 
+\noindent  Here, $ \bm{\theta} $  and $x$ can refer to events (e.g. $p(\bm{\theta} \vert y)$ could refer to the probability of having a disease given you test positive), but in the remainder of this thesis $\bm{\theta}$ will refer to model parameters, and $ y $ to observed data.  The distributions $ p( \bm{\theta} \vert y) $, $ p(y \vert \bm{\theta}) $, and $p(\bm{\theta})$ are reffered to as the \textit{posterior}, \textit{the likelihood}, and \textit{the prior} respectively.  Since the product of Bayes' theorem is a probability distribution (i.e. the probability of the parameters conditioned on the data), inferences resulting from a Bayesian analysis are expressed in probabilistic statements. Bayesian modelling begins by specifying a full probability model for the phenomenon.  A likelihood for the data generating process is specified, and prior knowledge about the parameters is codified in terms of a probability distribution (i.e.\ the prior).  Conditioning on the observed data is performed, and the posterior is calculated and interpreted.  Finally, the resulting model is evaluated and the implications of the resulting posterior are assessed.  
 
-Shown in \cref{bayesnet} is an example of a Bayes net for Gelman's rat tumour example in \cite{gelman2013bayesian}, which I explain here.  A total of $ N = 71 $ experiments on lab rats have been conducted in the past to assess the risk of developing endometrial stromyl polyps.  A rat can either develop the endometrial stromal polyp, or not develop the endometrial stromyl polyp, so the number of rats which develop the polyp, $ y_i $, is modelled as binomial.  Each of the 71 previous experiments is modelled as having it's own risk of developing the polyp, $ \theta_i $, which we postulate are drawn from a beta distribution with parameters $ \alpha $ and $ \beta $.  
+\subsection{Bayesian Networks}
+
+
+
+Bayesian models can become quite complex, so for economy of thought, Bayesian networks (Bayes nets) can be used to exposit the relationship amongst the various parameters and observed data.  A Bayes net is a directed acyclic graph which represents a factorization of the joint probability distribution of the model. The nodes of the graph denote random variables, while the edges denote dependence of the child node on the parent node \cite{Bishop2006pattern}. 
+
+Shown in \cref{bayesnet} is an example of a Bayes net for Gelman's rat tumour example in \cite{gelman2013bayesian}.  A total of $ N = 71 $ experiments on lab rats have been conducted in the past to assess the risk of developing endometrial stromyl polyps.  A rat can either develop the endometrial stromal polyp, or not develop the endometrial stromyl polyp, so the number of rats which develop the polyp, $ y_i $, is modelled as binomial.  Each of the 71 previous experiments is modelled as having it's own risk of developing the polyp, $ \theta_i $, which we postulate are drawn from a beta distribution with parameters $ \alpha $ and $ \beta $.  
 
 Traditionally, the model would be written as 
 %
 \begin{align*}
 	[\alpha,\beta]^T &\sim p(\alpha, \beta) \\
-	\theta_i &\sim \operatorname{Beta}(\alpha,\beta) \quad i = 1 \dots N\\
-	y_i &\sim \operatorname{Binomial}(\theta_i ; n_i) \quad i = 1 \dots N
+	\theta_i \vert \alpha, \beta &\sim \operatorname{Beta}(\alpha,\beta) \quad i = 1 \dots N\\
+	y_i \vert \theta_i, \alpha, \beta &\sim \operatorname{Binomial}(\theta_i ; n_i) \quad i = 1 \dots N
 	\end{align*}
 %
-Here, $ p(\alpha, \beta)  $ is the prior for the parameters of the beta distribution, and $ n_i $ is the number of rats in the $ i^{th} $ experiment.  This same model is written as a Bayes net in \cref{bayesnet}.   The node containing $ \alpha $ and $ \beta $ is the \textit{parent} of $ \theta $, indicating that $ \theta $ depends on $ \alpha $ and $ \beta $, and $ y $ is the child of $ \theta $, indicating that $ y $ depends on $ \theta $. It is worth noting that if the parent nodes are known, then the child nodes are independent of all other nodes in the model. The rectangle surrounding $ \theta $ and $ y $ signifies that there are $ N $ such copies of these random variables.  Instead of explicitly writing out all $ N=71 $ of these random variables, we instead place them in what is known as a ``plate", and indicate in the bottom corner how many replicates there are.  Items in a plate are considered to be independent and identically distributed.  Bayes nets make it very easy to write out the posterior distribution of the parameters.  We simply follow the net from the bottom up, conditioning each node on it's parent nodes.  The posterior for this model is then
+Here, $ p(\alpha, \beta)  $ is the prior for the parameters of the beta distribution, and $ n_i $ is the number of rats in the $ i^{th} $ experiment.  This same model is written as a Bayes net in \cref{bayesnet}.   The node containing $ \alpha $ and $ \beta $ is the parent of $ \theta $, indicating that $ \theta $ depends on $ \alpha $ and $ \beta $, and $ y $ is the child of $ \theta $, indicating that $ y $ depends on $ \theta $. It is worth noting that if the parent nodes are known, then the child nodes are independent of all other nodes in the model. The rectangle surrounding $ \theta $ and $ y $ signifies that there are $ N $ such copies of these random variables which are considered exchangeable conditioned on the parent nodes.  Instead of explicitly writing out all $ N=71 $ of these random variables, we instead place them in what is known as a ``plate", and indicate in the bottom corner how many replicates there are.  Bayes nets make it very easy to write out the posterior distribution of the parameters.  We simply follow the net from the bottom up, conditioning each node on it's parent nodes.  The posterior for this model is then
 
  \[ p(\alpha,\beta, \theta \vert y) \propto p(\alpha,\beta) \prod_{i = 1}^N p(\theta_i \vert \alpha, \beta) p(y_i\vert \theta_i)  \]
 
@@ -56,22 +53,17 @@ Here, $ p(\alpha, \beta)  $ is the prior for the parameters of the beta distribu
 	\label{bayesnet}
 \end{figure}
 
-Bayes nets can be used to do inference (e.g. estimate parameters, quantify uncertainty), and a literature of algorithms and methods exists for the purposes of doing so \cite{Bishop2006pattern,koller2009probabilistic}.  Here, and in the remainder of this proposal, I will use them solely for economy of thought when describing models.
-
-
-\subsubsection{Model Assessment}
+\subsection{Model Assessment}
 
 Once a model is specified, and the posterior for the parameters obtained, the model fit, not only to the data but also to the practitioner's substantive knowledge, must be assessed.  
 
-Since the result of a Bayesian analysis is the posterior distribution over the model parameters given the observed data, it is straight forward to simulate data from the inferred data generating process.  Let $ y $ be observed data, and $ \theta $ be a vector of (hyper)parameters for the model.  Denote $ \tilde{y} $ as replicated data from the data generating process, or as Gelman writes, ``data that we \textit{would} have seen tomorrow if the experiment that generated $ y $ today were replicated with the same model and the same value of $ \theta $ that produced the observed data" \cite[page~145]{gelman2013bayesian}.  Then the distribution of the replicated data conditioned on the observed data is 
+Since the result of a Bayesian analysis is the posterior distribution over the model parameters given the observed data, data can be simulated from the inferred data generating process.  Let $ y $ be observed data, and $ \theta $ be a vector of parameters for the model.  Denote $ \tilde{y} $ as replicated data from the data generating process, or as Gelman writes, ``data that we \textit{would} have seen tomorrow if the experiment that generated $ y $ today were replicated with the same model and the same value of $ \theta $ that produced the observed data" \cite[page~145]{gelman2013bayesian}.  Then the distribution of the replicated data conditioned on the observed data is 
 %
 \begin{equation}\label{PPD}
-	p(\tilde{y} \vert y) = \int p(\tilde{y} \vert \theta) p(\theta \vert y) \, d\theta  \>.
+	p(\tilde{y} \vert y) = \int p(\tilde{y} \vert \bm{\theta}) p(\bm{\theta} \vert y) \, d\bm{\theta}  \>.
 \end{equation}
 %
-The distribution in \cref{PPD} is called the \textit{posterior predictive distribution}.  It stands to reason that if the model fits the data well, then observed data should look plausible under the posterior predictive distribution. In a posterior predictive check, simulated data sets are generated from \cref{PPD} and are compared to the observed data.  Any systematic differences between observed and simulated may point to areas in which the model can be improved.
-
-Aspects of the observed data can be summarized into a \textit{test quantity} \cite{gelman2013bayesian} which is then compared against replicated data. This is usually some summary statistic of the observed data. Tail area probability computations can be used to quantify  the observed data's departure from the posterior predictive simulations.  If $ T(y) $ is a test quantity, then the tail area probability is $ P(T(\tilde{y}) > T(y) ) $.  This is similar to the Frequentist $p$-value.
+The distribution in \cref{PPD} is called the \textit{posterior predictive distribution}.  If model fits the data well, then observed data should look plausible under the posterior predictive distribution. In a posterior predictive check, simulated data sets are generated from \cref{PPD} and are compared to the observed data.  Any systematic differences between observed and simulated may point to areas in which the model can be improved.
 
 \subsection{Maximum A Posteriori (MAP) and The Laplace Approximation to the Posterior}
 
@@ -82,7 +74,7 @@ The integrals in Bayesian statistics required to evaluate probabilities quickly 
 	& = \underset{\bm{\theta} \in \mathbb{R}^p}{\arg\max} \Big\{\log p(y \vert \bm{\theta}) + \log p(\bm{\theta}) \Big\}  \nonumber
 \end{align}
 
-\noindent This approach is known as \textit{Maximum A Posteriori} or MAP for short \cite{murphy2012machine}.  The point estimate  $\bm{\theta}_{\text{MAP}} $ corresponds to the mode of the posterior distribution.  If the prior $p(\bm{\theta})$ places uniform probability over all values of $\bm{\theta}$ then the MAP estimate corresponds to the maximum likelihood estimate.  When the prior does is not uniform over $\bm{\theta}$, then the prior acts as a regularizing term on the maximum likelihood estimate, with more informative priors offering more regularization.
+\noindent This approach is known as \textit{Maximum A Posteriori} or MAP for short \cite{murphy2012machine}.  The point estimate  $\bm{\theta}_{\text{MAP}} $ corresponds to the mode of the posterior distribution.  If the prior $p(\bm{\theta})$ places uniform probability over all values of $\bm{\theta}$ then the MAP estimate corresponds to the maximum likelihood estimate.  When the prior  is not uniform over $\bm{\theta}$, then the prior acts as a regularizing term on the maximum likelihood estimate, with more informative priors offering more regularization.
 
 The MAP estimate is attractive because of its speed (as compared to other forms of estimation for Bayesian models discussed below).  However, it is only a point estimate rather than a distribution.  To further approximate the posterior distribution, a Laplace Approximation to the posterior can be made by performing a quadratic approximation to the log posterior density \cite{murphy2012machine}.  The result of this technique is that the posterior is locally modelled as Gaussian
 
@@ -91,13 +83,13 @@ $$ p(\bm{\theta} \vert y)  \approx \Normal(\bm{\theta}_{\text{MAP}}, \Lambda^{-1
 \noindent Here, $\Lambda$ is the estimated precision matrix, obtained by computing the Hessian of the negative log posterior at the MAP estimate.
 
 
-\subsubsection{Markov Chain Monte Carlo \& Modern Methods}
+\subsection{Markov Chain Monte Carlo \& Modern Methods}
 
-Computational methods have been developed that can sample from the posterior distribution without having to know the exact analytical form of the posterior distribution. The suit of computational methods for sampling from the posterior are called \textit{Markov Chain Monte Carlo} (MCMC) methods.  These methods simulate Markov chains whose limiting distribution is the posterior distribution \cite{livingstone2016geometric}.  The most common MCMC methods for drawing  samples from the posterior are The Metropolis-Hastings Algorithm and Gibbs Sampling \cite{gelman2013bayesian,mcelreath2016statistical}.  Recently however, these algorithms have given way to more efficient algorithms, known as \textit{Hamiltonian Monte Carlo} (HMC) methods.  In these methods, the posterior is idealized as a high dimensional surface in the model's parameter space on which a particle of mass $ m $ rolls after being given a random position and momentum.  The geometry of the surface influences the movement of the particle, and thus influences the samples obtained.  HMC is a marvellously interesting method, spanning topics such as physics, numerical differential equations, differential geometry, and measure theory.  As one might imagine, the theory for HMC is quite dense.  I refer interested readers to the following resources \cite{ gelman2013bayesian, livingstone2016geometric, mcelreath2016statistical,neal2011mcmc, hoffman2014no,betancourt2017conceptual}.  Because of HMC's complexity and requisite background theory on physics and measure theory, I will consider HMC a black box for the purposes of this proposal.
+Computational methods have been developed that can sample from the posterior distribution without having to know the exact analytical form of the posterior distribution. The suit of computational methods for sampling from the posterior are called \textit{Markov Chain Monte Carlo} (MCMC) methods.  These methods simulate Markov chains whose limiting distribution is the posterior distribution \cite{livingstone2016geometric}.  The most common MCMC methods for drawing  samples from the posterior are The Metropolis-Hastings Algorithm and Gibbs Sampling \cite{gelman2013bayesian,mcelreath2016statistical}.  Recently however, these algorithms have given way to more efficient algorithms, known as \textit{Hamiltonian Monte Carlo} (HMC) methods.  In these methods, the posterior is idealized as a high dimensional surface in the model's parameter space on which a particle of mass $ m $ rolls after being given a random position and momentum.  The geometry of the surface influences the movement of the particle, and thus influences the samples obtained.   The theory for HMC is quite dense and so  I refer interested readers to the following resources \cite{ gelman2013bayesian, livingstone2016geometric, mcelreath2016statistical,neal2011mcmc, hoffman2014no,betancourt2017conceptual} for further explanation.  Because of HMC's complexity and requisite background theory on Hamilonian dynamics and measure theory, I will consider HMC a black box for the purposes of this thesis.
 
-All of these sampling methods result in a user specified number of sequences of samples of size $ M$, often simply referred to as \textit{chains}. After obtaining $ M $ samples, and preferably omitting the first $ K $, the remaining $ M-K $ samples are treated as \textit{iid} draws from the posterior distribution.  The chains can then be used to estimate expectations of model parameters, uncertainty in those estimates, and make predictions (if the user chooses to do so).
+All of these sampling methods result in a user specified number of sequences of samples of size $ M$, often simply referred to as \textit{chains}. After obtaining $ M $ samples, and preferably omitting the first $ K $, the remaining $ M-K $ samples are treated as \textit{iid} draws from the posterior distribution.  The chains can then be used to estimate expectations of model parameters, uncertainty in those estimates, and make predictions.
 
-\subsubsection{Diagnostics for Hamiltonian Monte Carlo}
+\subsection{Diagnostics for Hamiltonian Monte Carlo}
 
 Under certain conditions, a law of large numbers and a central limit theorem exists for these Markov chains \cite{livingstone2016geometric, betancourt2017robust}, allowing users to be confident in inferences made from the samples obtained.  General conditions under which a chain is and is not geometrically ergodic exist \cite{livingstone2016geometric}, however these properties can be assessed via diagnostics on the Markov chains themselves.
 
