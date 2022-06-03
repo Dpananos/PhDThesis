@@ -1,106 +1,69 @@
-\subsection{Differential Equations}\label{sec:ODE}
+\chapter{Background}
 
-In this section, I discuss elements of differential equation theory.  The pharmacokinetic models used in the proposed research are written as systems of differential equations.  It is thus important to understand some theory of differential equations and their analytic/numerical solutions.
+In this chapter, I describe the necessary background for the research presented in this thesis.  The focus of the first section is differential equations, specifically first order separable equations and the Laplace Transform.  Then, I discuss Bayesian statistics, touching on model design, model checking, and model fitting.  In the next section I discuss population pharmacokinetic models, touching on their derivation through differential equations as well as extensions to include multiple doses.  I conclude this chapter with a treatment of dynamic treatment regimes and estimation of an optimal policy through Q learning.
 
-I begin by delineating between different types of differential equations.  I then discuss sufficient conditions for existence and uniqueness of solutions to differential equations, followed by a discussion of computing analytic representations of said solutions.  I conclude this section with numerical methods for solving differential equations.
+\section{Differential Equations}\label{sec:ODE}
 
-\subsubsection{What is a Differential Equation}
+\subsection{Initial Value Problems, Existence, and Uniqueness}
 
-For the purposes of this proposal, a differential equation is an equation relating an unknown function of a single variable to its derivative. I will be concerned with differential equations of the form
-%
-\begin{equation}\label{ODE}
-\dfrac{d \mathbf{y}}{dt}  = \mathbf{F}(t,\mathbf{y}(t);\bm{\theta})
-\end{equation}
-%
-Here, $ \mathbf{F} : \mathbb{R} \times \mathbb{R}^n \rightarrow \mathbb{R}^n $ is a vector field, and $ \bm{\theta} \in \mathbb{R}^m $ is a vector of parameters for the differential equation which may have different dimension than $\mathbf{y}$.  From here forth, I suppress the dependency on $ \bm{\theta} $, but understand that $ \mathbf{F} $ may depend on unknown parameters. Differential equations of these forms are called \textit{ordinary differential equations} (ODEs) since they are deterministic and involve derivatives of a single variable.  Often, \cref{ODE} is accompanied by a value of $ \mathbf{y} $  evaluated at a point in its domain.  This is called an \textit{initial condition} and is written as $ \mathbf{y}(t_0) = \mathbf{y_0} $ for some $ t_0 \in \mathbb{R}$.  The conjunction of \cref{ODE} and an initial value is referred to as an \textit{initial value problem}.
+A differential equation is an equation which relates the derivative of an unknown function $y(t)$ to a known function $f(t, y(t), \theta)$. Here, the function $f$ may depend on parameters, $\theta$ which can be known exactly or require estimation from data. For economy of thought, dependence of $f$ on $\theta$ is implied though not always explicitly stated. A differential equation is called \textit{ordinary} (refereed to as an \textit{ODE}) if $y$ is a function of a single scalar variable $t$, which for the purposes of this thesis can be considered to be time. An ODE together with an \textit{initial condition} -- a value of $y$ at some point $t_0$ in its domain --  is refereed to as an \textit{initial value problem} (or sometimes an \textit{IVP}), 
 
-
-
-\subsubsection{Solutions for Ordinary Differential Equations}
-
-Not every differential equation which has a solution can have that solution written analytically (i.e. in terms of algebraic and transcendental functions).  This proposal is concerned with first order linear differential equations, which do have an analytic representation of their solution.  Consider a differential equation of the form
-
-\begin{equation}\label{ODE2}
-\dfrac{d\mathbf{y}}{dt} = \mathbf{A}(t)\mathbf{y}(t) + \mathbf{g}(t) \>.
+\begin{equation}\label{IVP}
+	\dfrac{dy(t)}{dt} = f(t, y(t), \theta) \quad y(t_0) = y_0
 \end{equation}
 
-Here, $ \mathbf{A}: \mathbb{R} \rightarrow \mathbb{R}^{n \times n} $ is a matrix and $ \mathbf{g}:  \mathbb{R} \rightarrow \mathbb{R}^n $ is a vector.  In general, the solution to \cref{ODE2} can be written in terms of fundamental matrices.  Let $ \mathbf{y}_1(t), \mathbf{y}_{2}(t), \dots , \mathbf{y}_{n}(t) $ be a fundamental set of solutions for the differential equation $ \mathbf{y}' = \mathbf{A}(t)\mathbf{y}(t) $ (that is to say, the functions $ \mathbf{y}_{i}(t) $ are linearly independent).  Then, the matrix
-%
-\begin{equation*}
-\bm{\psi} (t)= \Big[\mathbf{y}_{1}(t) \>\vert\> \mathbf{y}_{2}(t) \>\vert\> \dots \>\vert\> \mathbf{y}_{n}(t)\Big]
-\end{equation*}
-% 
-is called a fundamental  matrix for the differential equation.
+\noindent If the function $f$ can be written as $f(t, y(t)) = Q(t) - I(t) y(t)$, then we call the ODE a \textit{first order linear ordinary differential equation}.  The equation is called first order because the highest order derivative is of order one, and the linear because the equation is a linear function of the derivative. 
+
+Not every IVP which can be written down has a solution, but there do exist general criteria for existence and uniqueness to a solution for \cref{IVP}.  The only requirements are that a) $f$ be continuous in $t$, and b) $f$ be Lipschitz continuous in $y$.  Under these conditions, Picard–Lindelöf theorem \cite{morris1963ordinary}.
+
+\begin{theorem}[\emph{Picard–Lindelöf Theorem}]
+	Let $D \subseteq \mathbb{R} \times \mathbb{R}^n$ be a closed rectangle with $(t_0, y_0) \in D$, and let $f : D \to \mathbb{R}^n$ be a function that is continuous in $t$ and Lipschitz continuous in $y$.  Then, there exists some $\epsilon>0$ such that \cref{IVP} has a unique solution $y(t)$ in an interval centred at $t_0$ with radius $epsilon$.
+\end{theorem}
+
+\noindent This thesis is mainly concerned with functions which are continuous in $y$.  If a function is continuous in a variable, then it is also Lipschitz continuous.  Hence, all IVPs for which we concern ourselves with have a unique solution.
 
 
-The solution to \cref{ODE2} is then
-%
-\begin{equation}\label{ODE2_solution}
-\mathbf{y}(t) = \bm{\psi}(t)\bm{\psi}^{-1}(t_0)\mathbf{x}_0 + \bm{\psi}(t)\int_{t_0}^{t}\bm{\psi}^{-1}(s) \mathbf{g}(s) \, ds \>,
-\end{equation}
-%
-Here, $ \bm{\psi}(t) $ is a fundamental matrix for $\mathbf{y}' = \mathbf{A}(t)\mathbf{y}(t) $ . Our key observation here is that if  the ODE can be written in the form of \cref{ODE2}, then the solution may be written in terms of analytic functions provided the integral in \cref{ODE2_solution} is tractable.  
+\subsection{Solutions to First Order Linear Equations}
 
-\subsubsection{Numerical Solutions to Ordinary Differential Equations}
+So long as the function $f(t, y(t)) = Q(t) - I(t) y(t)$ satisfies the conditions for the Picard–Lindelöf theorem, then a solution exists and it is unique.  Assuming $Q(t)$ and $I(t)$ are written in terms of analytic functions, then the solution to \cref{IVP} can be written out analytically.  Let $P(t) = \exp(\int I(t) \, dt))$ be an \textit{integrating factor}.  Multiplying both sides of the ODE by $P(t)$ yields
 
-Not every solution to an ODE which \textit{can} be expressed in terms of analytic functions \textit{should} be expressed in terms of analytic functions. If \cref{ODE} contains many parameters, then \cref{ODE2_solution} may be sufficiently complex so that evaluation of $\mathbf{y}(t)$ is not practical.  In cases like these, or in cases where the solution can not be found in terms of analytic functions, a rich literature of numerical solutions to differential equations exists.
+\begin{align}
+	\dfrac{dy}{dt} + I(t)y(t) &= Q(t) \\
+	P(t)\dfrac{dy}{dt} + P(t)I(t)y(t) &= P(t)Q(t) 
+\end{align}
 
-Consider a scalar form of \cref{ODE}
-%
-\begin{equation}\label{scalar_ODE}
-\dfrac{dy}{dt} = f(t,y) \>, \quad y(t_0) = y_0 \>.
-\end{equation}
-%
-By approximating the derivative via a finite difference,
-%
-\begin{equation}\label{EuerlMethod}
-\begin{aligned}[b]
-\dfrac{y(t_0 + h) - y(t_0)}{h} &\approx f(t_0,y(t_0)) \\
-y(t_0+h) &\approx y(t_0) + h\cdot f(t_0, y(t_0))\\
-y_{n+1} & \equiv y_{n}+ h \cdot f(t_n,y_n)
-\end{aligned}
-\end{equation}
+\noindent  The form of $P(t)$ implies $P'(t) = P(t)I(t)$,and so the left hand side of the differential equation looks as if it is the result of the product rule
 
-\Cref{EuerlMethod} is known as \textit{Euler's Method}.  The method successively approximates the true solution at a finite set of times. Euler's method is equivalent to numerical integration of the ODE.  From the fundamental theorem of calculus, \cref{scalar_ODE} is equivalent to
-%
-\begin{align*}
-y(t) - y(t_0) = \int_{t_0}^t f(s,y(s)) \, ds \>.
-\end{align*}
-%
-To evaluate the solution at $ t_0+h $, approximate the integral using a Reimann sum
-%
+\begin{align}
+ \dfrac{d}{dt} \Big( P(t)y(t) \Big) &= P(t)\dfrac{dy}{dt} + P(t)I(t)y(t) \\
+														  &= P(t) Q(t)
+\end{align}
+
+\noindent Integrating and division by $P(t)$ (which is possible since $P(t)>0$ by construction) yields the solution to the differential equation
+
 \begin{equation}
-\begin{aligned}
-y(t_0+h) &= y(t_0) + \int_{t_0}^{t_0+h}f(s,y(s)) \, ds \\
-&\approx y(t_0) + (t_0 + h - t_0)\cdot f(t_0, y(t_0))
-\end{aligned}
+	y(t) = \dfrac{\int Q(t) P(t)\, dt}{P(t)}
 \end{equation}
-In either formulation of Euler's method, $ h $ is known as the \textit{step size}. Though in general $ y(t_0+h) \neq y(t_0) + hf(t_0,y(t_0)) $, if $ h $ is sufficiently small, then the result from Euler's method is an acceptable approximation, assuming that $ y $ changes linearly with $ f(t_0, y_0) $ as its slope. In principle, in the limit as $ h \rightarrow 0 $, the approximations should can become arbitrarily good\footnote{though some care should be taken to ensure the solution converges \cite{corless2013graduate}.}.  Of course, not all step sizes are practical, which has motivated the study of better numerical methods for approximating the solution to a differential equation.
 
-\subsubsection{Quality of a Numerical Solution}
+\noindent Wherein the constant of integration from the numerator is determined by using the initial condition. Our general takeaway is that so long as $f$ satisfies the conditions s for the Picard–Lindelöf theorem, and $Q(t)$ and $I(t)$ are not sufficiently complicated so as to prevent integration, then the solution to \cref{IVP} can be written down exactly.
 
-Euler's method is an approximation, it admits some error between the computed numerical solution and the exact solution.  Assessments of the quality of a numerical solution can be examined in terms of the \textit{residual}.  For any given ODE, if the analytic solution were known, then it would be the case that $ dy/dt - f(t,y(t))= 0 $ identically.  Since numerical methods return approximate solutions on a finite set of points (which can then be interpolated via a desired interpolation scheme) then for an interpolated solution, $ z(t) $, it will be the case that $ dz/dt - f(t,z(t)) = \Delta (t) \neq 0$ in general $ \forall t $.  The function $ \Delta (t) $ is called the \textit{residual}.
 
-The \textit{order of a method} is defined as $ \mathcal{O}(\Delta (t)) $ and is usually expressed in terms of the step size $ h $.  For instance, Euler's method can be shown to be a $ \mathcal{O}(h) $ method \cite{corless2013graduate}, which means the residual is proportional to the step size.  Smaller steps mean a smaller residual (and thus more accurate solution), but obtaining a desired accuracy may mean taking step sizes too small to be practical.
+\subsection{The Laplace Transform and Forcing Functions}
 
-Most texts on numerical solutions to differential equations use the \textit{local error} as a measure of the quality of a solution.  Local error can be interpreted as the error incurred on the $ n^{th} $ step when there is no error in the $ n-1^{st} $ step, and is usually expressed as a function of the step size $ h $.  Alternatively, the local error is the error between $ z(t_1) $ and $ y(t_1) $. It can be shown that Euler's method has $ \mathcal{O}(h^2) $ local error, assuming $ f $ has bounded third derivative \cite{corless2013graduate}.
+Under the conditions that a function $f$ is piecewise continuous on an interval $0 \leq t \leq A$ for any positive $A$, and that $\vert f(t) \vert \leq K \exp(at)$ when $M \leq t$ for real constants $0< K, a, M $, then the integral
 
-\subsubsection{Superior Methods for Numerical Solutions}
+$$ \int_0^\infty f(t) e^{-st} \, dt  $$ 
 
-Euler's method is not usually used in practice for solving differential equations because of its large local error.  Better methods, such as the suite of Runge-Kutta methods,  have local error up to  $ \mathcal{O}(h^5) $ \cite{corless2013graduate}.  The fourth order Runge-Kutta method is particularly popular for numerically solving ODEs.
+\noindent exists and is called \textit{The Laplace Transform}, denoted $\mathcal{L}\left\{f\right\}(s)$.  The Laplace Transform can be used to turn a first order linear differential equation into an algebraic equation, which can then be solved and inverted from $s$ space to $t$ space.  The Laplace Transform can be used to solve differential equations with discontinuous forcing functions.  These differential equations take the form
 
-The method involves a weighted average of evaluations of $ f $ at various points.  The scheme is written as 
-%
-\begin{equation}\label{RK}
-y_{n+1} = y_n + h \left( \dfrac{k_{n1} + 2k_{n2} + 2k_{n3} + k_{n4}}{6}\right)
+\begin{equation}
+	\dfrac{dy}{dt} + I(t)y(t) = Q_1(t) + H(t)Q_2(t) \>.
 \end{equation}
-%
-where
-\begin{align*}
-k_{n1} &= f(t_n, y_n) \\
-k_{n2} &= f(t+0.5h, y_n + 0.5hk_{n1}) \\
-k_{n3} &= f(t + 0.5h, y_n + 0.5hk_{n2})\\
-k_{n4} &= f(t_n + h, y_n + hk_{n3})
-\end{align*}
-%
-This method has residual $ \mathcal{O}(h^4) $ and local error $ \mathcal{O}(h^5) $ \cite{corless2013graduate}, making it an accurate solver for most problems of applied interest.  In cases where differential equations are solved numerically, a fourth order Runge-Kutta method is used unless explicitly stated otherwise.
+
+\noindent Here, $H(t)$ is a Heaviside step function
+
+\begin{equation}
+	H(t) = \begin{cases}  1 & x>0 \\ 0 & \mbox{else} \end{cases}
+\end{equation}
+
+\noindent  Discontinuous forcing functions appear in applications such as pharmacokinetics, wherein at some point in time the dynamics undergo a sudden forcing change (such as taking a scheduled oral dose of a drug).   Hence, the Laplace Transform is a useful technique for deriving analytical solutions to these differential equations.
