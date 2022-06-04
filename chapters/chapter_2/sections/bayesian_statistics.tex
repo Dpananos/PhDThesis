@@ -5,7 +5,7 @@ In this section, I introduce some key concepts of Bayesian statistics to be used
 
 \subsection{Bayesians v. Frequentists}
 
-In Frequentism, probability is understood as the long term relative frequency of an event occurring.  Consequently, Statisticians assess estimators by considering the estimator's frequency properties (i.e. the behaviour of the estimator under repeated construction).  Frequentistism is strongly contrasted against Bayesianism, where probability represents a strength in a belief \cite{gelman2013bayesian}.
+In Frequentism, probability is understood as the long term relative frequency of an event occurring.  Consequently, statisticians assess estimators by considering the estimator's frequency properties (i.e. the behaviour of the estimator under repeated construction).  Frequentistism is strongly contrasted against Bayesianism, where probability represents a strength in a belief \cite{gelman2013bayesian}.
 
 Core to Bayesian statistics is Bayes' Theorem
 
@@ -13,7 +13,7 @@ Core to Bayesian statistics is Bayes' Theorem
 	p( \bm{\theta} \vert y) \propto p(y \vert \bm{\theta}) p(\bm{\theta}) \>.
 \end{equation}
 
-\noindent  Here, $ \bm{\theta} $  and $x$ can refer to events (e.g. $p(\bm{\theta} \vert y)$ could refer to the probability of having a disease given you test positive), but in the remainder of this thesis $\bm{\theta}$ will refer to model parameters, and $ y $ to observed data.  The distributions $ p( \bm{\theta} \vert y) $, $ p(y \vert \bm{\theta}) $, and $p(\bm{\theta})$ are reffered to as the \textit{posterior}, \textit{the likelihood}, and \textit{the prior} respectively.  Since the product of Bayes' theorem is a probability distribution (i.e. the probability of the parameters conditioned on the data), inferences resulting from a Bayesian analysis are expressed in probabilistic statements. Bayesian modelling begins by specifying a full probability model for the phenomenon.  A likelihood for the data generating process is specified, and prior knowledge about the parameters is codified in terms of a probability distribution (i.e.\ the prior).  Conditioning on the observed data is performed, and the posterior is calculated and interpreted.  Finally, the resulting model is evaluated and the implications of the resulting posterior are assessed.  
+\noindent  Here, $ \bm{\theta} $  and $y$ can refer to events (e.g. $p(\bm{\theta} \vert y)$ could refer to the probability of having a disease given you test positive), but in the remainder of this thesis $\bm{\theta}$ will refer to model parameters, and $ y $ to observed data.  The distributions $ p( \bm{\theta} \vert y) $, $ p(y \vert \bm{\theta}) $, and $p(\bm{\theta})$ are reffered to as the \textit{posterior}, \textit{the likelihood}, and \textit{the prior} respectively.  Since the product of Bayes' theorem is a probability distribution (i.e. the probability of the parameters conditioned on the data), inferences resulting from a Bayesian analysis are expressed in probabilistic statements. Bayesian modelling begins by specifying a full probability model for the phenomenon.  A likelihood for the data generating process is specified, and prior knowledge about the parameters is codified in terms of a probability distribution (i.e.\ the prior).  Conditioning on the observed data is performed, and the posterior is calculated and interpreted.  Finally, the resulting model is evaluated and the implications of the resulting posterior are assessed.  
 
 \subsection{Bayesian Networks}
 
