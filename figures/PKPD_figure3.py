@@ -44,7 +44,7 @@ legend = ax.legend(handles,
 
 
 ax.set_xlabel(r'$k_a t$', fontsize = 12)
-ax.set_ylabel(r'$\frac{V}{D} \cdot C(k_a t)$', fontsize = 12)
+ax.set_ylabel(r'$\frac{V}{FD} \cdot C(k_a t)$', fontsize = 12)
 ax.set_xticks(np.arange(t.min(),t.max()+1,4))
 ax.set_yticks(np.arange(0,1,0.2))
 
