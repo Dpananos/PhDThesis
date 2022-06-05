@@ -14,7 +14,7 @@ A differential equation is an equation which relates an unknown function $y(t)$ 
 
 \noindent If the function $f$ can be written as $f(t, y(t)) = Q(t) - I(t) y(t)$, then we call the ODE a \textit{first order linear ordinary differential equation}.  The equation is called first order because the highest order derivative is of order one, and the linear because the equation is a linear function of the derivative. 
 
-Not every IVP which can be written down has a solution, but there do exist general criteria for existence and uniqueness to a solution for \cref{IVP}.  The only requirements are that a) $f$ be continuous in $t$, and b) $f$ be Lipschitz continuous in $y$.  Under these conditions, Picard–Lindelöf theorem \cite{morris1963ordinary}.
+Not every IVP which can be written down has a solution, but there do exist general criteria for existence and uniqueness to a solution for \cref{IVP}.  The only requirements are that a) $f$ be continuous in $t$, and b) $f$ be Lipschitz continuous in $y$.  Under these conditions, Picard–Lindelöf theorem \cite{morris1963ordinary} guarnetees a unique solution exists.
 
 \begin{theorem}[\emph{Picard–Lindelöf Theorem}]
 	Let $D \subseteq \mathbb{R} \times \mathbb{R}^n$ be a closed rectangle with $(t_0, y_0) \in D$, and let $f : D \to \mathbb{R}^n$ be a function that is continuous in $t$ and Lipschitz continuous in $y$.  Then, there exists some $\epsilon>0$ such that \cref{IVP} has a unique solution $y(t)$ in an interval centred at $t_0$ with radius $epsilon$.
