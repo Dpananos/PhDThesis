@@ -1,11 +1,13 @@
 \section{Pharmacokinetics} \label{PKPD}
 
-In this section, I introduce the central pharmacokinetic model used in this research.  I derive the model from a differential equation and examine its qualitative behavour using non-dimensionalization.  Population pharmacokinetic models are discussed as a generalization of the one compartment pharmacokinetic model
+\todo[inline]{Define pharmacokinetics and give a paragraph of background/history.}
+
+In this section, I \added{review the basics of pharmacokinetic modelling and} introduce the central pharmacokinetic model used in this research.  \todo[inline]{This non-dimensionalization analysis might not be background depending on whether you want to frame it as a contribution - could move to the "preamble" for paper 1, potentially.} I derive the model from a differential equation and examine its qualitative behaviour using non-dimensionalization.  Population pharmacokinetic models are discussed as a generalization of the one compartment pharmacokinetic model
 
 
 \subsection{A One Compartment Pharmacokinetic Model} 
 
-To analyze the time course of drug mass in various parts of the body, compartmental models may be used.  These models posit that the body (or relevant organs/systems of the body) is comprised of compartments from which drug can flow in and out. The rates at which the drug can enter and exit each compartment are specified, and a differential equation for each compartment can be written down and solved using methods outlined in \cref{sec:ODE}.
+To analyze the time course of drug mass in various parts of the body, compartmental models may be used.\todo[inline]{Make this a statement about the field of research. "In PK modeling, compartmental models are used ... (cite)}  These models posit that the body (or relevant organs/systems of the body) is comprised of compartments from which drug can flow in and out. The rates at which the drug can enter and exit each compartment are specified, and a differential equation for each compartment can be written down and solved using methods outlined in \cref{sec:ODE}.
 
 An example of these models used for orally-administered drugs is the one--compartment pharmacokinetic model with first order elimination.  The model posits the following \cite{wakefield1992bayesian}:  
 %
@@ -51,6 +53,8 @@ In the remainder of this thesis, \cref{onecompartment_PKPD} will be parameterize
 \end{figure}
 
 \subsection{Population Pharmacokinetic Models}
+
+\todo[inline]{Review basic research/book/survey paper that does pop PK.}
 
 Different patients may have different pharmacokinetics just by virtue of being different people (even if they match identically on important clinical and genetic covariates).  To understand the between subject variability in pharmacokientics, a population pharmacokinetic model can be constructed.  These models make the assumption that some or all of the parameters in \cref{onecompartment_PKPD_cl} (or some other pharmacokinetic model for that matter) are themselves random variables, which have some population level mean and variance which requires estimation.  As an example, the clearance rate for the $i^{th}$ patient in the population, $Cl_i$, can be considered as a draw from some population level distribution, $Cl_i \sim P(\mu, \sigma) $, where $P$ is some distribution with suitable support for the modelled parameter.  This approach is similar to non-linear mixed effect modelling; non-linear because the concentration function is non-linear in the pharmacokinetic parameters, and mixed-effects because the parameters are free to vary between patients \cite{mould2013basic}.
 
