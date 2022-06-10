@@ -1,13 +1,15 @@
 \section{Bayesian Statistics}
 
-In this section, I introduce some key concepts of Bayesian statistics to be used in the remainder of the thesis.  I begin \added{by briefly reviewing} how Bayesianism differs from Frequentism in \replaced{the way it quantifies uncertainty}{philosophy}.  I then introduce Bayes Nets as a tool for visualizing the factorization of joint distribution.  Finally, I discuss \deleted{some finer points of Bayesian modelling, such as} model diagnostics and MCMC computation \added{for Bayesian inference.}
+In this section, I introduce some key concepts of Bayesian statistics to be used in the remainder of the thesis.  I begin by briefly reviewing how Bayesianism differs from Frequentism in philosophy.  I then introduce Bayes Nets as a tool for visualizing the factorization of joint distribution.  Finally, I discuss model diagnostics and MCMC computation for Bayesian inference.
 
 
 \subsection{Bayesians v. Frequentists}
-\todo[inline]{This is a can of worms. Re-frame this paragraph by saying what specific other people say about this issue and citing. "So-and-so characterises frequentism as (cite). "Gelman charcterises the Bayesian approach as (cite). Jaynes is right out." Or, "Many researchers describe Bayesian approach as subjective (citecitecite)." }
-In Frequentism, probability is understood as the long term relative frequency of an event occurring.  Consequently, statisticians assess estimators by considering the estimator's frequency properties (i.e.\ the behaviour of the estimator under repeated construction).  Frequentism is strongly contrasted against Bayesianism, where probability represents a strength in a belief \cite{gelman2013bayesian}.
+%\todo[inline]{This is a can of worms. Re-frame this paragraph by saying what specific other people say about this issue and citing. "So-and-so characterises frequentism as (cite). "Gelman charcterises the Bayesian approach as (cite). Jaynes is right out." Or, "Many researchers describe Bayesian approach as subjective (citecitecite)." }
 
-Core to Bayesian statistics is Bayes' Theorem \todo{cite book with pages}
+
+Gelman and colleagues have described Frequentist interpretations of probability as the `` relative frequency obtained in a long sequence of [events], assumed to be performed in an identical manner, physically independent of one another ''   \cite[p.~12]{gelman2013bayesian}. .   Frequentism has been contrasted against Bayesianism, which has sometimes been said to view probability as a subjective form of uncertainty quantification \cite{gelman2013bayesian}.
+
+Core to Bayesian statistics is Bayes' rule \cite[p.~7]{gelman2013bayesian}
 
 \begin{equation}\label{Bayes}
 	p( \bm{\theta} \vert y) \propto p(y \vert \bm{\theta}) p(\bm{\theta}) \>.
@@ -19,11 +21,11 @@ Core to Bayesian statistics is Bayes' Theorem \todo{cite book with pages}
 
 
 
-Bayesian models \replaced{describe the full joint distribution over all variables and parameters of interest, and can become quite complex.}{can become quite complex, so for economy of thought,} Bayesian networks (Bayes nets) can be used to \replaced{simplify model description by dividing the model into components and then describing the relationships between those components.}{exposit the relationship amongst the various parameters and observed data.}  A Bayes net is a directed acyclic graph which represents a factorization of the joint probability distribution of the model. The nodes of the graph denote random variables \added{(which include parameters)}, while the edges denote dependence of the child node on the parent node \cite{Bishop2006pattern}. 
+Bayesian models describe the full joint distribution over all variables and parameters of interest, and can become quite complex. Bayesian networks (Bayes nets) can be used to simplify model description by dividing the model into components and then describing the relationships between those components. A Bayes net is a directed acyclic graph which represents a factorization of the joint probability distribution of the model. The nodes of the graph denote random variables (which include parameters), while the edges denote dependence of the child node on the parent node \cite{Bishop2006pattern}. 
 
 Shown in \cref{bayesnet} is an example of a Bayes net for Gelman's rat tumour example in \cite{gelman2013bayesian}.  A total of $ N = 71 $ experiments on lab rats have been conducted in the past to assess the risk of developing endometrial stromyl polyps.  A rat can either develop the endometrial stromal polyp, or not develop the endometrial stromyl polyp, so the number of rats which develop the polyp, $ y_i $, is modelled as binomial.  Each of the 71 previous experiments is modelled as having it's own risk of developing the polyp, $ \theta_i $, which we postulate are drawn from a beta distribution with parameters $ \alpha $ and $ \beta $.  
 
-\replaced{Algebraically}{Traditionally}, the model would be written as 
+Algebraically, the model would be written as 
 %
 \begin{align*}
 	[\alpha,\beta]^T &\sim p(\alpha, \beta) \\
@@ -52,7 +54,7 @@ Here, $ p(\alpha, \beta)  $ is the prior for the parameters of the beta distribu
 	\label{bayesnet}
 \end{figure}
 
-\added{Note that while the Bayes net describes the dependence structure of the model, it does not specify the forms of the individual conditional distributions; these must also be provided to fully specify the model.}
+\noindent Note that while the Bayes net describes the dependence structure of the model, it does not specify the forms of the individual conditional distributions; these must also be provided to fully specify the model.
 
 \subsection{Model Assessment}
 

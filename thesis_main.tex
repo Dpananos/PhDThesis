@@ -58,6 +58,7 @@
 \usepackage[noabbrev]{cleveref}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{xcolor}
+\usepackage{setspace} 
 
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{changes}
@@ -424,9 +425,9 @@ Personalized Medicine is ipsum lorem blah blah Bayesian statistics blah blah dec
 %% "\input" makes each chapter start on a new page.                   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % As an example...
-\chapter{Introduction}
 
-
+\doublespacing
+		\input{chapters/chapter_1/introduction}		
 		\input{chapters/chapter_2/sections/differential_equations}
 		\input{chapters/chapter_2/sections/bayesian_statistics}
 		\input{chapters/chapter_2/sections/pharmacokinetics}

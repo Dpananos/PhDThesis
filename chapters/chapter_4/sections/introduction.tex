@@ -1,5 +1,24 @@
 \chapter{Paper 1}
 
+The differential equation can be non-dimensionalized by letting $\tau$ and $y(\tau)$ be the non-dimensional quantities, and letting $C(t) = k_a FD/V y(\tau)$ and $t = \tau/k_a$.  The non-dimensionalized differential equation is then
+
+\begin{equation}
+	\dfrac{dy(\tau)}{d\tau} = \exp(-\tau) - \alpha y(\tau)
+\end{equation}
+
+\noindent Here, $\alpha = k_e / k_a$ is the ratio of elimination and absorption rates, and is dimensionless.  The differential equation's qualitative behaviour depends solely on this ratio, with all parameterizations in which $\alpha$ is constant displaying the same qualitative behaviour.  The remaining variables $V$, $D$, and $F$ only serve to scale the solution vertically.  The solution to this differential equation (obtained via integrating factors or the Laplace Transform) is
+
+\begin{equation}\label{key}
+	y(\tau) = \dfrac{1}{\alpha -1} \Big( \exp(-\tau) - \exp(-\alpha \tau) \Big)
+\end{equation}
+
+\noindent which can be transformed back into dimensional variables to yield 
+
+\begin{equation}\label{onecompartment_PKPD}
+	C(t) = \dfrac{F D}{V}\dfrac{k_a}{k_e - k_a}\Big(e^{-k_at} - e^{-k_et}\Big) \>.
+\end{equation}
+
+
 \section{Introduction}
 
 Precision medicine’s slogan is ``right drug -- right patient -- right time''.  Implicit in the slogan is ``right dose''; however, determining the right dose for any one patient can be challenging. The anticoagulant Warfarin offers a good example of these challenges; physicians choose an initial dose based on guidelines and their own experience. They then closely monitor the patient’s International Normalised Ratio (INR), which measures how long it takes blood to clot, and in response they adjust the dose over time.
