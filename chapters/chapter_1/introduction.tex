@@ -4,4 +4,21 @@
 
 Different patients can react to a drug differently just by virtue of being different people, even when said patients match on clinical variables.  This between-patient variability in drug response is an obstacle to optimal treatment since some patients may experience heightened response (possibly leading toxicity) while others may experience lowered response (possibly leading to weakened response or inefficacy).  Personalized medicine is a response to this variation, with the goals of: 1) identifying drugs for which between-patient variation is a key issue for effective treatment,  2) to address/identify factors driving this variation, 3) to treat the right patient with the right drug  of the right amount at the right time, 4) and to aid in the prevention of adverse events associated with said drugs \cite{morse2015personalized}.  This thesis is primarily concerned with goals of identifying which factors are drivers of between patient variability in service of better selecting the right dose for the right patient.
 
-To this end, this thesis focuses on pharmacokinetic modelling for both prediction and inference, as well as using pharmacokinetic models for  decision making (be it a single decision or sequences of decisions).
+To this end, this thesis focuses on pharmacokinetic modelling for both prediction and inference, as well as using pharmacokinetic models for  decision making (be it a single decision or sequences of decisions). Pharmacokinetics is the study of the time course of drug concentrations within the body \cite{rosenbaum2016basic}, and hence the time course of systemic exposure to the drug.
+
+
+\section{Objectives}
+
+I address three objectives motivated by the desire to identify sources of between patient variability and account for these in downstream decisions on drug dosing:
+
+\begin{enumerate}[1)]
+	\item To contrast existing approaches to fitting Bayesian models with recent advancements in the pursuit of fitting population pharmacokinetic models for use in decision making problems in determination of dose size to achieve a desired risk level.
+	
+	\item To develop a framework to evaluate the  benefits of collecting additional information on patients to use in pharmacokinetic models for personalization against the additional burden posed on the patient to adhere to additional requirements.
+	
+	\item To demonstrate how personalized medicine researchers in academic centres can use all data available to them, even if those data do not come from tightly controlled studies, to study effects of clinical variables on pharmacokinetics while also exploring new variables which may explain additional variation.
+\end{enumerate}
+
+\section{Thesis Organization}
+
+This thesis is written with an integrated-article format.  \textbf{Chapter 2} provides necessary background on  concepts and terms that are needed to understand the body of the work.  \textbf{Chapter 3} provides a literature review of recent advances in the fields of Bayesian statistics, sequential decision making, and pharmacokinetics, providing context for the three articles to follow.  \textbf{Chapters 4, 5, and 6} include the integrated articles which address objective 1 --- 3 respectively.  \textbf{Chapter 7} concludes the thesis with an overarching discussion and examines possible subsequent areas of investigation.  Any \textbf{appendices} are included at the end of each integrated article, and may contain supporting materials such as extra information on methods, additional exposition for models, and additional visualizations.  Due to the nature of the integrated article format, there is some repetition between introductory sessions.
