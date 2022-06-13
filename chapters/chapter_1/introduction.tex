@@ -2,9 +2,34 @@
 
 \section{Motivation}
 
-Different patients can react to a drug differently just by virtue of being different people, even when said patients match on clinical variables.  This between-patient variability in drug response is an obstacle to optimal treatment since some patients may experience heightened response (possibly leading toxicity) while others may experience lowered response (possibly leading to weakened response or inefficacy).  Personalized medicine is a response to this variation, with the goals of: 1) identifying drugs for which between-patient variation is a key issue for effective treatment,  2) to address/identify factors driving this variation, 3) to treat the right patient with the right drug  of the right amount at the right time, 4) and to aid in the prevention of adverse events associated with said drugs \cite{morse2015personalized}.  This thesis is primarily concerned with goals of identifying which factors are drivers of between patient variability in service of better selecting the right dose for the right patient.
+Different patients can react to a drug differently just by virtue of being different people, even when said patients match on clinical variables.  This between-patient variability in drug response is an obstacle to optimal treatment since some patients may experience heightened response (possibly leading toxicity) while others may experience lowered response (possibly leading to weakened response or inefficacy).  Personalized medicine is a response to this variation, with the goals of: 1) identifying drugs for which between-patient variation is a key issue for effective treatment,  2) to address/identify factors driving this variation, 3) to treat the right patient with the right drug  of the right amount at the right time, 4) and to aid in the prevention of adverse events associated with said drugs \cite{morse2015personalized}.  This thesis is primarily concerned with goals of identifying which factors are drivers of between patient variability in service of better selecting the right dose for the right patient, and is thus aligned with goals 2 and 3.
 
-To this end, this thesis focuses on pharmacokinetic modelling for both prediction and inference, as well as using pharmacokinetic models for  decision making (be it a single decision or sequences of decisions). Pharmacokinetics is the study of the time course of drug concentrations within the body \cite{rosenbaum2016basic}, and hence the time course of systemic exposure to the drug.
+The setting of interest for this thesis is pharmacokinetics, which concerns itself with the time course of drug concentrations in the body \cite{ rosenbaum2016basic}.
+Effective drug response requires adequate systematic exposure.  Since drug concentration is a means of measuring drug exposure,  an understanding which factors drive variation in concentration can give insight into factors driving variation in response.  To this end, many pharmacokinetic modelling studies seek to identify clinical, genetic, and lifestyle factors which are associated with changes in concentration \needscite. Some studies provide dose adjustment criteria.  As an example \todo[inline]{place apixaban dose adjustment criteria for one of those papers?}.  These recommendations are personalized in so far as they identify sub-populations of patients which may see predictably larger/smaller concentrations as a function of standard doses, however for some drugs additional concentration variability beyond that observed in clinical trials is being observed \needscite, raising questions about optimal dosing for these drugs.  The discovery of this excess variation in applied settings motivates the ``fine tuning'' of the pharmacokinetic modelling done in previous studies for application in the population of interest.
+
+
+This thesis outlines methods for creating Bayesian pharmacokinetic models for two purposes: inference into the effects of covariates on pharmacokinetic parameters and thereby concentrations, as well as use for these models in sequential decisions on dose size.    Bayesian statistics is the formalism adopted so as to incorporate and directly build upon prior information from other pharmacokinetic modelling efforts.These models are an attempt to address questions pertaining to the second goal of personalized medicine, identification of factors driving variation in drug response.  The models will be directly incorporated into a sequential decision making framework thereby addressing questions pertaining to the third goal of personalized medicine, optimal dosing.
+
+
+% Why do we need personalized medicine?
+% There is unexplained variation in drug response.  This can be a hurdle for optimal treatment because excess variation means some people have increased response potentially leading to toxicity, while others have decresed response, possibly leading to inefficacy.
+
+% What is personalized medicine trying to accomplish/
+% 1) Find drugs with large response variability, 2) discover factors associated with this variability, 3) find right drug right time, 4) prevent adverse events.
+
+% What is this thesis aiming to accomplish?
+% Work towards goals 2 and 3.
+
+% How are we going to do that and why that way?
+% Use pharmacokinetics.  Effective drug response requires adequate  systematic exposure.  Since concentration is a means of measuring exposure, drivers of concentration can give insight into variability in response.
+
+% Ok cool, what is this thesis going to do in that realm?
+% Many PK studies already look at factors associated with variation in concentration.  The results of these studies are personalized in so far as we identify some patients which need adjustment, but we're seeing more variation than expexted which raises questions about optimal dosing strategy.
+
+% Ok, so there is additional variability.  Whats the gap?
+% 
+
+
 
 
 \section{Objectives}
@@ -18,6 +43,9 @@ I address three objectives motivated by the desire to identify sources of betwee
 	
 	\item To demonstrate how personalized medicine researchers in academic centres can use all data available to them, even if those data do not come from tightly controlled studies, to study effects of clinical variables on pharmacokinetics while also exploring new variables which may explain additional variation.
 \end{enumerate}
+
+
+\section{Research Contributions}
 
 \section{Thesis Organization}
 
