@@ -16,7 +16,7 @@ $$ \log(t_{\max,j, s}) = \mu_{t} + \mathbf{x}_{j, s}^{t} \beta_{t} $$
 $$ \operatorname{logit}(\alpha_{j, s}) = \mu_{\alpha} + \mathbf{x}_{j, s}^\alpha \beta_{\alpha} $$
 $$ \operatorname{logit}(F_{j, s}) = \mu_{F} + \mathbf{x}_{j, s}^{F} \beta_{F} $$
 
-Here, we have added superscripts to the $\mathbf{x}$ to indicate that different covariates may be used in each regression. The $\beta$ are regression coefficients and $\mu$ are intercepts for the parameter indicated in the subscript. We include random effects for repeatedly sampled subjects. Each $\theta_{j, s}$ is used to predict the concentration profile $C(t)$.  We use a one compartment pharmacokinetic model with linear elimination as our $C(t)$, namely
+Here, we have added superscripts to the $\mathbf{x}$ to indicate that different covariates may be used in each regression. The $\beta$ are regression coefficients and $\mu$ are intercepts for the parameter indicated in the subscript. We include random effects for repeatedly sampled subjects. Each $\theta_{j, s}$ is used to predict the concentration profile $C(t)$.  We use a one compartment pharmacokinetic model with first order elimination as our $C(t)$, namely
 
 $$ C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} k_{e, j, s} k_{a, j, s}}{Cl_{j, s}(k_{e, j, s} - k_{a, j, s})} \Bigg( e^{-k_{a, j, s}(t_i - \delta_{j, s})} - e^{-k_{e, j, s}(t_i - \delta_{j, s})} \Bigg)  & \delta_{j, s} \leq t_i \\ 0 & \mbox{else} \end{cases}$$
 
