@@ -23,7 +23,11 @@ An example of these models used for orally-administered drugs is the one--compar
 \item At the time of ingestion, there is 0 drug in the blood plasma.
 \end{itemize}
 
-Let $t$ be time since ingestion of the drug.  The differential equation governing the mass transit of drug in/out of the $C$ compartment is then $dC(t)/dt = k_aFD\exp(-k_a t) - k_eC(t)$ with the initial condition $C(0) = 0$, and is a first order linear differential equation.  The concentration of the drug in the $C$ compartment can be obtained by dividing $C(t)$ by the volume of the $C$ compartment, $V$.  Using the technique of integrating factors, the differential equation can be solved to yield
+Let $t$ be time since ingestion of the drug.  The differential equation governing the mass transit of drug in/out of the $C$ compartment is then 
+\begin{equation}  \label{pkpd_ode}
+dC(t)/dt = k_aFD\exp(-k_a t) - k_eC(t) 
+\end{equation}
+\noindent with the initial condition $C(0) = 0$, and is a first order linear differential equation.  The concentration of the drug in the $C$ compartment can be obtained by dividing $C(t)$ by the volume of the $C$ compartment, $V$.  Using the technique of integrating factors, the differential equation can be solved to yield
 
 \begin{equation}\label{onecompartment_PKPD_model}
 	C(t) = \dfrac{F D}{V}\dfrac{k_a}{k_e - k_a}\Big(\exp(-k_at) - \exp(-k_et)\Big) \>.
@@ -35,12 +39,22 @@ In the remainder of this thesis, \cref{onecompartment_PKPD_model} will be parame
 	C(t) = \dfrac{F D}{Cl}\dfrac{k_ek_a}{k_e - k_a}\Big(e^{-k_at} - e^{-kt}\Big) \>.
 \end{equation}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics{figures/pkcurves.png}
-	\caption[Non-dimensionalized solutions to pharmacokinetic differential equation] {Non-dimensionalized concentration plotted against non-dimensionalized time.  The process non-dimensionalizing the differential equation removes all units from the model, allowing for qualitative comparisons of the solution under different families of parameterization.  Here, it is shown that all parametrizations in which $\alpha = k_e/ka = 0.15$ elicit larger concentrations than those parameterizations in which $\alpha=0.4$ conditioned on $FD/V$ remaining constant.}
-	\label{fig:pkcureves}
-\end{figure}
+
+\subsection{Multiple Doses}
+
+To extend \cref{pkpd_ode} to account for multiple doses, Heaviside step functions can be applied.  The forcing function in \cref{pkpd_ode} is $ k_aFD\exp(-k_a t)$.  If a patient were to take the same dose at time $t_1$, then the resulting ODE would be
+\begin{equation}  \label{pkpd_ode_2_doses}
+	\dfrac{dC}{dt} = k_aFD\exp(-k_a t) - k_eC(t) + H(t-t_1)k_aFD\exp(-k_a (t-t_1)) \>.
+\end{equation}
+\noindent Here, $H(t)$ is the Heaviside step function.  This ODE can be solved by applying The Laplace Transform.  The solution is 
+
+\begin{align*}
+	C(t) &=  C_0(t) + H(t-t_1)C_0(t-t_1)\\
+	C_0(t) &= \dfrac{F D}{V}\dfrac{k_a}{k_e - k_a}\Big(\exp(-k_at) - \exp(-k_et)\Big)
+\end{align*}
+
+\noindent  This approach can be extended to arbitrarily many doses by the same approach.  Additional extensions, such as having multiple different dose sizes, can be applied in the same way.
+
 
 \subsection{Population Pharmacokinetic Models}
 
