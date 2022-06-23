@@ -72,18 +72,18 @@
 \numberwithin{figure}{chapter}
 \newenvironment{acknowledgements}%
 {\clearemptydoublepage
- \begin{center}
-  \section*{Acknowledgements}
- \end{center}
- \begingroup
+	\begin{center}
+		\section*{Acknowledgements}
+	\end{center}
+	\begingroup
 }{\newpage\endgroup}
 
 \newenvironment{dedication}%
 {\clearemptydoublepage 
- \begin{center}
-  \section*{Dedication}
- \end{center}
- \begingroup
+	\begin{center}
+		\section*{Dedication}
+	\end{center}
+	\begingroup
 }{\newpage\endgroup}
 
 \newenvironment{preliminary}%
@@ -97,18 +97,18 @@
 \newtheorem{corollary}[theorem]{Corollary}
 
 \newenvironment{proof}[1][Proof]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newenvironment{definition}[1][Definition]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newenvironment{example}[1][Example]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newenvironment{remark}[1][Remark]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 
 \newcommand{\qed}{\nobreak \ifvmode \relax \else
-      \ifdim\lastskip<1.5em \hskip-\lastskip
-      \hskip1.5em plus0em minus0.5em \fi \nobreak
-      \vrule height0.75em width0.5em depth0.25em\fi}
+	\ifdim\lastskip<1.5em \hskip-\lastskip
+	\hskip1.5em plus0em minus0.5em \fi \nobreak
+	\vrule height0.75em width0.5em depth0.25em\fi}
 
 % Default values for title page.
 
@@ -121,26 +121,26 @@
 %% Define the "thesis" page style.
 \if@twoside % If two-sided printing.
 \def\ps@thesis{\let\@mkboth\markboth
-   \def\@oddfoot{}
-   \let\@evenfoot\@oddfoot
-   \def\@oddhead{
-      {\sc\rightmark} \hfil \rm\thepage
-      }
-   \def\@evenhead{
-      \rm\thepage \hfil {\sc\leftmark}
-      }
-   \def\chaptermark##1{\markboth{\ifnum \c@secnumdepth >\m@ne
-      Chapter\ \thechapter. \ \fi ##1}{}}
-   \def\sectionmark##1{\markright{\ifnum \c@secnumdepth >\z@
-      \thesection. \ \fi ##1}}}
+	\def\@oddfoot{}
+	\let\@evenfoot\@oddfoot
+	\def\@oddhead{
+		{\sc\rightmark} \hfil \rm\thepage
+	}
+	\def\@evenhead{
+		\rm\thepage \hfil {\sc\leftmark}
+	}
+	\def\chaptermark##1{\markboth{\ifnum \c@secnumdepth >\m@ne
+			Chapter\ \thechapter. \ \fi ##1}{}}
+	\def\sectionmark##1{\markright{\ifnum \c@secnumdepth >\z@
+			\thesection. \ \fi ##1}}}
 \else % If one-sided printing.
 \def\ps@thesis{\let\@mkboth\markboth
-   \def\@oddfoot{}
-   \def\@oddhead{
-      {\sc\rightmark} \hfil \rm\thepage
-      }
-   \def\chaptermark##1{\markright{\ifnum \c@secnumdepth >\m@ne
-      Chapter\ \thechapter. \ \fi ##1}}}
+	\def\@oddfoot{}
+	\def\@oddhead{
+		{\sc\rightmark} \hfil \rm\thepage
+	}
+	\def\chaptermark##1{\markright{\ifnum \c@secnumdepth >\m@ne
+			Chapter\ \thechapter. \ \fi ##1}}}
 \fi
 
 \pagestyle{thesis}
@@ -166,57 +166,57 @@
 \def\normalspacing{1.25} % default line spacing
 
 \newcommand\isco[1]{%
-  \edef\@tempa{#1}%
-  \def\@tempb{}%
-  \ifx\@tempa\@tempb
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
 	\else \\\underline{Co-Supervisor:}\vspace{0.35in}\\\dots\dots\dots\dots\dots\dots\dots\\{#1}\\
-  \fi
+	\fi
 }
 
 \newcommand\isjoint[1]{%
-  \edef\@tempa{#1}%
-  \def\@tempb{}%
-  \ifx\@tempa\@tempb
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
 	\else \\\underline{Joint Supervisor:}\vspace{0.35in}\\\dots\dots\dots\dots\dots\dots\dots\\{#1}\\
-  \fi
+	\fi
 }
 
 \newcommand\isalt[1]{%
-  \edef\@tempa{#1}%
-  \def\@tempb{}%
-  \ifx\@tempa\@tempb
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
 	\else \\\underline{Alternate Supervisor:}\vspace{0.35in}\\\dots\dots\dots\dots\dots\dots\dots\\{#1}\\
-  \fi
+	\fi
 }
 
 \newcommand\isdefinedsig[1]{%
-  \edef\@tempa{#1}%
-  \def\@tempb{}%
-  \ifx\@tempa\@tempb
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
 	\else \\ \dots\dots\dots\dots\dots\dots\dots\\{#1}\\
-  \fi
+	\fi
 }
 \newcommand\isdefinedspinetitle[1]{%
-  \edef\@tempa{#1}%
-  \def\@tempb{}%
-  \ifx\@tempa\@tempb
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
 	\else (Spine title: #1)\\
-  \fi
+	\fi
 }
 \newcommand\coauthor[1]{%
-  \edef\@tempa{#1}%
-  \def\@tempb{}%
-  \ifx\@tempa\@tempb
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
 	\else \newpage \Large Co-Authorship Statement\normalsize\\\indent\\#1\\
-  \fi
+	\fi
 }
 
 \newcommand\acknowlege[1]{%
-  \edef\@tempa{#1}%
-  \def\@tempb{}%
-  \ifx\@tempa\@tempb
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
 	\else \newpage \Large Acknowlegements\normalsize\\\indent\\#1\newpage
-  \fi
+	\fi
 }
 
 %\renewcommand{\appendixtocname}{\Huge \textbf{List of Appendices} \normalsize}
@@ -239,129 +239,125 @@
 \newcommand{\lastname}{Pananos}
 %\renewcommand{\author}[1]{\ifx\empty#1\else\gdef\@author{#1}\fi} 
 \newcommand{\authorname}{{\firstname} {\middlename} {\lastname}}
-\newcommand{\titl}{Bayesian Pharmacokinetic Models for Inference and Optimal Sequential Decision Making For Applications in Personalized Medicine}
-\newcommand{\spinetitle}{Bayesian PK Models for Inference and Decsision Making in Personalized Medicine}%only if the above is more than 60 characters
+\newcommand{\titl}{Bayesian Statsitics for Personalized Medicine (Working Title)}
+\newcommand{\spinetitle}{Bayesian Statistics}%only if the above is more than 60 characters
 \newcommand{\thesisformat}{Integrated Article} %or Integrated Article
 \newcommand{\gyear}{\number\year}
 \newcommand{\makecoauthor}{
-%Type information about coauthorship here/
-I would like to acknowlege my imaginary friend, Jummi for doing all the work. 
+	%Type information about coauthorship here/
+	I would like to acknowlege my imaginary friend, Jummi for doing all the work. 
 }
 \newcommand{\makeacknowlege} {
-
-Thank you to Dan.  Dan, I'm not sure what I have done to deserve the kindness, patience, and care you have shown me.  You are an excellent supervisor, ideal mentor, and all around good human.  I am incredibly lucky to have landed you as a supervisor. Words can not convey how much yout guidance has meant, so please accept this humble ``thank you'' anyway.
-
-Thank you to Gary.  Gary, graduate school was never easy for either of us.  How many times had we sat over coffee and listed out all the reasons we should leave?  How many times have we also entered heated debates on statistics and epidemiology? How many times have we entered passionate discussion on medical research as it is done today?  Gary, you are by now across the country living a new life.  I miss you dearly, and want you to that this success is as much yours as it is mine.  Thank you for being a good friend.
- 
-Thank you to Simon.  Simon, I owe all statistical success I have ahcieved and will go on to achieve to you.  You have shaped me into the statsitician I am today, and I hope you can wear that accolade with pride.  You are an amazing instructor, and I am proud to have called you a mentor. Thank you.
+	
+	Thank you to Dan, Gary, Jaky, Jordan, and Simon.  You know why.
 }
 \newcommand{\listappendixname}{List of Appendices}
 \newlistof{myappendices}{app}{\listappendixname}
 \newcommand{\myappendices}[1]{%
-\addcontentsline{app}{myappendices}{#1}\par}
+	\addcontentsline{app}{myappendices}{#1}\par}
 
 \renewcommand{\maketitle}
 {\begin{titlepage}
-   \setcounter{page}{1}
-   %% Set the line spacing to 1 for the title page.
-   %\begin{spacing}{1} 
-   \begin{large}
-   \begin{center}
-      \mbox{}
-      \vfill
-      {\MakeUppercase{\titl}}\\
-      \isdefinedspinetitle{\spinetitle}
-      (Thesis format: \thesisformat)\\
-      \vfill
-      by \\
-      \vfill
-      {\firstname} {\middlename} \underline{\lastname}\\
-      \vfill
-      Graduate Program in {\department}\\
-      \vfill
-		A thesis submitted in partial fulfillment\\
-		of the requirements for the degree of\\
-		\degree\\
-		\vfill
-		The School of Graduate and Postdoctoral Studies\\
-		The University of Western Ontario\\
-		London, Ontario, Canada\\
-		\vfill
-      {\copyright} {\authorname} {\gyear}  \\
-      \vspace*{.2in}
-   \end{center}
-   \end{large}
-%   \end{spacing}
-   \end{titlepage}
+		\setcounter{page}{1}
+		%% Set the line spacing to 1 for the title page.
+		%\begin{spacing}{1} 
+		\begin{large}
+			\begin{center}
+				\mbox{}
+				\vfill
+				{\MakeUppercase{\titl}}\\
+				\isdefinedspinetitle{\spinetitle}
+				(Thesis format: \thesisformat)\\
+				\vfill
+				by \\
+				\vfill
+				{\firstname} {\middlename} \underline{\lastname}\\
+				\vfill
+				Graduate Program in {\department}\\
+				\vfill
+				A thesis submitted in partial fulfillment\\
+				of the requirements for the degree of\\
+				\degree\\
+				\vfill
+				The School of Graduate and Postdoctoral Studies\\
+				The University of Western Ontario\\
+				London, Ontario, Canada\\
+				\vfill
+				{\copyright} {\authorname} {\gyear}  \\
+				\vspace*{.2in}
+			\end{center}
+		\end{large}
+		%   \end{spacing}
+\end{titlepage}
 
 }%\maketitle
 
 \newcommand{\makecert}{
-   \setcounter{page}{2}
+\setcounter{page}{2}
 \vfill
 \begin{center}
-\large
-THE UNIVERSITY OF WESTERN ONTARIO\\
-School of Graduate and Postdoctoral Studies\\
-\vfill
-\textbf{CERTIFICATE OF EXAMINATION}
+	\large
+	THE UNIVERSITY OF WESTERN ONTARIO\\
+	School of Graduate and Postdoctoral Studies\\
+	\vfill
+	\textbf{CERTIFICATE OF EXAMINATION}
 \end{center}
 
 \vfill
 \begin{table}[ht]
-\begin{minipage}[t]{0.5\linewidth} %tabular instead?
-\begin{tabular}{l}
-\underline{Supervisor:}\vspace{0.35in}
-\isdefinedsig{\super}
-\isco{\superc}
-\isjoint{\superj}
-\isalt{\supera}
-\\
-\underline{Supervisory Committee:}\vspace{0.35in}
-\isdefinedsig{\sco}\vspace{0.15in}
-\isdefinedsig{\sct}\vspace{0.15in}
-\isdefinedsig{\sch}
-\end{tabular}
-\vfill
-\end{minipage}
-\hspace{0.5in}
-\begin{minipage}[t]{0.5\linewidth}
-\begin{tabular}{l}
-\underline{Examiners:} \\\vspace{.5cm}
-\isdefinedsig{\examo}\\
-\isdefinedsig{\examt}\\
-\isdefinedsig{\examth}\\
-\isdefinedsig{\examf}
-\end{tabular}
-\vfill
-\end{minipage}
-\vfill
+	\begin{minipage}[t]{0.5\linewidth} %tabular instead?
+		\begin{tabular}{l}
+			\underline{Supervisor:}\vspace{0.35in}
+			\isdefinedsig{\super}
+			\isco{\superc}
+			\isjoint{\superj}
+			\isalt{\supera}
+			\\
+			\underline{Supervisory Committee:}\vspace{0.35in}
+			\isdefinedsig{\sco}\vspace{0.15in}
+			\isdefinedsig{\sct}\vspace{0.15in}
+			\isdefinedsig{\sch}
+		\end{tabular}
+		\vfill
+	\end{minipage}
+	\hspace{0.5in}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{tabular}{l}
+			\underline{Examiners:} \\\vspace{.5cm}
+			\isdefinedsig{\examo}\\
+			\isdefinedsig{\examt}\\
+			\isdefinedsig{\examth}\\
+			\isdefinedsig{\examf}
+		\end{tabular}
+		\vfill
+	\end{minipage}
+	\vfill
 \end{table}
 \vfill
 \begin{center}
-The thesis by \\ \vfill
-\textbf{\firstname{} \middlename{} \underline{\lastname}}\\
-\vfill
-entitled:\\\vfill
-\textbf{\titl}\\\vfill
-is accepted in partial fulfillment of the \\
-requirements for the degree of\\
-\degree\\
+	The thesis by \\ \vfill
+	\textbf{\firstname{} \middlename{} \underline{\lastname}}\\
+	\vfill
+	entitled:\\\vfill
+	\textbf{\titl}\\\vfill
+	is accepted in partial fulfillment of the \\
+	requirements for the degree of\\
+	\degree\\
 \end{center}
 \begin{table}[ht]
-\begin{minipage}[t]{0.5\linewidth}
-\begin{tabular}{l}
-\dots\dots\dots\dots\dots\\
-Date
-\end{tabular}
-\end{minipage}
-\hspace{0.5in}
-\begin{minipage}[t]{0.5\linewidth}
-\begin{tabular}{l}
-\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
-Chair of the Thesis Examination Board
-\end{tabular}
-\end{minipage}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{tabular}{l}
+			\dots\dots\dots\dots\dots\\
+			Date
+		\end{tabular}
+	\end{minipage}
+	\hspace{0.5in}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{tabular}{l}
+			\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
+			Chair of the Thesis Examination Board
+		\end{tabular}
+	\end{minipage}
 \end{table}
 
 }
@@ -382,39 +378,39 @@ Chair of the Thesis Examination Board
 
 %% This sets the page style and numbering for preliminary sections.
 \begin{preliminary}
-
-%% This generates the title page from the information given above.
-\maketitle
-\addcontentsline{toc}{chapter}{Certificate of Examination}
-\makecert
-\newpage
-%\addcontentsline{toc}{chapter}{Co-Authorship Statement}
-%\coauthor{\makecoauthor}  %comment this out if none
-%\newpage
-\addcontentsline{toc}{chapter}{Acknowlegements}
-\acknowlege{\makeacknowlege}	%as above
-\addcontentsline{toc}{chapter}{\dfrac{Abstract}{den}}
-\Large\begin{center}\textbf{Abstract}\end{center}\normalsize
-%%  ***  Put your Abstract here.   ***
-%% (150 words for M.Sc. and 350 words for Ph.D.)
-
-\todo{TODO}
-
-\vfill
-\textbf{Keywords:} Bayesian Statistics, Pharmacokinetics, Hierarchical Model, Personalized Medicine
-\newpage
-\tableofcontents\newpage
-\newpage
-\addcontentsline{toc}{chapter}{List of Figures}
-\listoffigures
-\newpage
-\addcontentsline{toc}{chapter}{List of Tables}
-\listoftables\newpage
-\addcontentsline{toc}{chapter}{List of Appendices}
-\listofmyappendices\newpage
-%\addcontentsline{toc}{chapter}{List of Abbreviations, Symbols, and Nomenclature}
-%\large List of Abbreviations, Symbols, and Nomenclature \normalsize
-%\newpage
+	
+	%% This generates the title page from the information given above.
+	\maketitle
+	\addcontentsline{toc}{chapter}{Certificate of Examination}
+	\makecert
+	\newpage
+	%\addcontentsline{toc}{chapter}{Co-Authorship Statement}
+	%\coauthor{\makecoauthor}  %comment this out if none
+	%\newpage
+	\addcontentsline{toc}{chapter}{Acknowlegements}
+	\acknowlege{\makeacknowlege}	%as above
+	\addcontentsline{toc}{chapter}{Abstract}
+	\Large\begin{center}\textbf{Abstract}\end{center}\normalsize
+	%%  ***  Put your Abstract here.   ***
+	%% (150 words for M.Sc. and 350 words for Ph.D.)
+	
+	Personalized Medicine is ipsum lorem blah blah Bayesian statistics blah blah decision making.
+	
+	\vfill
+	\textbf{Keywords:} Bayesian Statistics, Pharmacokinetics, Hierarchical Model, Personalized Medicine
+	\newpage
+	\tableofcontents\newpage
+	\newpage
+	\addcontentsline{toc}{chapter}{List of Figures}
+	\listoffigures
+	\newpage
+	\addcontentsline{toc}{chapter}{List of Tables}
+	\listoftables\newpage
+	\addcontentsline{toc}{chapter}{List of Appendices}
+	\listofmyappendices\newpage
+	%\addcontentsline{toc}{chapter}{List of Abbreviations, Symbols, and Nomenclature}
+	%\large List of Abbreviations, Symbols, and Nomenclature \normalsize
+	%\newpage
 \end{preliminary}
 %% End of the preliminary sections: reset page style and numbering.
 
@@ -431,38 +427,38 @@ Chair of the Thesis Examination Board
 % As an example...
 
 \doublespacing
-		\input{chapters/chapter_1/introduction}		
-		\input{chapters/chapter_2/sections/differential_equations}
-		\input{chapters/chapter_2/sections/bayesian_statistics}
-		\input{chapters/chapter_2/sections/pharmacokinetics}
-		\input{chapters/chapter_2/sections/reinforcement_learning}
+\input{chapters/chapter_1/introduction}		
+\input{chapters/chapter_2/sections/differential_equations}
+\input{chapters/chapter_2/sections/bayesian_statistics}
+\input{chapters/chapter_2/sections/pharmacokinetics}
+\input{chapters/chapter_2/sections/reinforcement_learning}
 
-		
+
 \include{chapters/chapter_3/lit_review}
 
-		\input{chapters/chapter_4/sections/introduction}
-		\input{chapters/chapter_4/sections/background}
-		\input{chapters/chapter_4/sections/methods}
-		\input{chapters/chapter_4/sections/results}
-		\input{chapters/chapter_4/sections/conclusion}
-		\input{chapters/chapter_4/sections/appendix}
-		
-		
-		\input{chapters/chapter_5/sections/introduction}
-		\input{chapters/chapter_5/sections/background}
-		\input{chapters/chapter_5/sections/framework}
-		\input{chapters/chapter_5/sections/results}
-		\input{chapters/chapter_5/sections/discussion_and_conclusion}
-		\input{chapters/chapter_5/sections/appendix}
+\input{chapters/chapter_4/sections/introduction}
+\input{chapters/chapter_4/sections/background}
+\input{chapters/chapter_4/sections/methods}
+\input{chapters/chapter_4/sections/results}
+\input{chapters/chapter_4/sections/conclusion}
+\input{chapters/chapter_4/sections/appendix}
+
+
+\input{chapters/chapter_5/sections/introduction}
+\input{chapters/chapter_5/sections/background}
+\input{chapters/chapter_5/sections/framework}
+\input{chapters/chapter_5/sections/results}
+\input{chapters/chapter_5/sections/discussion_and_conclusion}
+\input{chapters/chapter_5/sections/appendix}
 
 
 
-		\input{chapters/chapter_6/sections/introduction}
-		\input{chapters/chapter_6/sections/background}
-		\input{chapters/chapter_6/sections/methods}
-		\input{chapters/chapter_6/sections/results}
-		\input{chapters/chapter_6/sections/discussion}
-		
+\input{chapters/chapter_6/sections/introduction}
+\input{chapters/chapter_6/sections/background}
+\input{chapters/chapter_6/sections/methods}
+\input{chapters/chapter_6/sections/results}
+\input{chapters/chapter_6/sections/discussion}
+
 \include{chapters/chapter_7/discussion}
 
 
@@ -480,10 +476,493 @@ Chair of the Thesis Examination Board
 
 %Appendices.
 \begin{appendices}
-% As ab example...
-%\include{appendixa}
+	% As ab example...
+	%\include{appendixa}
 \end{appendices}
 
 
 \end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University of Western Ontario Thesis Template
+% By: Justin Quinn Veenstra, 2010
+% With thanks to Mr. (soon to be Dr.) Will Robertson.
 
+
+\documentclass[12pt,twoside]{report}
+%% Decomment next line to use PostScript fonts
+%%\UsePackage{times}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%%                    ***   I M P O R T A N T   ***                   %%
+%%                                                                    %%
+%% Fill in the following fields with the required information:        %%
+%%  - \department{...}  name of the graduate department               %%
+%%  - \degree{...}      name of the degree obtained                   %%
+%%  - \author{...}      name of the author                            %%
+%%  - \title{...}       title of the thesis                           %%
+%%  - \gyear{...}       year of graduation                            %%
+%%  - \super{...}    supervisor
+%%  - \firstname, \middlename, \lastname... there is additional documentation by the actual fields, so I'll leave it at that
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{appendix}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[byname]{smartref}
+%\usepackage{hyperref} %comment out for hardcopy
+\usepackage{txfonts}
+\usepackage{tocloft}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{glossaries}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{bayesnet}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{rotating}
+\usepackage[noabbrev]{cleveref}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{xcolor}
+\usepackage{setspace} 
+
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{changes}
+
+\newcommand{\Normal}{\operatorname{Normal}}
+\newcommand{\Gmma}{\operatorname{Gamma}}
+\newcommand{\Lognormal}{\operatorname{Lognormal}}
+\newcommand{\needscite}{\colorbox{red}{Needs Citation}}
+
+\makeatletter
+\numberwithin{figure}{chapter}
+\newenvironment{acknowledgements}%
+{\clearemptydoublepage
+	\begin{center}
+		\section*{Acknowledgements}
+	\end{center}
+	\begingroup
+}{\newpage\endgroup}
+
+\newenvironment{dedication}%
+{\clearemptydoublepage 
+	\begin{center}
+		\section*{Dedication}
+	\end{center}
+	\begingroup
+}{\newpage\endgroup}
+
+\newenvironment{preliminary}%
+{\pagestyle{plain}\pagenumbering{roman}}%
+{\pagenumbering{arabic}}
+
+\addtoreflist{chapter}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+		\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+	\ifdim\lastskip<1.5em \hskip-\lastskip
+	\hskip1.5em plus0em minus0.5em \fi \nobreak
+	\vrule height0.75em width0.5em depth0.25em\fi}
+
+% Default values for title page.
+
+%% To produce output with the desired line spacing, the argument of
+%% \spacing should be multiplied by 5/6 = 0.8333, so that 1 1/2 spaced
+%% corresponds to \spacing{1.5} and double spaced is \spacing{1.66}.
+\def\normalspacing{1.25} % default line spacing
+
+
+%% Define the "thesis" page style.
+\if@twoside % If two-sided printing.
+\def\ps@thesis{\let\@mkboth\markboth
+	\def\@oddfoot{}
+	\let\@evenfoot\@oddfoot
+	\def\@oddhead{
+		{\sc\rightmark} \hfil \rm\thepage
+	}
+	\def\@evenhead{
+		\rm\thepage \hfil {\sc\leftmark}
+	}
+	\def\chaptermark##1{\markboth{\ifnum \c@secnumdepth >\m@ne
+			Chapter\ \thechapter. \ \fi ##1}{}}
+	\def\sectionmark##1{\markright{\ifnum \c@secnumdepth >\z@
+			\thesection. \ \fi ##1}}}
+\else % If one-sided printing.
+\def\ps@thesis{\let\@mkboth\markboth
+	\def\@oddfoot{}
+	\def\@oddhead{
+		{\sc\rightmark} \hfil \rm\thepage
+	}
+	\def\chaptermark##1{\markright{\ifnum \c@secnumdepth >\m@ne
+			Chapter\ \thechapter. \ \fi ##1}}}
+\fi
+
+\pagestyle{thesis}
+% Set up page layout.
+\setlength{\textheight}{9in} % Height of the main body of the text
+\setlength{\topmargin}{-.5in} % .5" margin on top of page
+\setlength{\headsep}{.5in}  % space between header and top of body
+\addtolength{\headsep}{-\headheight} % See The LaTeX Companion, p 85
+\setlength{\footskip}{.5in}  % space between footer and bottom of body
+\setlength{\textwidth}{6.25in} % width of the body of the text
+\setlength{\oddsidemargin}{.25in} % 1.25" margin on the left for odd pages
+\setlength{\evensidemargin}{0in} % 1.25"  margin on the right for even pages
+
+% Marginal notes
+\setlength{\marginparwidth}{.75in} % width of marginal notes
+\setlength{\marginparsep}{.125in} % space between marginal notes and text
+
+% Make each page fill up the entire page. comment this out if you
+% prefer. 
+\flushbottom
+
+\setcounter{tocdepth}{3} % Number the subsubsections 
+\def\normalspacing{1.25} % default line spacing
+
+\newcommand\isco[1]{%
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
+	\else \\\underline{Co-Supervisor:}\vspace{0.35in}\\\dots\dots\dots\dots\dots\dots\dots\\{#1}\\
+	\fi
+}
+
+\newcommand\isjoint[1]{%
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
+	\else \\\underline{Joint Supervisor:}\vspace{0.35in}\\\dots\dots\dots\dots\dots\dots\dots\\{#1}\\
+	\fi
+}
+
+\newcommand\isalt[1]{%
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
+	\else \\\underline{Alternate Supervisor:}\vspace{0.35in}\\\dots\dots\dots\dots\dots\dots\dots\\{#1}\\
+	\fi
+}
+
+\newcommand\isdefinedsig[1]{%
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
+	\else \\ \dots\dots\dots\dots\dots\dots\dots\\{#1}\\
+	\fi
+}
+\newcommand\isdefinedspinetitle[1]{%
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
+	\else (Spine title: #1)\\
+	\fi
+}
+\newcommand\coauthor[1]{%
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
+	\else \newpage \Large Co-Authorship Statement\normalsize\\\indent\\#1\\
+	\fi
+}
+
+\newcommand\acknowlege[1]{%
+	\edef\@tempa{#1}%
+	\def\@tempb{}%
+	\ifx\@tempa\@tempb
+	\else \newpage \Large Acknowlegements\normalsize\\\indent\\#1\newpage
+	\fi
+}
+
+%\renewcommand{\appendixtocname}{\Huge \textbf{List of Appendices} \normalsize}
+\newcommand{\blank}{\hspace{-2mm}}
+\newcommand{\super}{Dr. Daniel J. Lizotte} %supervisor
+\newcommand{\superj}{} %joint supervisor, if there is one, leave blank if not (lbin)... only one of the three.
+\newcommand{\superc}{} %co-supervisor, if there is one, leave blank if not (lbin)
+\newcommand{\supera}{} %alternate supervisor, if there is one, leave blank if not (lbin)
+\newcommand{\sco}{Committee Member 1}  %member of supervisory committee
+\newcommand{\sct}{Committee Member 2}  %other member of supervisory committee (lbin)
+\newcommand{\sch}{Committee Member 3}  %other member of supervisory committee (lbin)
+\newcommand{\examo}{Examiner 1}  %examining committee (up to four, if less leave blank)
+\newcommand{\examt}{Examiner 2}
+\newcommand{\examth}{Examiner 3}
+\newcommand{\examf}{}
+\newcommand{\department}{Epidemiology and Biostatistics}
+\newcommand{\degree}{Doctor of Philosophy}
+\newcommand{\firstname}{Athanasios}
+\newcommand{\middlename}{Demetrios}
+\newcommand{\lastname}{Pananos}
+%\renewcommand{\author}[1]{\ifx\empty#1\else\gdef\@author{#1}\fi} 
+\newcommand{\authorname}{{\firstname} {\middlename} {\lastname}}
+\newcommand{\titl}{Bayesian Statsitics for Personalized Medicine (Working Title)}
+\newcommand{\spinetitle}{Bayesian Statistics}%only if the above is more than 60 characters
+\newcommand{\thesisformat}{Integrated Article} %or Integrated Article
+\newcommand{\gyear}{\number\year}
+\newcommand{\makecoauthor}{
+	%Type information about coauthorship here/
+	I would like to acknowlege my imaginary friend, Jummi for doing all the work. 
+}
+\newcommand{\makeacknowlege} {
+	
+	Thank you to Dan, Gary, Jaky, Jordan, and Simon.  You know why.
+}
+\newcommand{\listappendixname}{List of Appendices}
+\newlistof{myappendices}{app}{\listappendixname}
+\newcommand{\myappendices}[1]{%
+	\addcontentsline{app}{myappendices}{#1}\par}
+
+\renewcommand{\maketitle}
+{\begin{titlepage}
+		\setcounter{page}{1}
+		%% Set the line spacing to 1 for the title page.
+		%\begin{spacing}{1} 
+		\begin{large}
+			\begin{center}
+				\mbox{}
+				\vfill
+				{\MakeUppercase{\titl}}\\
+				\isdefinedspinetitle{\spinetitle}
+				(Thesis format: \thesisformat)\\
+				\vfill
+				by \\
+				\vfill
+				{\firstname} {\middlename} \underline{\lastname}\\
+				\vfill
+				Graduate Program in {\department}\\
+				\vfill
+				A thesis submitted in partial fulfillment\\
+				of the requirements for the degree of\\
+				\degree\\
+				\vfill
+				The School of Graduate and Postdoctoral Studies\\
+				The University of Western Ontario\\
+				London, Ontario, Canada\\
+				\vfill
+				{\copyright} {\authorname} {\gyear}  \\
+				\vspace*{.2in}
+			\end{center}
+		\end{large}
+		%   \end{spacing}
+\end{titlepage}
+
+}%\maketitle
+
+\newcommand{\makecert}{
+\setcounter{page}{2}
+\vfill
+\begin{center}
+	\large
+	THE UNIVERSITY OF WESTERN ONTARIO\\
+	School of Graduate and Postdoctoral Studies\\
+	\vfill
+	\textbf{CERTIFICATE OF EXAMINATION}
+\end{center}
+
+\vfill
+\begin{table}[ht]
+	\begin{minipage}[t]{0.5\linewidth} %tabular instead?
+		\begin{tabular}{l}
+			\underline{Supervisor:}\vspace{0.35in}
+			\isdefinedsig{\super}
+			\isco{\superc}
+			\isjoint{\superj}
+			\isalt{\supera}
+			\\
+			\underline{Supervisory Committee:}\vspace{0.35in}
+			\isdefinedsig{\sco}\vspace{0.15in}
+			\isdefinedsig{\sct}\vspace{0.15in}
+			\isdefinedsig{\sch}
+		\end{tabular}
+		\vfill
+	\end{minipage}
+	\hspace{0.5in}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{tabular}{l}
+			\underline{Examiners:} \\\vspace{.5cm}
+			\isdefinedsig{\examo}\\
+			\isdefinedsig{\examt}\\
+			\isdefinedsig{\examth}\\
+			\isdefinedsig{\examf}
+		\end{tabular}
+		\vfill
+	\end{minipage}
+	\vfill
+\end{table}
+\vfill
+\begin{center}
+	The thesis by \\ \vfill
+	\textbf{\firstname{} \middlename{} \underline{\lastname}}\\
+	\vfill
+	entitled:\\\vfill
+	\textbf{\titl}\\\vfill
+	is accepted in partial fulfillment of the \\
+	requirements for the degree of\\
+	\degree\\
+\end{center}
+\begin{table}[ht]
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{tabular}{l}
+			\dots\dots\dots\dots\dots\\
+			Date
+		\end{tabular}
+	\end{minipage}
+	\hspace{0.5in}
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{tabular}{l}
+			\dots\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
+			Chair of the Thesis Examination Board
+		\end{tabular}
+	\end{minipage}
+\end{table}
+
+}
+
+% Defined commands
+\newcommand{\rhat}{\widehat{R}}
+
+
+\makeatother
+\begin{document}
+
+%% ***   NOTE   ***
+%% You should put all of your '\newcommand', '\newenvironment', and
+%% '\newtheorem's (in other words, all the global definitions that you
+%% will need throughout your thesis) in a separate file and use
+%% "\input{filename}" to input it here.
+
+
+%% This sets the page style and numbering for preliminary sections.
+\begin{preliminary}
+	
+	%% This generates the title page from the information given above.
+	\maketitle
+	\addcontentsline{toc}{chapter}{Certificate of Examination}
+	\makecert
+	\newpage
+	%\addcontentsline{toc}{chapter}{Co-Authorship Statement}
+	%\coauthor{\makecoauthor}  %comment this out if none
+	%\newpage
+	\addcontentsline{toc}{chapter}{Acknowlegements}
+	\acknowlege{\makeacknowlege}	%as above
+	\addcontentsline{toc}{chapter}{Abstract}
+	\Large\begin{center}\textbf{Abstract}\end{center}\normalsize
+	%%  ***  Put your Abstract here.   ***
+	%% (150 words for M.Sc. and 350 words for Ph.D.)
+	
+	Personalized Medicine is ipsum lorem blah blah Bayesian statistics blah blah decision making.
+	
+	\vfill
+	\textbf{Keywords:} Bayesian Statistics, Pharmacokinetics, Hierarchical Model, Personalized Medicine
+	\newpage
+	\tableofcontents\newpage
+	\newpage
+	\addcontentsline{toc}{chapter}{List of Figures}
+	\listoffigures
+	\newpage
+	\addcontentsline{toc}{chapter}{List of Tables}
+	\listoftables\newpage
+	\addcontentsline{toc}{chapter}{List of Appendices}
+	\listofmyappendices\newpage
+	%\addcontentsline{toc}{chapter}{List of Abbreviations, Symbols, and Nomenclature}
+	%\large List of Abbreviations, Symbols, and Nomenclature \normalsize
+	%\newpage
+\end{preliminary}
+%% End of the preliminary sections: reset page style and numbering.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                    %%
+%%                    ***   I M P O R T A N T   ***                   %%
+%%                                                                    %%
+%% Put your Chapters here; the easiest way to do this is to keep each %%
+%% chapter in a separate file and \include all the files right here.  %%
+%% Note that each chapter file should start with the line             %%
+%% "\chapter{ChapterName}".  Note that using "\include" instead of    %%
+%% "\input" makes each chapter start on a new page.                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% As an example...
+
+\doublespacing
+\input{chapters/chapter_1/introduction}		
+\input{chapters/chapter_2/sections/differential_equations}
+\input{chapters/chapter_2/sections/bayesian_statistics}
+\input{chapters/chapter_2/sections/pharmacokinetics}
+\input{chapters/chapter_2/sections/reinforcement_learning}
+
+
+\include{chapters/chapter_3/lit_review}
+
+\input{chapters/chapter_4/sections/introduction}
+\input{chapters/chapter_4/sections/background}
+\input{chapters/chapter_4/sections/methods}
+\input{chapters/chapter_4/sections/results}
+\input{chapters/chapter_4/sections/conclusion}
+\input{chapters/chapter_4/sections/appendix}
+
+
+\input{chapters/chapter_5/sections/introduction}
+\input{chapters/chapter_5/sections/background}
+\input{chapters/chapter_5/sections/framework}
+\input{chapters/chapter_5/sections/results}
+\input{chapters/chapter_5/sections/discussion_and_conclusion}
+\input{chapters/chapter_5/sections/appendix}
+
+
+
+\input{chapters/chapter_6/sections/introduction}
+\input{chapters/chapter_6/sections/background}
+\input{chapters/chapter_6/sections/methods}
+\input{chapters/chapter_6/sections/results}
+\input{chapters/chapter_6/sections/discussion}
+
+\include{chapters/chapter_7/discussion}
+
+
+%% This adds a line for the Bibliography in the Table of Contents.
+\addcontentsline{toc}{chapter}{Bibliography}
+%% ***   Set the bibliography style.   ***
+\bibliographystyle{plain} % (change according to your preference)
+%%% ***   Set the bibliography file.   ***
+\bibliography{bibliographies/thesis_bib}
+%% ***   NOTE   ***
+%% If you don't use bibliography files, comment out the previous line
+%% and use \begin{thebibliography}...\end{thebibliography}.  (In that
+%% case, you should probably put the bibliography in a separate file
+%% and \include or \input it here).
+
+%Appendices.
+\begin{appendices}
+	% As ab example...
+	%\include{appendixa}
+\end{appendices}
+
+
+\end{document}
