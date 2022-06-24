@@ -2,13 +2,13 @@
 
 \subsection*{Bayesian Model}
 
-To achieve our three objectives of 1) developing a new Bayesian pharmacokinetic model for apixaban, 2) investigating the impact of MAP versus HMC inference on dosing decisions and 3) developing an induction dosing model for apixaban, we fit a hierarchical mixed effects model of apixaban pharmacokinetics using data from \cite{Beaton2018-el}.  Thirty-six participants were given 5 mg of apixaban and 100 ml of water in a fasted state. Blood plasma concentrations of apixaban were recorded over the course of 12 hours.
+To achieve our three objectives of 1) developing a new Bayesian pharmacokinetic model for apixaban, 2) investigating the impact of MAP versus HMC inference on dosing decisions and 3) developing an induction dosing model for apixaban, we fit a hierarchical mixed effects model of apixaban pharmacokinetics using data from \cite{Beaton2018-el}.  Thirty-six participants were given 2.5 mg of apixaban and 100 ml of water in a fasted state. Blood plasma concentrations of apixaban were recorded over the course of 12 hours.
 
 
 
 \begin{table}[htb]
 	\centering
-	\caption{Summary of data from  \cite{Beaton2018-el}. } 
+	\caption{Summary of data from  \cite{Beaton2018-el} to fit our hierarchical pharmacokinetic model.  Each of the 36 patients was observed 8 times over the course of 12 hours. } 
 	\label{tab:my table} 
 	\includegraphics[width=0.7\linewidth]{figures/table1}
 \end{table}
@@ -21,7 +21,7 @@ To achieve our three objectives of 1) developing a new Bayesian pharmacokinetic 
 y(t) =  \begin{cases}  \dfrac{F \cdot D}{\mathit{Cl}} \dfrac{k_e \cdot k_a}{k_e - k_a}\Bigg( e^{-k_a (t-\delta)} - e^{-k_e(t-\delta)} \Bigg)  & \delta \leq t\\\\ 0 & \mbox{else} \end{cases}
 \end{equation}
 
-\noindent Here, $D$ is the size of the dose in mg, $F$ is the bioavailability (fixed to 0.5 for apixaban \cite{Byon2019-gf}), $\mathit{Cl}$ is the clearance rate in units litres per hour, $k_a$ is the rate constant of absorption into the volume of distribution in units 1/hours, and $k_e$ is the elimination rate constant in units 1/hours. We include a time delay, $\delta$, to relax the assumption that absorption begins immediately after ingestion.  Parameters are considered as random effects, with some population mean and variance (which is estimated from the data). 
+\noindent Here, $D$ is the size of the dose in mg, $F$ is the bioavailability (fixed to 0.5 for apixaban \cite{Byon2019-gf}), $\mathit{Cl}$ is the clearance rate in units litres per hour, $k_a$ is the rate constant of absorption into the volume of distribution in units 1/hours, and $k_e$ is the elimination rate constant in units 1/hours. We include a time delay, $\delta$, to relax the assumption that absorption begins immediately after ingestion.  Parameters are modelled using random effects, with some population mean and variance (which is estimated from the data). 
 
 Priors for $k_e$ and $k_a$ are not defined explicitly.  Rather, our model puts priors on the time to max concentration, which can be expressed as a function of the parameters in \cref{eq:eq_1}
 
@@ -35,7 +35,7 @@ Priors for $k_e$ and $k_a$ are not defined explicitly.  Rather, our model puts p
 \alpha  = \dfrac{k_e}{k_a} \>.
 \end{equation}
 
-\noindent We choose to place a prior on the quantity $\alpha$ because it arises when non-dimensionalizing \cite{Lin1988-pr} the differential equation governing mass transit of the drug in and out of the volume of distribution.  The plasma concentration function is a version of the “flip-flop” model \cite{Wakefield1996-yy, Salway2008-gi}, since different parameterizations of this model can yield the same curve, leading to model un-identifiability. To ensure the model is identifiable, we require $k_e<k_a$ as has been done in previous Bayesian analyses of this model \cite{Wakefield1996-yy, Salway2008-gi}. This requirement bounds $\alpha$ to the unit interval.  In principle, information on the elimination rate constant could be obtained by performing a linear regression on the log concentration values in the latter half of the concentration profiles where the drug is being eliminated from the body. To preserve as much data as possible for model fitting, we forgo this approach.  These two sets of equations are used to parameterize the absorption and elimination rate constants as follows
+\noindent We choose to place a prior on the quantity $\alpha$ because it arises when non-dimensionalizing \cite{holmes2009introduction} the differential equation governing mass transit of the drug in and out of the volume of distribution.  The plasma concentration function is a version of the “flip-flop” model \cite{Wakefield1996-yy, Salway2008-gi}, since different parameterizations of this model can yield the same curve, leading to model un-identifiability. To ensure the model is identifiable, we require $k_e<k_a$ as has been done in previous Bayesian analyses of this model \cite{Wakefield1996-yy, Salway2008-gi}. This requirement bounds $\alpha$ to the unit interval.  In principle, information on the elimination rate constant could be obtained by performing a linear regression on the log concentration values in the latter half of the concentration profiles where the drug is being eliminated from the body. To preserve as much data as possible for model fitting, we forgo this approach.  These two sets of equations are used to parameterize the absorption and elimination rate constants as follows
 \begin{align}
 	k_a &= \dfrac{1}{t_{\mathit{max}}} \dfrac{\ln(\alpha)}{\alpha-1} \label{eq:eq_4} \\
 	k_e &= k_a \alpha \label{eq:eq_5}
@@ -146,7 +146,7 @@ Priors for $k_e$ and $k_a$ are not defined explicitly.  Rather, our model puts p
 %	C_{j}(t) \vert \mathit{Cl}_{j}, k_{a,j}, k_{a,j}, \delta_j &\sim \operatorname{LogNormal}(\ln(y(t)), \sigma_y)  \label{eq:eq_17}
 %\end{align}
 
-Details on the prior distributions for each parameter and the model likelihood can be found in the supplementary material.  We also include a summary of the model's posterior as well as details on simulating data from the model's posterior predictive distribution to generate pseudopatients.
+Details on the prior distributions for each parameter and the model likelihood can be found in the supplementary material.  We also include a summary of the model's posterior as well as details on simulating data from the model's posterior predictive distribution to generate pseudopatients for use in our experiments.
 
 \subsection*{Model Fitting and Diagnostics}
 

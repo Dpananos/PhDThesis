@@ -63,7 +63,7 @@ Differential equations representing physical systems can often have several para
 \end{align}
 
 
-\noindent which yields $dx / d \tau = a/b f(a\tau, bx(\tau))$.  The approach is similar to normalization in statistics (i.e.\ subtracting the mean and dividing by the standard deviation).  The re-scaling allows one to examine families of solutions for which $a/b$ is constant, giving insight into the characteristic dynamics of the system. Non-dimensionalizing a differential equation will important when defining prior distributions over parameters in Bayesian inference.
+\noindent which yields $dx / d \tau = a/b f(a\tau, bx(\tau))$.  The approach is similar to normalization in statistics (i.e.\ subtracting the mean and dividing by the standard deviation).  The re-scaling allows one to examine families equivalently parameterized differential equations, giving insight into the characteristic dynamics of the system. Non-dimensionalizing a differential equation will important when defining prior distributions over parameters in Bayesian inference.
 
 \subsection{The Laplace Transform and Discontinuous Forcing Functions}
 
@@ -86,7 +86,7 @@ $$ \int_0^\infty f(t) e^{-st} \, dt  $$
 	H(t) = \begin{cases}  1 & t>0 \\ 0 & \mbox{else} \end{cases}
 \end{equation}
 
-\noindent  When $t<0$,  $Q_2(t)$ is essentially ``turned off'' and its effect on the dynamics of $y$ is 0.  When $t>0$, the effect is then ``turned on''. As an example, we consider a differential equation which will be of great use in the remainder of this thesis
+\noindent  When $t<0$,  $Q_2(t)$ is essentially ``turned off'' and its effect on the dynamics of $y$ is 0.  When $t>0$, the effect is then ``turned on''. As an example, we consider a differential equation which will be of use in the remainder of this thesis
 
 \begin{equation}
 	\dfrac{dy}{dt} + \alpha y(t) = \exp(-t)  + H(t - t_1) \exp(-(t - t_1)) \quad y(0) = 0 \>.
