@@ -28,8 +28,8 @@ $$ C(t) = \frac{F \cdot D}{C l} \frac{k_{e} \cdot k_{a}}{k_{e}-k_{a}}\left(e^{-k
 This approach is common in pharmacokinetics when estimating the elimination rate but suffers from three important drawbacks generally. First, the elimination rate is not allowed to vary as a function of known factors which effect elimination rate, such as kidney function.  This can be ameliorated by specifying an interaction between time and those covariates known to effect elimination rate (though this has not been done in all studies \cite{gulilat2020drug}).  Second, an exponential approximation is only appropriate when time is sufficiently large.  Clearly, the exponential approximation breaks down near $t=t_{max} = \log(k_a/k_e)/(k_a-k_e)$ and is completely inappropriate in the absorption phase when $t<t_{\max}$.  This affects estimates of max concentration in an appreciable way, resulting in an upward bias of $C_{\max}$ (the bias is proportional to $-k_a t_{\max}$ on the log scale).  Additionally, because $t_{\max}$ is not modelled per individual, estimates of $C_{\max}$ must rely on a point estimate of $t_{\max}$.  This results in uncertainty estimates of $C_{\max}$ which may be too narrow for a given individual.  Finally, the effects of covariates on other aspects of the pharmacokinetcs are undetermined. Assuming a linear model is used to model concentrations on the log scale, we find
 
 \begin{align}
-	\log(C(t)) & \approx \log(D) + \log(F) - \log(Cl) + \log(k_e) + \log(k_a) - \log(k_e-k_a) - k_at - k_et \nonumber \\
-	                 & = \log(D) + \beta_0 + \beta_1t \>. \nonumber
+	\log(C(t)) & = \log(D) + \log(F) - \log(Cl) + \log(k_e) + \log(k_a) - \log(k_e-k_a) + \log\Big( e^{-k_{a}t}-e^{-k_{e}t} \Big) \nonumber \\
+	                 & \approx \log(D) + \beta_0 + \beta_1t \qquad \mbox{when  } t_{\max} \ll t \>. \nonumber
 \end{align}
 
 
