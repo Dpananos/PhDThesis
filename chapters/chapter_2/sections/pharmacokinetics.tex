@@ -9,21 +9,26 @@ In this section, I review the basics of pharmacokinetic modelling and introduce 
 
 In pharmacokinetic modelling, compartmental models are used to model the time course of concentrations \cite{rosenbaum2016basic}. These models posit that the body (or relevant organs/systems of the body) is comprised of compartments from which drug can flow in and out. The rates at which the drug can enter and exit each compartment are specified, and a differential equation for each compartment can be written down and solved using methods outlined in \cref{sec:ODE}.
 
-An example of these models used for orally-administered drugs is the one--compartment pharmacokinetic model with first order elimination.  The model posits the following \cite{wakefield1992bayesian}:  
+An example of such a model which can be used for orally-administered drugs is the one--compartment pharmacokinetic model with first order elimination.  The model posits the following \cite{wakefield1992bayesian}:  
 %
 \begin{itemize}
+	
+\item The patient orally ingests a dose of size $D$ in units milligrams.
+
+\item The concentration of drug in all parts of the body (blood, plasma, liver, brain etc) are the same.
+
 \item The rate of drug absorption from the gut  into the blood plasma ($ C $) is proportional to the amount of drug in the gut and that the proportionality constant is $ k_a $, in units $ \text{hours}^{-1} $.
 
 \item The rate of elimination from the blood plasma is proportional to the amount of drug in the plasma compartment with proportionality constant $ k_e $, in units $ \text{hours}^{-1} $.
 
-\item The volume of plasma in the body is $ V $, in units litres.
+\item The apparent volume of the body compartment is $V$, measured in litres.
 
-\item The fraction of the drug that reaches the systemic circulation is the drug’s bioavailability, $F$.
+\item The fraction of the administered dose that reaches the systemic circulation is the drug’s bioavailability, $F$.
 
 \item At the time of ingestion, there is 0 drug in the blood plasma.
 \end{itemize}
 
-Let $t$ be time since ingestion of the drug.  The differential equation governing the mass transit of drug in/out of the $C$ compartment is then 
+Let $t$ be time since ingestion of the drug, and assume that $k_e < k_a$ for identifiability.  The differential equation governing the mass transit of drug in/out of the $C$ compartment is then 
 \begin{equation}  \label{pkpd_ode}
 dC(t)/dt = k_aFD\exp(-k_a t) - k_eC(t) 
 \end{equation}
@@ -33,7 +38,7 @@ dC(t)/dt = k_aFD\exp(-k_a t) - k_eC(t)
 	C(t) = \dfrac{F D}{V}\dfrac{k_a}{k_e - k_a}\Big(\exp(-k_at) - \exp(-k_et)\Big) \>.
 \end{equation}
 
-In the remainder of this thesis, \cref{onecompartment_PKPD_model} will be parameterized in terms of the clearance rate $Cl = V \cdot k_e$ rather than in terms of volume due to more prior information being available about the clearance rate of certain drugs as opposed to the volume of patients.  The resulting parameterization is
+In the remainder of this thesis, \cref{onecompartment_PKPD_model} will be parameterized in terms of the clearance  $Cl = V \cdot k_e$ rather than in terms of volume due to more prior information being available about the clearance rate of certain drugs as opposed to the volume of patients.  The resulting parameterization is
 
 \begin{equation}\label{onecompartment_PKPD_cl}
 	C(t) = \dfrac{F D}{Cl}\dfrac{k_ek_a}{k_e - k_a}\Big(e^{-k_at} - e^{-kt}\Big) \>.

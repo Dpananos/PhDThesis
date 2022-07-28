@@ -1,6 +1,6 @@
 \section{Results}
 
-The results from our simulation study are shown in figure \ref{fig:simulation-results}. The precision of the estimate of effect of concomitant drug use increases as the number of repeatedly sampled (and sparsely sampled) patients increases.  Shown in red are the sample means of the 10 runs (black dots).  On average we see a small amount of bias in the estimates.  This is expected since the sparsity inducing priors have the majority of their density in a small neighborhood of 0, regularizing effects towards 0.  For purposes of discovery, these biases may be acceptable if the result is a decrease in model variability.
+The results from our simulation study are shown in figure \ref{fig:simulation-results}. The precision of the estimate of effect of concomitant drug use increases as the number of repeatedly sampled (and sparsely sampled) patients increases.  Shown in red are the sample means of the 10 runs (black dots).  On average we see a small amount of bias in the estimates.  This is expected since the sparsity inducing priors have the majority of their density in a small neighbourhood of 0, regularizing effects towards 0.  For purposes of discovery, these biases may be acceptable if the result is a decrease in model variability.
 
 
 
@@ -44,7 +44,7 @@ The results from our simulation study are shown in figure \ref{fig:simulation-re
 		
 	}
 	
-	\caption{Results from our simulation study.  Black dots represent the estimated effect of a novel predictor.  Red dots indicate the average estimate across the 10 repititions. Data are faceted by the number of repeatedly sampled patients.  Smaller datasets show more bias towards the null.  This bias attenuates as sample size increases.}\label{fig:simulation-results}
+	\caption{Results from our simulation study.  Black dots represent the estimated effect of a novel predictor.  Red dots indicate the average estimate across the 10 repetitions. Data are faceted by the number of repeatedly sampled patients.  Smaller datasets show more bias towards the null.  This bias attenuates as sample size increases.}\label{fig:simulation-results}
 \end{figure}
 
 
@@ -86,7 +86,7 @@ estimates.
 		
 	}
 	
-	\caption{Predicted vs observed concentrations for both datasets on the log scale. Note each plot has a seperate scale. Sparsely sampled data can not be predicted as accurately as the repeatedly sampled data, due in part to the inability to estimate patient random effects in pharmacokinetic parameters.  This additional variance left unexplained manifests as measurement error.}\label{fig:plot-model-predictions}
+	\caption{Predicted vs observed concentrations for both datasets on the log scale. Note each plot has a separate scale. Sparsely sampled data can not be predicted as accurately as the repeatedly sampled data, due in part to the inability to estimate patient random effects in pharmacokinetic parameters.  This additional variance left unexplained manifests as measurement error.}\label{fig:plot-model-predictions}
 \end{figure}
 
 \begin{figure}
@@ -95,7 +95,7 @@ estimates.
 		
 	}
 	
-	\caption{Estimated max concentration as a function of concomitant amiodarone for a reference patient.  Concomitant amiodarone is estimated to increase apixaban bioavailability, thus leading to an increase in max concentration. The uncertainty in the effect of concomitant amiodarone is propogated through to the estimate of max concentration.  If max concentration is a key quqntity in deicion making, propogation of this uncertainty is crucial.}\label{fig:max-concentration}
+	\caption{Estimated max concentration as a function of concomitant amiodarone for a reference patient.  Concomitant amiodarone is estimated to increase apixaban bioavailability, thus leading to an increase in max concentration. The uncertainty in the effect of concomitant amiodarone is propagated through to the estimate of max concentration.  If max concentration is a key quantity in decision making, propagation of this uncertainty is crucial.}\label{fig:max-concentration}
 \end{figure}
 
 \begin{figure}
