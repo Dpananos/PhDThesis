@@ -9,7 +9,7 @@ In this section, I review the basics of pharmacokinetic modelling and introduce 
 
 In pharmacokinetic modelling, compartmental models are used to model the time course of concentrations \cite{rosenbaum2016basic}. These models posit that the body (or relevant organs/systems of the body) is comprised of compartments from which drug can flow in and out. The rates at which the drug can enter and exit each compartment are specified, and a differential equation for each compartment can be written down and solved using methods outlined in \cref{sec:ODE}.
 
-An example of such a model which can be used for orally-administered drugs is the one--compartment pharmacokinetic model with first order elimination.  The model posits the following \cite{wakefield1992bayesian}:  
+An example of such a model which can be used for orally-administered drugs is the one--compartment pharmacokinetic model with first order elimination.  The model assumes the following \cite{wakefield1992bayesian}:  
 %
 \begin{itemize}
 	
@@ -38,10 +38,10 @@ dC(t)/dt = k_aFD\exp(-k_a t) - k_eC(t)
 	C(t) = \dfrac{F D}{V}\dfrac{k_a}{k_e - k_a}\Big(\exp(-k_at) - \exp(-k_et)\Big) \>.
 \end{equation}
 
-In the remainder of this thesis, \cref{onecompartment_PKPD_model} will be parameterized in terms of the clearance  $Cl = V \cdot k_e$ rather than in terms of volume due to more prior information being available about the clearance rate of certain drugs as opposed to the volume of patients.  The resulting parameterization is
+In the remainder of this thesis, \cref{onecompartment_PKPD_model} will be parameterized in terms of the clearance  $\mathit{Cl} = V \cdot k_e$ rather than in terms of volume due to more prior information being available about the clearance rate of certain drugs as opposed to the volume of patients.  The resulting parameterization is
 
 \begin{equation}\label{onecompartment_PKPD_cl}
-	C(t) = \dfrac{F D}{Cl}\dfrac{k_ek_a}{k_e - k_a}\Big(e^{-k_at} - e^{-kt}\Big) \>.
+	C(t) = \dfrac{F D}{\mathit{Cl}}\dfrac{k_ek_a}{k_e - k_a}\Big(e^{-k_at} - e^{-kt}\Big) \>.
 \end{equation}
 
 
@@ -64,6 +64,6 @@ To extend \cref{pkpd_ode} to account for multiple doses, Heaviside step function
 \subsection{Population Pharmacokinetic Models}
 
 
-Different patients may have different pharmacokinetics just by virtue of being different people (even if they match identically on important clinical and genetic covariates).  To understand the between subject variability in pharmacokientics, a population pharmacokinetic model can be constructed.  These models make the assumption that some or all of the parameters in \cref{onecompartment_PKPD_cl} (or some other pharmacokinetic model for that matter) are themselves random variables, which have some population level mean and variance which requires estimation \cite{owen2014introduction}.  As an example, the clearance rate for the $i^{th}$ patient in the population, $Cl_i$, can be considered as a draw from some population level distribution, $Cl_i \sim P(\psi) $, where $P$ is some distribution with suitable support for the modelled parameter and $\psi$ are parameters of this distribution.  This approach is similar to non-linear mixed effect modelling; non-linear because the concentration function is non-linear in the pharmacokinetic parameters, and mixed-effects because the parameters are free to vary between patients \cite{owen2014introduction, mould2013basic}.
+Different patients may have different pharmacokinetics just by virtue of being different people (even if they match identically on important clinical and genetic covariates).  To understand the between subject variability in pharmacokientics, a population pharmacokinetic model can be constructed.  These models make the assumption that some or all of the parameters in \cref{onecompartment_PKPD_cl} (or some other pharmacokinetic model for that matter) are themselves random variables, which have some population level mean and variance which requires estimation \cite{owen2014introduction}.  As an example, the clearance rate for the $i^{th}$ patient in the population, $\mathit{Cl}_i$, can be considered as a draw from some population level distribution, $\mathit{Cl}_i \sim P(\psi) $, where $P$ is some distribution with suitable support for the modelled parameter and $\psi$ are parameters of this distribution.  This approach is similar to non-linear mixed effect modelling; non-linear because the concentration function is non-linear in the pharmacokinetic parameters, and mixed-effects because the parameters are free to vary between patients \cite{owen2014introduction, mould2013basic}.
 
 Many software packages exist to fit population pharmacokinetic models.  Notable examples  include NONMEM \cite{bauer2011nonmem} and Monolix \cite{noauthor_monolix_nodate} (both of which happen to be propriatary software) and Pumas \cite{rackauckas2020accelerated} which is freely available and accessed through the Julia language (which is also free), among others.  Each implementation shares similar techniques for parameter estimation, namely by optimizing the negative log likelihood (which is sometimes called the \textit{Objective Function} or OFV) \cite{bauer2011nonmem, mould2013basic, bauer_nonmem_2019}, as well as approximation methods for computing the marginal likelihood.  Several approximation techniques are made available to users, but the differences in resulting estimates from these methods can sometimes be substantial \cite{mould2013basic}.

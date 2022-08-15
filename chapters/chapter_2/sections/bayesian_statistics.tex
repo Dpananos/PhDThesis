@@ -50,7 +50,7 @@ Here, $ p(\alpha, \beta)  $ is the prior for the parameters of the beta distribu
 		
 		\plate{exp}{(theta)(y)}{$N$};
 	\end{tikzpicture}
-	\caption[Hierarchical binomial model bayes net]{Bayes net for hierarchical binomial model.  Note here that nodes with shading correspond to observed data, while nodes without shading are latent, or unobserved.}
+	\caption[Hierarchical binomial model Bayes net]{Bayes net for hierarchical binomial model.  Note here that nodes with shading correspond to observed data, while nodes without shading are latent, or unobserved.}
 	\label{bayesnet}
 \end{figure}
 
@@ -96,7 +96,7 @@ All of these sampling methods result in a user specified number of sequences of 
 
 %Under certain conditions, a law of large numbers and a central limit theorem exists for these Markov chains \cite{livingstone2016geometric, betancourt2017robust}, allowing users to be confident in inferences made from the samples obtained.  General conditions under which a chain is and is not geometrically ergodic exist \cite{livingstone2016geometric}, however these properties can be assessed via diagnostics on the Markov chains themselves.
 
-In MCMC and HMC, several chains are usually initialized and allowed to run for sufficiently long to as to (hopefully) arrive at their stationary distribution.  If geometric ergodicity holds, then all chains should arrive at the same stationary distribution, and thus be exploring the same space.  The Gelman-Rubin diagnostic  measures how well the chains are exploring the space by comparing the within chain variance to the between chain variance \cite{gelman2013bayesian}.  In practice, $ 1.05<\rhat $ indicates a problem with the chains, and inference should not be made from the samples drawn \cite{betancourt2017robust}.
+In MCMC and HMC, several chains are usually initialized and allowed to run for sufficiently long to as to (hopefully) arrive at their stationary distribution.  If geometric ergodicity holds, then all chains should arrive at the same stationary distribution, and thus be exploring the same space.  The Gelman-Rubin diagnostic  measures how well the chains are exploring the space by comparing the within chain variance to the between chain variance \cite{gelman2013bayesian}.  In practice, $ 1.05<\rhat $ indicates a problem with the chains, and inference should not be made from the samples drawn~\cite{betancourt2017robust}.
 
 Another diagnostic is the effective sample size, $ n_{\mathit{eff}} $.  Theories of convergence of functions of random variables that assume independence are inappropriate as the samples from the Markov chains are correlated.  Effective sample size is a heuristic used to measure how close the samples are to being independent.  Effective sample size is defined as
 %

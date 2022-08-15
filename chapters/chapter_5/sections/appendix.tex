@@ -23,7 +23,7 @@ The Bayesian model used to predict personalized concentration in response to dos
 	p(\mu_{t_{max}}) &\sim \Normal(\log(3.3), 0.1^2)\\
 	p(\mu_{\alpha}) &\sim \Normal(-0.25, 0.5^2)\\
 	p(\sigma_y) &\sim \Lognormal(\log(0.1), 0.2^2)\\
-	p(\sigma_{CL}) &\sim \Gmma(15, 100)\\
+	p(\sigma_{\mathit{Cl}}) &\sim \Gmma(15, 100)\\
 	p(\sigma_{t_{max}}) &\sim \Gmma(5, 100)\\
 	p(\sigma_{\alpha}) &\sim \Gmma(10, 100)\\
 	p(\beta_{Cl, k}) &\sim \Normal(0, 0.25^2) \quad k = 1 ...	 4\\
@@ -37,7 +37,7 @@ Here, normal distributions are parameterized by their mean and variance, lognorm
 	\centering
 	\begin{tabular}[t]{rccc}
 		\toprule
-		& $\beta_\alpha$ & $\beta_{Cl}$ & $\beta_{t_{max}}$\\
+		& $\beta_\alpha$ & $\beta_{\mathit{Cl}}$ & $\beta_{t_{max}}$\\
 		\midrule
 		\cellcolor{gray!6}{Age} & \cellcolor{gray!6}{-0.08 (-0.27,0.1)} & \cellcolor{gray!6}{0.01 (-0.06,0.08)} & \cellcolor{gray!6}{-0.01 (-0.1,0.08)}\\
 		Creatinine & -0.06 (-0.25,0.14) & 0.02 (-0.05,0.09) & -0.05 (-0.14,0.04)\\
@@ -47,21 +47,21 @@ Here, normal distributions are parameterized by their mean and variance, lognorm
 	\end{tabular}
 	\caption{Posterior means for coefficients for each covariate in our pharmacokinetic model.  In parantheses are 95\% credible interval estimates.}
 \end{table}
-Once fit, $ \mathcal{M}_1$ can be used to predict the pharmacokinetics of new patients, using the patient’s covariates as predictors.  To do so, the marginal posterior distributions for $ \mu_{Cl} $, $ \mu_{t_{max}} $, $ \mu_{\alpha}$, $ \beta_{Cl} $, $ \beta_{t_{max}} $, $ \beta_{\alpha} $, $ \sigma_{Cl} $, $ \sigma_{t_{max}} $, $ \sigma_{\alpha} $, and $ \sigma_y $ must be summarized.  We use maximum likelihood on the posterior samples to summarize the marginal posterior distributions. We model the population means  and regression coefficients as normal, and the standard deviations  as gamma.  The maximum likelihood estimates are used to construct priors for a new model, which we call $ \mathcal{M}_2 $. We construct $ \mathcal{M}_2 $ so as to be able to predict plasma concentration after multiple doses (of potentially different sizes) administered over time, and remove the time delay ($ \delta $) to simplify our simulations.  Model priors for $ \mathcal{M}_2 $ are then 
+Once fit, $ \mathcal{M}_1$ can be used to predict the pharmacokinetics of new patients, using the patient’s covariates as predictors.  To do so, the marginal posterior distributions for $ \mu_{\mathit{Cl}} $, $ \mu_{t_{max}} $, $ \mu_{\alpha}$, $ \beta_{\mathit{Cl}} $, $ \beta_{t_{max}} $, $ \beta_{\alpha} $, $ \sigma_{\mathit{Cl}} $, $ \sigma_{t_{max}} $, $ \sigma_{\alpha} $, and $ \sigma_y $ must be summarized.  We use maximum likelihood on the posterior samples to summarize the marginal posterior distributions. We model the population means  and regression coefficients as normal, and the standard deviations  as gamma.  The maximum likelihood estimates are used to construct priors for a new model, which we call $ \mathcal{M}_2 $. We construct $ \mathcal{M}_2 $ so as to be able to predict plasma concentration after multiple doses (of potentially different sizes) administered over time, and remove the time delay ($ \delta $) to simplify our simulations.  Model priors for $ \mathcal{M}_2 $ are then 
 
 \begin{align}
-	p(\mu_{Cl}) & \sim \Normal(0.5, 0.04) \\
+	p(\mu_{\mathit{Cl}}) & \sim \Normal(0.5, 0.04) \\
 	p(\mu_{t_{max}}) & \sim \Normal(0.93, 0.05) \\
 	p(\mu_\alpha) &\sim \Normal(-1.35, 0.13)\\
 									\nonumber \\
-	p(\sigma_{Cl}) &\sim \Gmma(69.15, 338.31)\\
+	p(\sigma_{\mathit{Cl}}) &\sim \Gmma(69.15, 338.31)\\
 	p(\sigma_{t_{max}}) &\sim \Gmma(74.96, 349.56)\\
 	p(\sigma_{\alpha}) &\sim \Gmma(10.1, 102.07)\\
 									\nonumber\\
-	p(\beta_{Cl, 1}) &\sim \Normal(0.39, 0.08^2)\\
-	p(\beta_{Cl, 2}) &\sim \Normal(0.19,0.04^2)\\
-	p(\beta_{Cl, 3}) &\sim \Normal(0.02,0.04^2)\\
-	p(\beta_{Cl, 4}) &\sim \Normal(0.01,0.04^2)\\
+	p(\beta_{\mathit{Cl}, 1}) &\sim \Normal(0.39, 0.08^2)\\
+	p(\beta_{\mathit{Cl}, 2}) &\sim \Normal(0.19,0.04^2)\\
+	p(\beta_{\mathit{Cl}, 3}) &\sim \Normal(0.02,0.04^2)\\
+	p(\beta_{\mathit{Cl}, 4}) &\sim \Normal(0.01,0.04^2)\\
 									\nonumber\\
 	p(\beta_{t_{max}, 1}) &\sim \Normal(-0.01, 0.08^2)\\
 	p(\beta_{t_{max}, 2}) &\sim \Normal(0.09,0.05^2)\\
@@ -74,7 +74,7 @@ Once fit, $ \mathcal{M}_1$ can be used to predict the pharmacokinetics of new pa
 	p(\beta_{\alpha, 4}) &\sim \Normal(-0.09,0.1^2)\\
 \end{align}
 
-For our experiments, we generate the pharmacokinetic parameters of 1000 simulated patients from the prior predictive model of $ \mathcal{M}_2 $. Bayesian models are generative models, meaning they can generate pseudodata by drawing random variables according to the model specification going from top (model priors) to bottom (model likelihood).  To do so, we begin by resampling 1000 tuples of age, sex, weight, and creatinine from the dataset used to fit $ \mathcal{M_1} $. We sample one draw of r $ \mu_{Cl} $, $ \mu_{t_{max}} $, $ \mu_{\alpha}$, $ \beta_{Cl} $, $ \beta_{t_{max}} $, and $ \beta_{\alpha} $  from their respective prior distributions in  $ \mathcal{M}_2 $. The values of these parameters remained fixed for all 1000 patients. Conditioned on the values of these mus and betas, we compute the expectation of the population distribution for each pharmacokinetic parameter by computing $ \mu_{Cl} + \mathbf{x}^T \beta_{Cl} $, $ \mu_{t_{\max}} + \mathbf{x}^T \beta_{t_{max}} $,  $ \mu_{\alpha} + \mathbf{x}^T \beta_{\alpha} $, where $\mathbf{x}^T$ is the resampled tuple.  From the prior distribution of M2, we sample one draw of$ \sigma_{Cl} $, $ \sigma_{t_{max}} $, $ \sigma_{\alpha} $, and $ \sigma_y $.  These remained fixed for all 1000 patients. Using the previously computed expectations and $\sigma$, we sample 1000 tuples of pharmacokinetic parameters, one for each of the simulated patients.  The clearance rate and time to max concentration were sampled assuming a lognormal distribution.  Alpha was sampled using a logitnormal distribution. The pharmacokinetics can then be determined conditional on the pharmacokinetic parameters. Each of simulated patients' pharmacokinetic parameters remained fixed through the experiments.  We simulate the latent concentration using $ C(t) $ as written in $\mathcal{M}_2$, and can simulate observed concentrations by drawing a sample from a lognormal distribution with mean $\ln(C(t))$ and standard deviation $ \sigma_y$
+For our experiments, we generate the pharmacokinetic parameters of 1000 simulated patients from the prior predictive model of $ \mathcal{M}_2 $. Bayesian models are generative models, meaning they can generate pseudodata by drawing random variables according to the model specification going from top (model priors) to bottom (model likelihood).  To do so, we begin by resampling 1000 tuples of age, sex, weight, and creatinine from the dataset used to fit $ \mathcal{M_1} $. We sample one draw of r $ \mu_{\mathit{Cl}} $, $ \mu_{t_{max}} $, $ \mu_{\alpha}$, $ \beta_{\mathit{Cl}} $, $ \beta_{t_{max}} $, and $ \beta_{\alpha} $  from their respective prior distributions in  $ \mathcal{M}_2 $. The values of these parameters remained fixed for all 1000 patients. Conditioned on the values of these mus and betas, we compute the expectation of the population distribution for each pharmacokinetic parameter by computing $ \mu_{\mathit{Cl}} + \mathbf{x}^T \beta_{\mathit{Cl}} $, $ \mu_{t_{\max}} + \mathbf{x}^T \beta_{t_{max}} $,  $ \mu_{\alpha} + \mathbf{x}^T \beta_{\alpha} $, where $\mathbf{x}^T$ is the resampled tuple.  From the prior distribution of M2, we sample one draw of$ \sigma_{\mathit{Cl}} $, $ \sigma_{t_{max}} $, $ \sigma_{\alpha} $, and $ \sigma_y $.  These remained fixed for all 1000 patients. Using the previously computed expectations and $\sigma$, we sample 1000 tuples of pharmacokinetic parameters, one for each of the simulated patients.  The clearance rate and time to max concentration were sampled assuming a lognormal distribution.  Alpha was sampled using a logitnormal distribution. The pharmacokinetics can then be determined conditional on the pharmacokinetic parameters. Each of simulated patients' pharmacokinetic parameters remained fixed through the experiments.  We simulate the latent concentration using $ C(t) $ as written in $\mathcal{M}_2$, and can simulate observed concentrations by drawing a sample from a lognormal distribution with mean $\ln(C(t))$ and standard deviation $ \sigma_y$
 
 We use Stan, an open source probabilistic programming language, for fitting our Bayesian models via Hamiltonian Monte Carlo (a Markov Chain Monte Carlo technique) and computing markov chain diagnostics. Twelve chains are initialized and run for 2000 iterations each (1000 for warmup allowing the Markov chain the opportunity to find the correct target distribution and 1000 to use as samples from the posterior).
 
@@ -96,7 +96,7 @@ In addition to monitoring divergences, Gelman-Rubin convergence diagnostics, and
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{figures/random_effects_change.png}
-	\caption{Random effects estimates for clearance $ CL_i $ and 95\% credible intervals (left).  Random effects estimates are colored by patient sex.  Prior to adjusting for covariates, a general trend in weight can be seen in the random effects.  Patients who are heavier tend to have larger random effect, and males tend to have larger random effects than females of the same weight.  Patterns such as these indicate that weight and sex can be used to explain variation in the random effects.  After adjusting for sex and weight (right), the random effects have no discernable pattern.}
+	\caption{Random effects estimates for clearance $ \mathit{Cl}_i $ and 95\% credible intervals (left).  Random effects estimates are colored by patient sex.  Prior to adjusting for covariates, a general trend in weight can be seen in the random effects.  Patients who are heavier tend to have larger random effect, and males tend to have larger random effects than females of the same weight.  Patterns such as these indicate that weight and sex can be used to explain variation in the random effects.  After adjusting for sex and weight (right), the random effects have no discernable pattern.}
 	\label{fig:randomeffectschange}
 \end{figure}
 
@@ -110,11 +110,11 @@ Examining the posterior distributions of the regression coefficients provides fu
 %\begin{figure}
 %	\centering
 %	\includegraphics[width=1\linewidth]{figures/coef_vals}
-%	\caption{Posterior distributions of regression coefficients. Expectations are shown as black dots, 95\% credible intervals are shown as horizontal black lines.  Solid black vertical line is $\beta=0$ for reference.  Note, regression coefficients for $Cl$ and $t_{max}$ act multiplicatively (a one unit increase in weight leads to a change in $Cl$ of $\exp(\beta)$), while regression coefficients for $\alpha$ are interpreted on the log odds scale.}
+%	\caption{Posterior distributions of regression coefficients. Expectations are shown as black dots, 95\% credible intervals are shown as horizontal black lines.  Solid black vertical line is $\beta=0$ for reference.  Note, regression coefficients for $\mathit{Cl}$ and $t_{max}$ act multiplicatively (a one unit increase in weight leads to a change in $\mathit{Cl}$ of $\exp(\beta)$), while regression coefficients for $\alpha$ are interpreted on the log odds scale.}
 %	\label{fig:coefvals}
 %\end{figure}
 
 
 Model training error is comparable between the two models; the model without covariates achieves an average error of 8.31 ng/ml as measured by root mean squared error.  The model with covariates achieves a root mean squared error of 8.36  ng/ml.  Estimates of concentration uncertainty remain similar between the two models as well.  We conclude the inclusion of covariates in the model improves model inferences but does not substantially improve the fit of the model in this case.
 
-While prediction error and concentration uncertainty are comparable between the two models, the most important differences are between inter-individual uncertainty.  The inclusion of the covariates explains variation between individual pharmacokinetic parameters, hence the between patient variability $\sigma_{Cl}, \sigma_{t_{max}}$ and $\sigma_\alpha$ are smaller in the covariate model as opposed to the no covariate model.  This uncertainty effects decision making, as the no covariate model is more uncertain about the pharmacokinetics of new patients.
+While prediction error and concentration uncertainty are comparable between the two models, the most important differences are between inter-individual uncertainty.  The inclusion of the covariates explains variation between individual pharmacokinetic parameters, hence the between patient variability $\sigma_{\mathit{Cl}}, \sigma_{t_{max}}$ and $\sigma_\alpha$ are smaller in the covariate model as opposed to the no covariate model.  This uncertainty effects decision making, as the no covariate model is more uncertain about the pharmacokinetics of new patients.
