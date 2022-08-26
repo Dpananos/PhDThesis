@@ -75,7 +75,7 @@ t_{\mathit{max}, j} \vert \mu_t, \sigma_t \sim \operatorname{LogNormal}(\mu_t, \
 Estimates of the time to max concentration for apixaban place the population median $t_{\mathit{max}}$ near 3.3 hours post dose  \cite{Byon2019-gf}. Assuming the median and the mean are similar, this provides information for $\mu_t$ and so we use specify 
 
 \begin{equation}\label{eq:eq_10}
- p(\mu_t) = \operatorname{Normal}(\log(3.3), 0.25)
+ p(\mu_t) = \operatorname{Normal}(\ln(3.3), 0.25)
 \end{equation}
 
 \noindent The standard deviation of the prior for $\mu_t$ was selected via prior predictive checks in which profiles are drawn and priors are assessed as realistic or not.  We choose to err on the side of caution and inflate the uncertainty in this estimate to account for population differences between the measured patients in the data and the patients used in studies to determine the estimates of $t_{\mathit{max}}$. The population variability of $t_{\mathit{max}}$ was modeled as
@@ -87,7 +87,7 @@ p(\sigma_t) = \operatorname{Gamma}(10,100)
 \noindent Using these priors, we recover similar median, min, and max $t_{\mathit{max}}$ values as reported by \cite{Byon2019-gf}. Similarly, we model the population mean and variability for the clearance rate as
 
 \begin{align}
-	p(\mu_{\mathit{Cl}}) &= \operatorname{Normal}(\log(3.3), 0.15) \label{eq:eq_12} \\
+	p(\mu_{\mathit{Cl}}) &= \operatorname{Normal}(\ln(3.3), 0.15) \label{eq:eq_12} \\
 	p(\sigma_{\mathit{Cl}}) &= \operatorname{Gamma}(15, 100) \label{eq:eq_13}
 \end{align}
 

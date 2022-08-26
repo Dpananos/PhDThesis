@@ -8,20 +8,20 @@ The focus of the first section is differential equations, specifically first ord
 
 \subsection{Initial Value Problems, Existence, and Uniqueness}
 
-A differential equation relates an unknown function $y(t)$ to its derivative $y'(t)$ through a known function $f(t, y(t), \theta)$ \cite{morris1963ordinary}. Here, the function $f$ may depend on parameters, $\theta$ which can be known exactly or require estimation from data. For economy of thought, dependence of $f$ on $\theta$ is implied though not always explicitly stated. A differential equation is called \textit{ordinary} (refereed to as an \textit{ODE}) if $y$ is a function of a single scalar variable $t$, which for the purposes of this thesis can be considered to be time. An ODE together with an \textit{initial condition} -- a value of $y$ at some point $t_0$ in its domain --  is refereed to as an \textit{initial value problem} (or sometimes an \textit{IVP}), 
+A differential equation relates an unknown function $y(t)$ to its derivative $y'(t)$ through a known function $f(t, y(t), \theta)$ \cite{morris1963ordinary}. Here, the function $f$ may depend on parameters, $\theta$ which can be known exactly or require estimation from data. For economy of thought, dependence of $f$ on $\theta$ is implied though not always explicitly stated. A differential equation is called \textit{ordinary} (referred to as an \textit{ODE}) if $y$ is a function of a single scalar variable $t$, which for the purposes of this thesis can be considered to be time. An ODE together with an \textit{initial condition} -- a value of $y$ at some point $t_0$ in its domain --  is referred to as an \textit{initial value problem} (or sometimes an \textit{IVP}), 
 
 \begin{equation}\label{IVP}
 	\dfrac{dy(t)}{dt} = f(t, y(t), \theta) \quad y(t_0) = y_0
 \end{equation}
 
-Here, $y(t)$ could represent the concentration of a drug in the blood as a function of time, $t_0$ could be some time after the drug was ingested, and $y_0$ could be the concentration at $t_0$.  If the function $f$ can be written as $f(t, y(t)) = Q(t) - I(t) y(t)$, then we call the ODE a \textit{first order linear ordinary differential equation}.  Often, the differential equation is written with all terms involving $y(t)$ on one side, such as $dy/dt + I(t) y(t) = Q(t)$, in which case $Q(t)$ is refereed to as the \textit{forcing function}.  The equation is called first order because the highest order derivative is of order one, and the linear because the equation is a linear function of the derivative.  Linear equations are of particular interest, as they are easily solved analytically and are sufficient to model pharmacokinetic under certain assumptions of how the body acts on the drug.
+\noindent Here, $y(t)$ could represent the concentration of a drug in the blood as a function of time, $t_0$ could be some time after the drug was ingested, and $y_0$ could be the concentration at $t_0$.  If the function $f$ can be written as $f(t, y(t)) = Q(t) - I(t) y(t)$, then we call the ODE a \textit{first order linear ordinary differential equation}.  Often, the differential equation is written with all terms involving $y(t)$ on one side, such as $dy/dt + I(t) y(t) = Q(t)$, in which case $Q(t)$ is referred to as the \textit{forcing function}.  First order linear equations are of particular interest, as they are easily solved analytically and are sufficient to model pharmacokinetic under certain assumptions of how the body acts on the drug.
 
 %\todo[inline]{why is linear relevant here? - foreshadow that they will be sufficient for compartment models?}
 
 Not every IVP which can be written down has a solution, but there do exist general criteria for existence and uniqueness to a solution for \cref{IVP}.  The only requirements are that a) $f$ be continuous in $t$, and b) $f$ be Lipschitz continuous in $y$.  Under these conditions, Picard–Lindelöf theorem \cite{morris1963ordinary} guarantees a unique solution exists.
 
 \begin{theorem}[\emph{Picard–Lindelöf Theorem}]
-	Let $D \subseteq \mathbb{R} \times \mathbb{R}^n$ be a closed rectangle with $(t_0, y_0) \in D$, and let $f : D \to \mathbb{R}^n$ be a function that is continuous in $t$ and Lipschitz continuous in $y$.  Then, there exists some $\epsilon>0$ such that \cref{IVP} has a unique solution $y(t)$ in an interval centred at $t_0$ with radius $epsilon$.
+	Let $D \subseteq \mathbb{R} \times \mathbb{R}^n$ be a closed rectangle with $(t_0, y_0) \in D$, and let $f : D \to \mathbb{R}^n$ be a function that is continuous in $t$ and Lipschitz continuous in $y$.  Then, there exists some $\epsilon>0$ such that \cref{IVP} has a unique solution $y(t)$ in an interval centred at $t_0$ with radius $\epsilon$.
 \end{theorem}
 
 \noindent This thesis is mainly concerned with functions $f$ which are continuous in $y$.  If a function is continuous in a variable, then it is also Lipschitz continuous in that variable.  Hence, all IVPs for which we concern ourselves with have a unique solution. 
@@ -36,7 +36,7 @@ So long as the function $f(t, y(t)) = Q(t) - I(t) y(t)$ satisfies the conditions
 	P(t)\dfrac{dy}{dt} + P(t)I(t)y(t) &= P(t)Q(t) 
 \end{align}
 
-\noindent  The form of $P(t)$ implies $P'(t) = P(t)I(t)$,and so the left hand side of the differential equation looks as if it is the result of the product rule
+\noindent  The form of $P(t)$ implies $P'(t) = P(t)I(t)$, and so the left hand side of the differential equation looks as if it is the result of the product rule
 
 \begin{align}
  \dfrac{d}{dt} \Big( P(t)y(t) \Big) &= P(t)\dfrac{dy}{dt} + P(t)I(t)y(t) \\
@@ -49,7 +49,7 @@ So long as the function $f(t, y(t)) = Q(t) - I(t) y(t)$ satisfies the conditions
 	y(t) = \dfrac{\int Q(t) P(t)\, dt}{P(t)},
 \end{equation}
 
-\noindent wherein the constant of integration from the numerator is determined by using the initial condition. Our general takeaway is that so long as $f$ satisfies the conditions s for the Picard–Lindelöf theorem, and $Q(t)$ and $I(t)$ are not sufficiently complicated so as to prevent integration, then the solution to \cref{IVP} can be written down exactly.
+\noindent wherein the constant of integration from the numerator is determined by using the initial condition. The general takeaway is that so long as $f$ satisfies the conditions for the Picard–Lindelöf theorem, and $Q(t)$ and $I(t)$ are not sufficiently complicated so as to prevent integration, then the solution to \cref{IVP} can be written down exactly.
 
 
 \subsection{Non-dimensionalization}

@@ -2,7 +2,7 @@
 
 Pharmacokinetics is the the study of drug absorption, distribution, metabolism, and elimination of a drug \cite{rosenbaum2016basic}.  Less formally,  it is the study of how drugs enter the body, distribute throughout the body, and leave the body, as well as the rates at which these phenomena occur.  Generally, modelling the time course of drug concentrations in various body compartments (e.g. the blood) is of central interest.  Understanding the time course of concentrations is important to pharmaceutical therapy as concentrations which are too high can lead to toxicity, while concentrations which are too low can lead to ineffectiveness.  Pharmacokinetic models are thus a tool to reason about the time course of drug concentrations, and in turn the drug's effectiveness or toxicity.
 
-In this section, I review the basics of pharmacokinetic modelling and introduce the central pharmacokinetic model used in this research, describing the model using a differential equation.  Population pharmacokinetic models are discussed as a generalization of the one compartment pharmacokinetic model
+In this section, I review the basics of pharmacokinetic modelling and introduce the central pharmacokinetic model used in this research, describing the model using a differential equation.  Population pharmacokinetic models are discussed as a generalization of the one compartment pharmacokinetic model.
 
 
 \subsection{A One Compartment Pharmacokinetic Model} 
@@ -54,7 +54,7 @@ To extend \cref{pkpd_ode} to account for multiple doses, Heaviside step function
 \noindent Here, $H(t)$ is the Heaviside step function.  This ODE can be solved by applying The Laplace Transform.  The solution is 
 
 \begin{align*}
-	C(t) &=  C_0(t) + H(t-t_1)C_0(t-t_1)\\
+	C(t) &=  C_0(t) + H(t-t_1)C_0(t-t_1) \>, \\
 	C_0(t) &= \dfrac{F D}{V}\dfrac{k_a}{k_e - k_a}\Big(\exp(-k_at) - \exp(-k_et)\Big)
 \end{align*}
 
