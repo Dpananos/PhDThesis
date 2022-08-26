@@ -1,0 +1,144 @@
+---
+title: "Bayesian Pharmacokinetic Models for Inference and Optimal Sequential Decision Making"
+subtitle: "with Applications in Personalized Medicine" 
+fontsize: 10pt
+author: "Demetri Pananos M.MATH" 
+date: "October 19 2022"
+output:
+  beamer_presentation:
+    slide_level: 3
+    keep_tex: true
+institute: Department of Epidemiology and Biostatistics
+header-includes: 
+  - \usepackage{subfig}
+  - \usepackage{graphicx}
+  - \usepackage{booktabs}
+  - \usepackage{setspace}
+  - \usepackage{xcolor}
+  - \usepackage{multicol}
+  - \usepackage{tikz}
+  - \usepackage{bm}
+  - \definecolor{uwo-purple}{HTML}{4F2683}
+  - \definecolor{uwo-gray}{HTML}{807F83}
+  - \usecolortheme[named=uwo-purple]{structure}
+  - \setbeamertemplate{headline}{\hfill\includegraphics[width=2.5cm]{Figures/UWO_Horizontal_Full.png}\hspace{0.2cm}\vspace{-.8cm}}
+  # set options for blocks 
+  - \setbeamertemplate{blocks}[rounded]
+  - \setbeamercolor{block title alerted}{fg=white, bg=uwo-purple} 
+  # cahnge alert block colours 
+  - \setbeamercolor{block body alerted}{bg=uwo-gray!25}
+ # - \setbeamertemplate{footline}{\insertframenumber} # gets n/N 
+  - \usepackage{threeparttablex}
+  - \makeatletter
+  - \setbeamertemplate{footline} { \tikz[overlay]{\node at(12,.25){\thepage};} }
+  - \makeatother
+  
+# to get logo bottom right corner; works with Rochester theme
+  # - \logo{\includegraphics[width=.1\textwidth]{./Figures/uwo-purple.png}}
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+### Land Acknowledgement{.noframenumbering}
+
+
+Add here. 
+
+
+
+
+### A Slide w Figure 
+
+-   A point 
+  
+      + A subpoint  
+
+
+A bottom slide figure
+\vfill
+\begin{figure}[hbp]
+\centering
+\includegraphics[height=0.2\textheight]{./Figures/UWO_Horizontal_Full.png}
+\end{figure}
+
+
+
+### A Slide w Footnote    
+
+
+-   Point 
+
+    1.  Point 1   
+    2.  Point 2 
+
+-   A footnote$^1$  
+
+
+\vfill
+
+\tiny 1. Reference etc 
+
+
+## A Section Header {.noframenumbering}
+
+I didn't like the regular ones so made a different one below
+
+### 
+\section{A section header}
+
+\begin{columns}
+
+\begin{column}{0.4\textwidth}
+\vfill
+\begin{figure}[hbp]
+\hfill \includegraphics[width = 0.7\textwidth]{./Figures/UWO_Horizontal_Full.png}
+\end{figure}
+\end{column}
+
+\begin{column}{0.6\textwidth}
+\vfill
+\footnotesize Can add some text beside the figure  
+\end{column}
+
+\end{columns}
+
+
+
+### Some blocks 
+  
+<!-- Note alertblock formatting has been set differently in the header.    -->
+    
+\begin{block}{\textbf{Block title}}
+Some content
+\end{block}
+
+\begin{block}{\textbf{Block title}}
+Some content
+\end{block}
+
+
+\begin{block}{\textbf{Block title w Fig}}
+\begin{columns}[onlytextwidth]
+    \begin{column}{0.5\textwidth}
+        List header text 
+        \begin{itemize}
+          \item []
+          \item point 1 
+          \item point 2
+          \item point 3 
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+          \centering
+           \includegraphics[width=0.7\textwidth]{./Figures/UWO_Horizontal_Full.png}\\  
+    \end{column}    
+\end{columns}
+\end{block}   
+
+\hfill \tiny Ref for the fig 
+

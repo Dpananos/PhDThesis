@@ -1,0 +1,51 @@
+---
+title: "Bayesian Pharmacokinetic Models for Inference and Optimal Sequential Decision Making"
+subtitle: "with Applications in Personalized Medicine" 
+fontsize: 10pt
+author: "Demetri Pananos M.Math" 
+date: "October 19 2022"
+output:
+  beamer_presentation:
+    slide_level: 3
+    keep_tex: false
+institute: Department of Epidemiology and Biostatistics
+header-includes: 
+  - \usepackage{subfig}
+  - \usepackage{graphicx}
+  - \usepackage{booktabs}
+  - \usepackage{setspace}
+  - \usepackage{xcolor}
+  - \usepackage{multicol}
+  - \usepackage{tikz}
+  - \usepackage{bm}
+  - \definecolor{uwo-purple}{HTML}{4F2683}
+  - \definecolor{uwo-gray}{HTML}{807F83}
+  - \usecolortheme[named=uwo-purple]{structure}
+  - \setbeamertemplate{headline}{\hfill\includegraphics[width=2.5cm]{Figures/UWO_Horizontal_Full.png}\hspace{0.2cm}\vspace{-.8cm}}
+  # set options for blocks 
+  - \setbeamertemplate{blocks}[rounded]
+  - \setbeamercolor{block title alerted}{fg=white, bg=uwo-purple} 
+  # cahnge alert block colours 
+  - \setbeamercolor{block body alerted}{bg=uwo-gray!25}
+ # - \setbeamertemplate{footline}{\insertframenumber} # gets n/N 
+  - \usepackage{threeparttablex}
+  - \makeatletter
+  - \setbeamertemplate{footline} { \tikz[overlay]{\node at(12,.25){\thepage};} }
+  - \makeatother
+  
+# to get logo bottom right corner; works with Rochester theme
+  # - \logo{\includegraphics[width=.1\textwidth]{./Figures/uwo-purple.png}}
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+### Motivation
+
+* Different people react differently to the same drug, even if they match on important variables.  Sometimes, this variation can be very big.
+ 
+* Personalized medicine is a response to this variation
+
