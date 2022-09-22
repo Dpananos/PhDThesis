@@ -4,6 +4,7 @@ subtitle: "with Applications in Personalized Medicine"
 fontsize: 10pt
 author: "Demetri Pananos M.Math" 
 date: "October 19 2022"
+bibliography: "thesis_bib.bib"
 output:
   beamer_presentation:
     slide_level: 3
@@ -35,7 +36,6 @@ header-includes:
   
 # to get logo bottom right corner; works with Rochester theme
   # - \logo{\includegraphics[width=.1\textwidth]{./Figures/uwo-purple.png}}
-  
 ---
 
 ```{r setup, include=FALSE}
@@ -45,7 +45,27 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Motivation
 
-* Different people react differently to the same drug, even if they match on important variables.  Sometimes, this variation can be very big.
+* Different people react differently to the same drug, even if they match on important variables. Patients can have:
+
+  * Heightened response ($\to$ toxicity)
+  * Lowered response ($\to$ inefficacy)
  
 * Personalized medicine is a response to this variation
 
+### Personalized Medicine
+
+*Personalized Medicine (PM)*: Application of genomic, demographic, and lifestyle factors as predictors of disease risk and individualization of drug therapy [@morse2015personalized].
+
+Morse and Kim identify 4 goals of PM:
+
+  1) Identify drugs for which excess variation in response is key issue to treatment
+  2) **Identify factors driving this variation**
+  3) **"Right patient, right drug, right amount, right time"**
+  4) Aid in prevention of adverse events associated with said drugs
+
+
+Thesis Goal: Develop methodology \textcolor{uwo-purple}{2) and 3)}.
+
+### Pharmacokinetics (PK)
+
+### References

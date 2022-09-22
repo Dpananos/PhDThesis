@@ -1,0 +1,2115 @@
+
+@article{chakraborty_dynamic_2014,
+	title = {Dynamic {Treatment} {Regimes}},
+	volume = {1},
+	issn = {2326-8298},
+	url = {https://journals.scholarsportal.info/details/23268298/v1inone/447_dtr.xml},
+	doi = {10.1146/annurev-statistics-022513-115553},
+	abstract = {A dynamic treatment regime consists of a sequence of decision rules, one per stage of intervention, that dictate how to individualize treatments to patients, based on evolving treatment and covariate history. These regimes are particularly useful for managing chronic disorders and fit well into the larger paradigm of personalized medicine. They provide one way to operationalize a clinical decision support system. Statistics plays a key role in the construction of evidence-based dynamic treatment regimes—informing the best study design as well as efficient estimation and valid inference. Owing to the many novel methodological challenges this area offers, it has been growing in popularity among statisticians in recent years. In this article, we review the key developments in this exciting field of research. In particular, we discuss the sequential multiple assignment randomized trial designs, estimation techniques like Q-learning and marginal structural models, and several inference techniques designed to address the associated nonstandard asymptotics. We reference software whenever available. We also outline some important future directions.},
+	urldate = {2022-05-21},
+	journal = {Annual Review of Statistics and Its Application},
+	author = {Chakraborty, Bibhas and Murphy, Susan A.},
+	year = {2014},
+	note = {Publisher: Annual Reviews},
+	keywords = {dynamic treatment regime, nonregularity, Q-learning, reinforcement learning, sequential randomization},
+	pages = {447--464},
+	file = {Scholars Portal Full Text PDF:/Users/demetripananos/Zotero/storage/MRVPW6FV/Chakraborty and Murphy - 2014 - Dynamic Treatment Regimes.pdf:application/pdf},
+}
+
+
+ ---------------------------------
+|				        Background				|
+ ---------------------------------
+ 
+-- Differential Equations
+
+
+@book{miller1982ordinary,
+	title={Ordinary differential equations},
+	author={Miller, Richard K and Michel, Anthony N},
+	year={1982},
+	publisher={Academic Press}
+}
+
+@article{holmes2009introduction,
+	title={Introduction to the foundations of applied mathematics},
+	author={Holmes, Mark H},
+	year={2009},
+	publisher={Springer}
+}
+
+@book{morris1963ordinary,
+	title={Ordinary Differential Equations: an elementary textbook for students of mathematics, engineering, and the sciences},
+	author={Morris. Tenenbaum and Pollard, Harry},
+	year={1963},
+	publisher={Dover Publications}
+}
+
+
+@article{corless2013graduate,
+	title={A graduate introduction to numerical methods},
+	author={Corless, Robert M and Fillion, Nicolas},
+	journal={AMC},
+	volume={10},
+	pages={12},
+	year={2013},
+	publisher={Springer}
+}
+
+@book{boyce2021elementary,
+	title={Elementary differential equations and boundary value problems},
+	author={Boyce, William E and DiPrima, Richard C and Meade, Douglas B},
+	year={2021},
+	publisher={John Wiley \& Sons}
+}
+-- Bayesian Statistics
+
+@book{gelman2013bayesian,
+	title={Bayesian data analysis},
+	author={Gelman, Andrew and Stern, Hal S and Carlin, John B and Dunson, David B and Vehtari, Aki and Rubin, Donald B},
+	year={2013},
+	publisher={Chapman and Hall/CRC}
+}
+
+@book{Bishop2006pattern,
+	author = {Bishop, Christopher M.},
+	title = {Pattern Recognition and Machine Learning (Information Science and Statistics)},
+	year = {2006},
+	isbn = {0387310738},
+	publisher = {Springer-Verlag},
+	address = {Berlin, Heidelberg},
+} 
+
+
+@book{koller2009probabilistic,
+	title={Probabilistic graphical models: principles and techniques},
+	author={Koller, Daphne and Friedman, Nir and Bach, Francis},
+	year={2009},
+	publisher={MIT press}
+}
+
+@book{murphy2012machine,
+	title={Machine learning: a probabilistic perspective},
+	author={Murphy, Kevin P},
+	year={2012},
+	publisher={MIT press}
+}
+
+@article{metropolis1949monte,
+	title={The monte carlo method},
+	author={Metropolis, Nicholas and Ulam, Stanislaw},
+	journal={Journal of the American statistical association},
+	volume={44},
+	number={247},
+	pages={335--341},
+	year={1949},
+	publisher={Taylor \& Francis}
+}
+
+
+
+@book{mcelreath2016statistical,
+	title={Statistical Rethinking: A Bayesian Course with Examples in R and Stan},
+	author={McElreath, Richard},
+	volume={122},
+	year={2016},
+	publisher={CRC Press}
+}
+
+@article{neal2011mcmc,
+	title={MCMC using Hamiltonian dynamics},
+	author={Neal, Radford},
+	journal={Handbook of Markov Chain Monte Carlo},
+	volume={2},
+	number={11},
+	pages={2},
+	year={2011}
+}
+
+@article{hoffman2014no,
+	title={{The No-U-turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo.}},
+	author={Hoffman, Matthew D and Gelman, Andrew},
+	journal={Journal of Machine Learning Research},
+	volume={15},
+	number={1},
+	pages={1593--1623},
+	year={2014}
+}
+
+@article{betancourt2017conceptual,
+	title={A conceptual introduction to Hamiltonian Monte Carlo},
+	author={Betancourt, Michael},
+	journal={arXiv preprint arXiv:1701.02434},
+	year={2017}
+}
+
+@article{livingstone2016geometric,
+	title={On the geometric ergodicity of {H}amiltonian Monte Carlo},
+	author={Livingstone, Samuel and Betancourt, Michael and Byrne, Simon and Girolami, Mark and others},
+	journal={Bernoulli},
+	volume={25},
+	number={4A},
+	pages={3109--3138},
+	year={2019},
+	publisher={Bernoulli Society for Mathematical Statistics and Probability}
+}
+
+@misc{betancourt2017robust,
+	title = {Robust statistical workflow with rstan},
+	howpublished = {\url{https://betanalpha.github.io/assets/case_studies/rstan_workflow.html#25_validating_a_fit_in_stan}},
+	note = {Accessed: 2019-01-31}
+}
+
+@article{kass1998markov,
+	title={Markov chain Monte Carlo in practice: a roundtable discussion},
+	author={Kass, Robert E and Carlin, Bradley P and Gelman, Andrew and Neal, Radford M},
+	journal={The American Statistician},
+	volume={52},
+	number={2},
+	pages={93--100},
+	year={1998},
+	publisher={Taylor \& Francis Group}
+}
+
+@article{betancourt2014geometric,
+	title={The Geometric Foundations of Hamiltonian Monte Carlo},
+	author={Betancourt, Michael and Byrne, Simon and Livingstone, Sam and Girolami, Mark},
+	journal={arXiv preprint arXiv:1410.5110},
+	year={2014},
+	publisher={Citeseer}
+}
+
+
+@article{betancourt2017geometric,
+	title={The geometric foundations of hamiltonian monte carlo},
+	author={Betancourt, Michael and Byrne, Simon and Livingstone, Sam and Girolami, Mark},
+	journal={Bernoulli},
+	volume={23},
+	number={4A},
+	pages={2257--2298},
+	year={2017},
+	publisher={Bernoulli Society for Mathematical Statistics and Probability}
+}
+
+@article{metropolis1953equation,
+	title={Equation of state calculations by fast computing machines},
+	author={Metropolis, Nicholas and Rosenbluth, Arianna W and Rosenbluth, Marshall N and Teller, Augusta H and Teller, Edward},
+	journal={The journal of chemical physics},
+	volume={21},
+	number={6},
+	pages={1087--1092},
+	year={1953},
+	publisher={American Institute of Physics}
+}
+
+@article{salvatier2016probabilistic,
+	title={Probabilistic programming in Python using PyMC3},
+	author={Salvatier, John and Wiecki, Thomas V and Fonnesbeck, Christopher},
+	journal={PeerJ Computer Science},
+	volume={2},
+	pages={e55},
+	year={2016},
+	publisher={PeerJ Inc.}
+}
+
+
+@article{geman1984stochastic,
+	title={Stochastic relaxation, Gibbs distributions, and the Bayesian restoration of images},
+	author={Geman, Stuart and Geman, Donald},
+	journal={IEEE Transactions on pattern analysis and machine intelligence},
+	number={6},
+	pages={721--741},
+	year={1984},
+	publisher={IEEE}
+}
+
+@article{duane1987hybrid,
+	title={Hybrid monte carlo},
+	author={Duane, Simon and Kennedy, Anthony D and Pendleton, Brian J and Roweth, Duncan},
+	journal={Physics letters B},
+	volume={195},
+	number={2},
+	pages={216--222},
+	year={1987},
+	publisher={Elsevier}
+}
+
+@article{ishwaran1999applications,
+	title={Applications of hybrid Monte Carlo to Bayesian generalized linear models: Quasicomplete separation and neural networks},
+	author={Ishwaran, Hemant},
+	journal={Journal of Computational and Graphical Statistics},
+	volume={8},
+	number={4},
+	pages={779--799},
+	year={1999},
+	publisher={Taylor \& Francis}
+}
+
+@inproceedings{schmidt2009function,
+	title={Function factorization using warped Gaussian processes},
+	author={Schmidt, Mikkel N},
+	booktitle={Proceedings of the 26th Annual International Conference on Machine Learning},
+	pages={921--928},
+	year={2009}
+}
+
+@book{mackay2003information,
+	title={Information theory, inference and learning algorithms},
+	author={MacKay, David JC and Mac Kay, David JC and others},
+	year={2003},
+	publisher={Cambridge university press}
+}
+
+@Misc{stan2012,
+	title = {Stan Modeling Language Users Guide and Reference Manual, Version 1.0.0},
+	author = {{Stan Development Team}},
+	year = {2012},
+	url = {http://mc-stan.org/},
+}
+
+@article{lunn2000winbugs,
+	title={WinBUGS-a Bayesian modelling framework: concepts, structure, and extensibility},
+	author={Lunn, David J and Thomas, Andrew and Best, Nicky and Spiegelhalter, David},
+	journal={Statistics and computing},
+	volume={10},
+	number={4},
+	pages={325--337},
+	year={2000},
+	publisher={Springer}
+}
+
+@inproceedings{plummer2003jags,
+	title={JAGS: A program for analysis of Bayesian graphical models using Gibbs sampling},
+	author={Plummer, Martyn and others},
+	booktitle={Proceedings of the 3rd international workshop on distributed statistical computing},
+	volume={124},
+	number={125.10},
+	pages={1--10},
+	year={2003},
+	organization={Vienna, Austria.}
+}
+
+
+-- Pharmacokientics
+
+@article{standing2017understanding,
+	title={Understanding and applying pharmacometric modelling and simulation in clinical practice and research},
+	author={Standing, Joseph F},
+	journal={British journal of clinical pharmacology},
+	volume={83},
+	number={2},
+	pages={247--254},
+	year={2017},
+	publisher={Wiley Online Library}
+}
+
+@book{rosenbaum2016basic,
+	title={Basic pharmacokinetics and pharmacodynamics: An integrated textbook and computer simulations, Secpnd Edition.},
+	author={Rosenbaum, Sara E},
+	year={2016},
+	publisher={John Wiley \& Sons}
+}
+
+
+@article{wakefield1992bayesian,
+	author = { Jon   Wakefield },
+	title = {The Bayesian Analysis of Population Pharmacokinetic Models},
+	journal = {Journal of the American Statistical Association},
+	volume = {91},
+	number = {433},
+	pages = {62-75},
+	year  = {1996},
+	publisher = {Taylor & Francis},
+	doi = {10.1080/01621459.1996.10476664},
+	
+	URL = { 
+	https://www.tandfonline.com/doi/abs/10.1080/01621459.1996.10476664
+	
+	}
+	
+}
+
+@article{mould2013basic,
+	title={Basic concepts in population modeling, simulation, and model-based drug development—part 2: introduction to pharmacokinetic modeling methods},
+	author={Mould, Diane R and Upton, Richard Neil},
+	journal={CPT: pharmacometrics \& systems pharmacology},
+	volume={2},
+	number={4},
+	pages={1--14},
+	year={2013},
+	publisher={Wiley Online Library}
+}
+
+
+@misc{noauthor_monolix_nodate,
+	title = {Monolix {2018R1} {User} guide},
+	url = {https://monolix.lixoft.com/single-page/},
+	urldate = {2022-06-04},
+}
+
+@article{rackauckas2020accelerated,
+	title={Accelerated predictive healthcare analytics with pumas, a high performance pharmaceutical modeling and simulation platform},
+	author={Rackauckas, Chris and Ma, Yingbo and Noack, Andreas and Dixit, Vaibhav and Mogensen, Patrick Kofod and Byrne, Simon and Maddhashiya, Shubham and Santiago Calder{\'o}n, Jos{\'e} Bayo{\'a}n and Nyberg, Joakim and Gobburu, Jogarao VS and others},
+	year={2020}
+}
+
+@book{owen2014introduction,
+	title={Introduction to population pharmacokinetic/pharmacodynamic analysis with nonlinear mixed effects models},
+	author={Owen, Joel S and Fiedler-Kelly, Jill},
+	year={2014},
+	publisher={John Wiley \& Sons}
+}
+
+-- Reinforcement learning
+
+@book{sutton2011reinforcement,
+	title={Reinforcement learning: An introduction},
+	author={Sutton, Richard S and Barto, Andrew G},
+	year={2011},
+	publisher={Cambridge, MA: MIT Press}
+}
+
+@inbook{lizotte2017reinforcement,
+	author = {Lizotte, Daniel J.},
+	publisher = {Wiley},
+	isbn = {9781118445112},
+	title = {Wiley StatsRef: Statistics Reference Online},
+	chapter = {Reinforcement Learning},
+	year = {2017}
+}
+
+
+
+ ---------------------------------
+|				        lit Review     						|
+---------------------------------
+
+
+@article{brooks_population_2016,
+	title = {Population {Pharmacokinetic} {Modelling} and {Bayesian} {Estimation} of {Tacrolimus} {Exposure}: {Is} this {Clinically} {Useful} for {Dosage} {Prediction} {Yet}?},
+	volume = {55},
+	issn = {0312-5963},
+	shorttitle = {Population {Pharmacokinetic} {Modelling} and {Bayesian} {Estimation} of {Tacrolimus} {Exposure}},
+	url = {https://journals.scholarsportal.info/details/03125963/v55i0011/1295_ppmabecufdpy.xml},
+	doi = {10.1007/s40262-016-0396-1},
+	abstract = {Abstract This review summarises the available data on the population pharmacokinetics of tacrolimus and use ofMaximum A Posteriori(MAP) Bayesian estimation to predict tacrolimus exposure and subsequent drug dosage requirements in solid organ transplant recipients. A literature search was conducted which identified 56 studies that assessed the population pharmacokinetics of tacrolimus based on non-linear mixed effects modelling and 14 studies that assessed the predictive performance of MAP Bayesian estimation of tacrolimus area under the plasma concentration–time curve (AUC) from time zero to the end of the dosing interval. Studies were most commonly undertaken in adult kidney transplant recipients and investigated the immediate-release formulation. The pharmacokinetics of tacrolimus were described using one- and two-compartment disposition models with first-order elimination in 61 and 39 \% of population pharmacokinetic studies, respectively. Variability in tacrolimus whole blood apparent clearance amongst transplant recipients was most commonly related to cytochrome P450 (CYP)3A5genotype (rs776746), patient haematocrit, patient weight, post-operative day and hepatic function (aspartate aminotransferase). Bias, as calculated using estimation of the mean predictive error (MPE) or mean percentage predictive error (MPPE) associated with prediction of the tacrolimus AUC, ranged from −15 to 9.95 \%. Imprecision, as calculated through estimation of the root mean squared error (RMSE) or mean absolute prediction error (MAPE), was generally much poorer overall, ranging from 0.81 to 40.r2values ranged from 0.27 to 0.99 \%. Of the Bayesian forecasting strategies that used two or more tacrolimus concentrations, 71 \% showed bias of 10 \% or less; however, only 39 \% showed imprecision of 10 \% or less. The combination of sampling times at 0, 1 and 3 h post-dose consistently showed bias and imprecision values of less than 15 \%. No studies to date have examined how closely MAP Bayesian dosage predictions of tacrolimus actually achieve target AUC by comparing dosage prediction from one occasion with a future measured AUC. Further research involving larger prospective studies including more diverse transplant groups and the extended-release formulation of tacrolimus is needed. Several questions require further examination, including the following. Do Bayesian forecasting methods currently use the most appropriate population pharmacokinetic models and optimal sampling times for dosage prediction? Does Bayesian forecasting perform well when applied to make dosage predictions on a subsequent occasion? How can Bayesian forecasting be simplified for use in the clinical setting? And, are patient outcomes improved with dosage prediction based on Bayesian forecasting compared with trough concentration monitoring?},
+	number = {11},
+	urldate = {2022-05-19},
+	journal = {Clinical Pharmacokinetics},
+	author = {Brooks, Emily and Tett, Susan E. and Isbel, Nicole M. and Staatz, Christine E.},
+	year = {2016},
+	note = {Publisher: Springer International Publishing},
+	keywords = {PKPD, MAP},
+	pages = {1295--1335},
+	file = {Scholars Portal Full Text PDF:/Users/demetri/Zotero/storage/RER3KHQC/Brooks et al. - 2016 - Population Pharmacokinetic Modelling and Bayesian .pdf:application/pdf},
+}
+
+@article{nyberg_methods_2015,
+	title = {Methods and software tools for design evaluation in population pharmacokinetics–pharmacodynamics studies},
+	volume = {79},
+	issn = {1365-2125},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/bcp.12352},
+	doi = {10.1111/bcp.12352},
+	abstract = {Population pharmacokinetic (PK)–pharmacodynamic (PKPD) models are increasingly used in drug development and in academic research; hence, designing efficient studies is an important task. Following the first theoretical work on optimal design for nonlinear mixed-effects models, this research theme has grown rapidly. There are now several different software tools that implement an evaluation of the Fisher information matrix for population PKPD. We compared and evaluated the following five software tools: PFIM, PkStaMp, PopDes, PopED and POPT. The comparisons were performed using two models, a simple-one compartment warfarin PK model and a more complex PKPD model for pegylated interferon, with data on both concentration and response of viral load of hepatitis C virus. The results of the software were compared in terms of the standard error (SE) values of the parameters predicted from the software and the empirical SE values obtained via replicated clinical trial simulation and estimation. For the warfarin PK model and the pegylated interferon PKPD model, all software gave similar results. Interestingly, it was seen, for all software, that the simpler approximation to the Fisher information matrix, using the block diagonal matrix, provided predicted SE values that were closer to the empirical SE values than when the more complicated approximation was used (the full matrix). For most PKPD models, using any of the available software tools will provide meaningful results, avoiding cumbersome simulation and allowing design optimization.},
+	language = {en},
+	number = {1},
+	urldate = {2022-05-18},
+	journal = {British Journal of Clinical Pharmacology},
+	author = {Nyberg, Joakim and Bazzoli, Caroline and Ogungbenro, Kay and Aliev, Alexander and Leonov, Sergei and Duffull, Stephen and Hooker, Andrew C. and Mentré, France},
+	year = {2015},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/bcp.12352},
+	keywords = {Bayesian, PKPD, NONMEM},
+	pages = {6--17},
+	file = {Full Text PDF:/Users/demetri/Zotero/storage/PLSNAMX8/Nyberg et al. - 2015 - Methods and software tools for design evaluation i.pdf:application/pdf;Snapshot:/Users/demetri/Zotero/storage/H2TP5AA4/bcp.html:text/html},
+}
+
+@article{byon_population_2017,
+	title = {Population {Pharmacokinetics}, {Pharmacodynamics}, and {Exploratory} {Exposure}–{Response} {Analyses} of {Apixaban} in {Subjects} {Treated} for {Venous} {Thromboembolism}},
+	volume = {6},
+	issn = {2163-8306},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/psp4.12184},
+	doi = {10.1002/psp4.12184},
+	abstract = {Apixaban is approved for treatment of venous thromboembolism (VTE) and prevention of recurrence. Population pharmacokinetics, pharmacokinetics–pharmacodynamics (anti-FXa activity), and exposure–response (binary bleeding and thromboembolic endpoints) of apixaban in VTE treatment subjects were characterized using data from phase I–III studies. Apixaban pharmacokinetics were adequately characterized by a two-compartment model with first-order absorption and elimination. Age, sex, and Asian race had less than 25\% impact on exposure, while subjects with severe renal impairment were predicted to have 56\% higher exposure than the reference subject (60-year-old non-Asian male weighing 85 kg with creatinine clearance of 100 mL/min). The relationship between apixaban concentration and anti-FXa activity was described by a linear model with a slope estimate of 0.0159 IU/ng. The number of subjects with either a bleeding or thromboembolic event was small, and no statistically significant relationship between apixaban exposure and clinical endpoints could be discerned with a logistic regression analysis.},
+	language = {en},
+	number = {5},
+	urldate = {2022-05-18},
+	journal = {CPT: Pharmacometrics \& Systems Pharmacology},
+	author = {Byon, W and Sweeney, K and Frost, C and Boyd, Ra},
+	year = {2017},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/psp4.12184},
+	keywords = {Apixaban, PKPD},
+	pages = {340--349},
+	file = {Full Text PDF:/Users/demetri/Zotero/storage/NTAP52EZ/Byon et al. - 2017 - Population Pharmacokinetics, Pharmacodynamics, and.pdf:application/pdf;Snapshot:/Users/demetri/Zotero/storage/LS6CBH2X/psp4.html:text/html},
+}
+
+@article{upreti_effect_2013,
+	title = {Effect of extremes of body weight on the pharmacokinetics, pharmacodynamics, safety and tolerability of apixaban in healthy subjects},
+	volume = {76},
+	issn = {1365-2125},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/bcp.12114},
+	doi = {10.1111/bcp.12114},
+	abstract = {Aim Apixaban is an oral, direct, factor-Xa inhibitor approved for thromboprophylaxis in patients who have undergone elective hip or knee replacement surgery and for prevention of stroke and systemic embolism in patients with non-valvular atrial fibrillation. This open label, parallel group study investigated effects of extremes of body weight on apixaban pharmacokinetics, pharmacodynamics, safety and tolerability. Method Fifty-four healthy subjects were enrolled [18 each into low (≤50 kg), reference (65–85 kg) and high (≥120 kg) body weight groups]. Following administration of a single oral dose of 10 mg apixaban, plasma and urine samples were collected for determination of apixaban pharmacokinetics and anti-factor Xa activity. Adverse events, vital signs and laboratory assessments were monitored. Results Compared with the reference body weight group, low body weight had approximately 27\% [90\% confidence interval (CI): 8–51\%] and 20\% (90\% CI: 11–42\%) higher apixaban maximum observed plasma concentration (Cmax) and area under the concentration–time curve extrapolated to infinity (AUC(0,∞)), respectively, and high body weight had approximately 31\% (90\% CI: 18–41\%) and 23\% (90\% CI: 9–35\%) lower apixaban Cmax and AUC(0,∞), respectively. Apixaban renal clearance was similar across the weight groups. Plasma anti-factor Xa activity showed a direct, linear relationship with apixaban plasma concentration, regardless of body weight group. Apixaban was well tolerated in this study. Conclusion The modest change in apixaban exposure is unlikely to require dose adjustment for apixaban based on body weight alone. However, caution is warranted in the presence of additional factors (such as severe renal impairment) that could increase apixaban exposure.},
+	language = {en},
+	number = {6},
+	urldate = {2022-05-18},
+	journal = {British Journal of Clinical Pharmacology},
+	author = {Upreti, Vijay V. and Wang, Jessie and Barrett, Yu Chen and Byon, Wonkyung and Boyd, Rebecca A. and Pursley, Janice and LaCreta, Frank P. and Frost, Charles E.},
+	year = {2013},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/bcp.12114},
+	keywords = {apixaban, PKPD},
+	pages = {908--916},
+	file = {Full Text PDF:/Users/demetri/Zotero/storage/5W6GGJ6I/Upreti et al. - 2013 - Effect of extremes of body weight on the pharmacok.pdf:application/pdf;Snapshot:/Users/demetri/Zotero/storage/WQARM6TL/bcp.html:text/html},
+}
+
+@article{sturkenboom_population_2021,
+	title = {Population {Pharmacokinetics} and {Bayesian} {Dose} {Adjustment} to {Advance} {TDM} of {Anti}-{TB} {Drugs}},
+	volume = {60},
+	issn = {0312-5963, 1179-1926},
+	url = {https://link.springer.com/10.1007/s40262-021-00997-0},
+	doi = {10.1007/s40262-021-00997-0},
+	abstract = {Tuberculosis (TB) is still the number one cause of death due to an infectious disease. Pharmacokinetics and pharmacodynamics of anti-TB drugs are key in the optimization of TB treatment and help to prevent slow response to treatment, acquired drug resistance, and adverse drug effects. The aim of this review was to provide an update on the pharmacokinetics and pharmacodynamics of anti-TB drugs and to show how population pharmacokinetics and Bayesian dose adjustment can be used to optimize treatment. We cover aspects on preclinical, clinical, and population pharmacokinetics of different drugs used for drug-susceptible TB and multidrug-resistant TB. Moreover, we include available data to support therapeutic drug monitoring of these drugs and known pharmacokinetic and pharmacodynamic targets that can be used for optimization of therapy. We have identified a wide range of population pharmacokinetic models for first- and second-line drugs used for TB, which included models built on NONMEM, Pmetrics, ADAPT, MWPharm, Monolix, Phoenix, and NPEM2 software. The first population models were built for isoniazid and rifampicin; however, in recent years, more data have emerged for both new anti-TB drugs, but also for defining targets of older anti-TB drugs. Since the introduction of therapeutic drug monitoring for TB over 3 decades ago, further development of therapeutic drug monitoring in TB next steps will again depend on academic and clinical initiatives. We recommend close collaboration between researchers and the World Health Organization to provide important guideline updates regarding therapeutic drug monitoring and pharmacokinetics/pharmacodynamics.},
+	language = {en},
+	number = {6},
+	urldate = {2022-05-18},
+	journal = {Clinical Pharmacokinetics},
+	author = {Sturkenboom, Marieke G. G. and Märtson, Anne-Grete and Svensson, Elin M. and Sloan, Derek J. and Dooley, Kelly E. and van den Elsen, Simone H. J. and Denti, Paolo and Peloquin, Charles A. and Aarnoutse, Rob E. and Alffenaar, Jan-Willem C.},
+	month = jun,
+	year = {2021},
+	keywords = {Bayesian, PKPD},
+	pages = {685--710},
+	file = {Sturkenboom et al. - 2021 - Population Pharmacokinetics and Bayesian Dose Adju.pdf:/Users/demetri/Zotero/storage/69D9JLH8/Sturkenboom et al. - 2021 - Population Pharmacokinetics and Bayesian Dose Adju.pdf:application/pdf},
+}
+
+@article{bauer_nonmem_2019,
+	title = {{NONMEM} {Tutorial} {Part} {II}: {Estimation} {Methods} and {Advanced} {Examples}},
+	volume = {8},
+	issn = {2163-8306},
+	shorttitle = {{NONMEM} {Tutorial} {Part} {II}},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/psp4.12422},
+	doi = {10.1002/psp4.12422},
+	abstract = {In this second tutorial on NONMEM, the examples of typical pharmacokinetic/pharmacodynamic modeling problems that occur in the pharmaceutical field will be presented, which the reader can use as a template for his or her own modeling endeavors. Each of the problems presented is challenging in some way, and the logic behind setting up each problem is discussed. Logical concepts of the problem itself as well as the technical aspect of how to set it up in NONMEM are described and demonstrated. The concepts behind the various estimation algorithms will first be described to allow the user a better understanding of how to use them.},
+	language = {en},
+	number = {8},
+	urldate = {2022-05-18},
+	journal = {CPT: Pharmacometrics \& Systems Pharmacology},
+	author = {Bauer, Robert J.},
+	year = {2019},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/psp4.12422},
+	keywords = {PKPD, NONMEM},
+	pages = {538--556},
+	file = {Full Text PDF:/Users/demetri/Zotero/storage/BLTYMESC/Bauer - 2019 - NONMEM Tutorial Part II Estimation Methods and Ad.pdf:application/pdf;Snapshot:/Users/demetri/Zotero/storage/AHBX85HZ/psp4.html:text/html},
+}
+
+@article{gulilat_drug_2020,
+	title = {Drug interactions and pharmacogenetic factors contribute to variation in apixaban concentration in atrial fibrillation patients in routine care},
+	volume = {49},
+	issn = {1573-742X},
+	url = {https://doi.org/10.1007/s11239-019-01962-2},
+	doi = {10.1007/s11239-019-01962-2},
+	abstract = {Factor Xa-inhibitor apixaban is an oral anticoagulant prescribed in atrial fibrillation (AF) for stroke prevention. Its pharmacokinetic profile is known to be affected by cytochrome P450 (CYP)3A metabolism, while it is also a substrate of the efflux transporters ATP-binding cassette (ABC)B1 (P-glycoprotein) and ABCG2 (breast cancer resistance protein, BCRP). In this study, we assessed the impact of interacting medication and pharmacogenetic variation to better explain apixaban concentration differences among 358 Caucasian AF patients. Genotyping (ABCG2, ABCB1, CYP3A4*22, CYP3A5*3) was performed by TaqMan assays, and apixaban quantified by mass spectrometry. The typical patient was on average 77.2 years old, 85.5 kg, and had a serum creatinine of 103.1 µmol/L. Concomitant amiodarone, an antiarrhythmic agent and moderate CYP3A/ABCB1 inhibitor, the impaired-function variant ABCG2 c.421C {\textgreater} A, and sex predicted higher apixaban concentrations when controlling for age, weight and serum creatinine (multivariate regression; R2 = 0.34). Our findings suggest that amiodarone and ABCG2 genotype contribute to interpatient apixaban variability beyond known clinical factors.},
+	language = {en},
+	number = {2},
+	urldate = {2022-05-28},
+	journal = {Journal of Thrombosis and Thrombolysis},
+	author = {Gulilat, Markus and Keller, Denise and Linton, Bradley and Pananos, A. Demetri and Lizotte, Daniel and Dresser, George K. and Alfonsi, Jeffrey and Tirona, Rommel G. and Kim, Richard B. and Schwarz, Ute I.},
+	month = feb,
+	year = {2020},
+	keywords = {Apixaban, Atrial fibrillation, Breast cancer resistance protein genotype, Concomitant amiodarone, Pharmacokinetics},
+	pages = {294--303},
+	file = {Full Text PDF:/Users/demetri/Zotero/storage/FVP97EAP/Gulilat et al. - 2020 - Drug interactions and pharmacogenetic factors cont.pdf:application/pdf},
+}
+
+@article{peretz_pharmacokinetics_2021,
+	title = {Pharmacokinetics of a once-daily tacrolimus formulation in first nations and caucasian liver transplant recipients},
+	volume = {34},
+	issn = {1432-2277},
+	url = {http://onlinelibrary.wiley.com/doi/abs/10.1111/tri.13997},
+	doi = {10.1111/tri.13997},
+	abstract = {Patient ethnicity may influence the pharmacokinetics (PK) of tacrolimus. Because the Canadian First Nations (FN) constitute a large and increasing segment of the liver transplant population, we undertook to determine whether PK differences exist for a once-daily, extended release formulation of tacrolimus (Advagraf) in FN compared to Caucasian (CAUC) liver transplant recipients. Following achievement of a steady state with Advagraf, blood samples were drawn at 0, 1, 2, 4, 6, 8 and 24 hours for whole blood tacrolimus levels by commercial immunoassay and CYP3A4 and CYP3A5 allele analyses were performed by polymerase chain reactions. Nineteen subjects participated in the study (7 FN and 12 CAUC). The FN cohort had significantly higher AUC (214 ± 48 versus 168 ± 25, P {\textless} 0.05), Cmax (16.7 ± 4.4 ng/ml versus 11.3 ± 1.7 ng/ml, P {\textless} 0.05), Cmin (6.1 ± 1.0 ng/ml versus 4.7 ± 0.5 ng/ml, P {\textless} 0.05) and shorter Tmax (1.6 ± 0.2 hours versus 2.8 ± 0.3 hours, P {\textless} 0.05) values than CAUCs. CYP3A4 genotypes were C/C in both cohorts, while the CYP3A5 *1/*3 allele was present in 2/5 FN and 0/9 CAUC. The results of this study indicate that once-daily, extended release Advagraf results in higher blood tacrolimus levels and shorter times to Cmax in FN compared to CAUC liver transplant recipients.},
+	language = {en},
+	number = {11},
+	urldate = {2022-05-28},
+	journal = {Transplant International},
+	author = {Peretz, David and On, Ngoc H. and Miller, Donald and Kim, Richard and Franklin, Carla and Dascal, Roman and Knowles, Cori and Minuk, Gerald Y.},
+	year = {2021},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/tri.13997},
+	keywords = {first nations, Indigenous, pharmacokinetics, tacrolimus, transplantation},
+	pages = {2266--2273},
+	file = {Full Text PDF:/Users/demetri/Zotero/storage/RVZP72LP/Peretz et al. - 2021 - Pharmacokinetics of a once-daily tacrolimus formul.pdf:application/pdf;Snapshot:/Users/demetri/Zotero/storage/FQGQJPMN/tri.html:text/html},
+}
+
+@article{gulilat_association_2022,
+	title = {Association of {Sex} {With} {Stroke} and {Bleeding} {Risk} of {Apixaban} and {Rivaroxaban} in {Elderly} {Atrial} {Fibrillation} {Patients} {Using} {Propensity} {Score} {Weights}},
+	volume = {4},
+	issn = {2589-790X},
+	url = {https://www.sciencedirect.com/science/article/pii/S2589790X21002353},
+	doi = {10.1016/j.cjco.2021.09.002},
+	abstract = {Background
+	Evidence from clinical trials suggests a differential effect of sex on the effectiveness and safety of direct oral anticoagulants (DOACs) for stroke prophylaxis in atrial fibrillation (AF).
+	Methods
+	This population-based cohort study examined the independent effect of sex on hemorrhage and ischemic stroke in 23,884 patients (55\% females; age ≥ 66 years) with AF starting apixaban or rivaroxaban treatment in Ontario, Canada. Patients were followed for 90 days after their DOAC prescription. Using female sex as the exposure of interest, differences in baseline characteristics were balanced between sexes using inverse probability weights based on propensity scores. Applying weighted modified Poisson regression, risk ratios (RRs) were estimated for major hemorrhage, ischemic stroke/systemic embolism/transient ischemic attack (hereafter stroke), myocardial infarction, and all-cause mortality, with males as a reference.
+	Results
+	Females were older, had higher predicted stroke risk (based on CHADS2 score), and had fewer comorbidities than did males. Males had a higher prevalence of coronary artery disease, diabetes, and cancer, and similar predicted bleeding risk (based on HAS-BLED score). After weighting, baseline characteristics were well balanced. The 90-day risks for hemorrhage (RR 0.96; 95\% confidence interval [CI] 0.80-1.15; P = 0.69) and stroke (RR 1.01; 95\% CI 0.86-1.19; P = 0.94) were similar between sexes, which remained true when assessing each DOAC separately by dosing regimen. Compared to males, females had a lower risk for myocardial infarction (RR 0.66; 95\% CI 0.52-0.84; P = 0.0008), and for all-cause mortality (RR 0.76; 95\% CI 0.67-0.87; P {\textless} 0.0001).
+	Conclusions
+	Our findings do not suggest an association of sex with the 90-day risk of hemorrhage or ischemic stroke in older AF patients prescribed apixaban or rivaroxaban.
+	Résumé
+	Contexte
+	Les données probantes issues des essais cliniques donnent à penser que l’efficacité et l’innocuité des anticoagulants oraux directs (AOD) utilisés pour la prophylaxie des accidents vasculaires cérébraux (AVC) dans un contexte de fibrillation auriculaire (FA) varient selon le sexe du patient.
+	Méthodologie
+	Cette étude de cohorte populationnelle a examiné l’effet indépendant du sexe sur l’hémorragie et l’AVC ischémique chez 23 884 patients (55 \% de femmes; âge ≥ 66 ans) atteints de FA ayant amorcé un traitement par l’apixaban ou le rivaroxaban en Ontario (Canada). Les patients ont été suivis pendant 90 jours après avoir reçu une ordonnance d’AOD. Le sexe féminin constituant l’exposition d’intérêt, les différences quant aux caractéristiques initiales ont été réparties de façon équilibrée entre les sexes au moyen d’une pondération par probabilité inverse reposant sur le score de propension. La régression de Poisson modifiée avec pondération a servi à estimer les rapports de risques (RR) d’hémorragie majeure, d’AVC ischémique/d’embolie systémique/d’accident ischémique transitoire (ci-après AVC), d’infarctus du myocarde et de mortalité toutes causes confondues, les hommes formant la population de référence.
+	Résultats
+	Les femmes étaient plus âgées, présentaient un risque prévu d’AVC plus élevé (d’après le score CHADS2) et présentaient moins de maladies concomitantes que les hommes. Les hommes présentaient une prévalence plus élevée de coronaropathie, de diabète et de cancer, et un risque prévu d’hémorragie similaire (compte tenu du score HAS-BLED). Après la pondération, la répartition des caractéristiques initiales des patients était bien équilibrée. Le risque d’hémorragie (RR : 0,96; intervalle de confiance [IC] à 95 \% : 0,80-1,15; P = 0,69) et d’AVC (RR : 1,01; IC à 95 \% : 0,86-1,19; P = 0,94) sur 90 jours était similaire pour les deux sexes, et il en était de même lorsque chaque AOD a été évalué séparément en fonction du schéma posologique. Par rapport aux hommes, les femmes présentaient un risque plus faible d’infarctus du myocarde (RR : 0,66; IC à 95 \% : 0,52-0,84; P = 0,0008) et de mortalité toutes causes confondues (RR : 0,76; IC à 95 \% : 0,67-0,87; P {\textless} 0,0001).
+	Conclusions
+	Nos résultats ne laissent présumer aucune association entre le sexe et le risque d’hémorragie ou d’AVC ischémique sur une période de 90 jours chez les patients âgés atteints de FA à qui l’apixaban ou le rivaroxaban sont prescrits.},
+	language = {en},
+	number = {1},
+	urldate = {2022-05-28},
+	journal = {CJC Open},
+	author = {Gulilat, Markus and Jandoc, Racquel and Jeyakumar, Nivethika and McArthur, Eric and Garg, Amit X. and Kim, Richard B. and Tirona, Rommel G. and Schwarz, Ute I.},
+	month = jan,
+	year = {2022},
+	pages = {56--64},
+	file = {Full Text:/Users/demetri/Zotero/storage/CDQZS5NX/Gulilat et al. - 2022 - Association of Sex With Stroke and Bleeding Risk o.pdf:application/pdf;ScienceDirect Snapshot:/Users/demetri/Zotero/storage/593GPNRK/S2589790X21002353.html:text/html},
+}
+
+@article{gibert_development_2022,
+	title = {Development of a {Bayesian} estimation tool to determine the optimal duration of apixaban discontinuation before a high-bleeding risk procedure},
+	volume = {n/a},
+	issn = {1472-8206},
+	url = {http://onlinelibrary.wiley.com/doi/abs/10.1111/fcp.12770},
+	doi = {10.1111/fcp.12770},
+	abstract = {Apixaban is a direct oral anticoagulant (DOAC). Many studies have shown that it shows high pharmacokinetic interindividual and intraindividual variability (IIV). The risk of hemorrhage is a major concern for patients treated with apixaban to undergo an operation or an invasive procedure. Due to this large pharmacokinetic variability, the current recommendations concerning the optimal duration of apixaban discontinuation before a high-bleeding risk procedure concern the general population and not a specific patient. The aim of this study was (1) to investigate by simulation the distribution of decay time of apixaban concentration and (2) to develop and validate an easy-to-use web tool to estimate the individual decay time of apixaban in a “real-life” situation. A systematic review of the literature was conducted to select the relevant pharmacokinetic models for the creation of the web tool. For each model, pharmacokinetic profiles were simulated and the time to reach concentrations below the threshold of 30 ng/ml (T30) was calculated. One of the selected models was chosen to perform a Bayesian estimation and predict the optimal duration of apixaban discontinuation before a high-bleeding risk procedure. All these results were concatenated into the PrevBleed application developed with the R Shiny package.},
+	language = {en},
+	number = {n/a},
+	urldate = {2022-05-28},
+	journal = {Fundamental \& Clinical Pharmacology},
+	author = {Gibert, Audrick and Lanoiselée, Julien and Janisset, Luc and Pernod, Gilles and Ollier, Edouard and Delavenne, Xavier},
+	month = feb,
+	year = {2022},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/fcp.12770},
+	keywords = {apixaban, Bayesian estimator, pharmacokinetic, simulation},
+	file = {Full Text PDF:/Users/demetri/Zotero/storage/7AW747GW/Gibert et al. - Development of a Bayesian estimation tool to deter.pdf:application/pdf;Snapshot:/Users/demetri/Zotero/storage/BUWI88FJ/fcp.html:text/html},
+}
+
+@article{bauer2011nonmem,
+	title={NONMEM users guide introduction to NONMEM 7.2. 0},
+	author={Bauer, Robert J},
+	journal={ICON Development Solutions Ellicott City, MD},
+	year={2011}
+}
+
+@article{ni2019bayesian,
+	title={Bayesian hierarchical varying-sparsity regression models with application to cancer proteogenomics},
+	author={Ni, Yang and Stingo, Francesco C and Ha, Min Jin and Akbani, Rehan and Baladandayuthapani, Veerabhadran},
+	journal={Journal of the American Statistical Association},
+	volume={114},
+	number={525},
+	pages={48--60},
+	year={2019},
+	publisher={Taylor \& Francis}
+}
+
+
+@article{armero2019two,
+	title={Two-stage Bayesian approach for GWAS with known genealogy},
+	author={Armero, Carmen and Cabras, Stefano and Castellanos, Mar{\'\i}a Eugenia and Quir{\'o}s, Alicia},
+	journal={Journal of Computational and Graphical Statistics},
+	volume={28},
+	number={1},
+	pages={197--204},
+	year={2019},
+	publisher={Taylor \& Francis}
+}
+
+@article{zhou2013polygenic,
+	title={Polygenic modeling with Bayesian sparse linear mixed models},
+	author={Zhou, Xiang and Carbonetto, Peter and Stephens, Matthew},
+	journal={PLoS genetics},
+	volume={9},
+	number={2},
+	pages={e1003264},
+	year={2013},
+	publisher={Public Library of Science San Francisco, USA}
+}
+
+@article{merli2009warfarin,
+	title={Warfarin: what are the clinical implications of an out-of-range-therapeutic international normalized ratio?},
+	author={Merli, Geno J and Tzanis, George},
+	journal={Journal of thrombosis and thrombolysis},
+	volume={27},
+	number={3},
+	pages={293--299},
+	year={2009},
+	publisher={Springer}
+}
+
+@article{juurlink2007drug,
+	title={Drug interactions with warfarin: what clinicians need to know},
+	author={Juurlink, David N},
+	journal={Cmaj},
+	volume={177},
+	number={4},
+	pages={369--371},
+	year={2007},
+	publisher={Can Med Assoc}
+}
+
+@article{carris2015feasibility,
+	title={Feasibility of Extended-interval Follow-up for Patients Receiving Warfarin},
+	author={Carris, Nicholas W and Spinelli, Alisa and Pierini, Danielle and Taylor, James R and Anderson, Katherine Vogel and Sando, Karen and Powell, Jason and Rosenberg, Eric I and Zumberg, Marc S and Smith, Steven M and others},
+	journal={Cardiovascular therapeutics},
+	volume={33},
+	number={3},
+	pages={98--103},
+	year={2015},
+	publisher={Wiley Online Library}
+}
+
+@article{holbrook2012evidence,
+	title={Evidence-based management of anticoagulant therapy: antithrombotic therapy and prevention of thrombosis: American College of Chest Physicians evidence-based clinical practice guidelines},
+	author={Holbrook, Anne and Schulman, Sam and Witt, Daniel M and Vandvik, Per Olav and Fish, Jason and Kovacs, Michael J and Svensson, Peter J and Veenstra, David L and Crowther, Mark and Guyatt, Gordon H},
+	journal={Chest},
+	volume={141},
+	number={2},
+	pages={e152S--e184S},
+	year={2012},
+	publisher={Elsevier}
+}
+
+
+@article{touma2015meta,
+	title={A meta-analysis of randomized controlled trials of the risk of bleeding with apixaban versus vitamin K antagonists},
+	author={Touma, Lahoud and Filion, Kristian B and Atallah, Renee and Eberg, Maria and Eisenberg, Mark J},
+	journal={The American journal of cardiology},
+	volume={115},
+	number={4},
+	pages={533--541},
+	year={2015},
+	publisher={Elsevier}
+}
+
+
+
+
+
+ ---------------------------------
+|				        paper 1     				|
+---------------------------------
+
+% Generated by Paperpile. Check out https://paperpile.com for more information.
+% BibTeX export options can be customized via Settings -> BibTeX.
+
+@article{vinogradova2018risks,
+	title={Risks and benefits of direct oral anticoagulants versus warfarin in a real world setting: cohort study in primary care},
+	author={Vinogradova, Yana and Coupland, Carol and Hill, Trevor and Hippisley-Cox, Julia},
+	journal={{BMJ}},
+	volume={362},
+	pages={k2505},
+	year={2018},
+	publisher={British Medical Journal Publishing Group}
+}
+
+@article{Carpenter2017-qf,
+	title   = "Stan: A Probabilistic Programming Language",
+	author  = "Carpenter, Bob and Gelman, Andrew and Hoffman, Matthew D and Lee,
+	Daniel and Goodrich, Ben and Betancourt, Michael and Brubaker,
+	Marcus and Guo, Jiqiang and Li, Peter and Riddell, Allen",
+	journal = "Journal of Statistical Software",
+	volume  =  76,
+	number  =  1,
+	year    =  2017
+}
+
+@ARTICLE{Salway2008-gi,
+	title    = "Gamma generalized linear models for pharmacokinetic data",
+	author   = "Salway, Ruth and Wakefield, Jon",
+	abstract = "This article considers the modeling of single-dose
+	pharmacokinetic data. Traditionally, so-called compartmental
+	models have been used to analyze such data. Unfortunately, the
+	mean function of such models are sums of exponentials for which
+	inference and computation may not be straightforward. We present
+	an alternative to these models based on generalized linear
+	models, for which desirable statistical properties exist, with a
+	logarithmic link and gamma distribution. The latter has a
+	constant coefficient of variation, which is often appropriate for
+	pharmacokinetic data. Inference is convenient from either a
+	likelihood or a Bayesian perspective. We consider models for both
+	single and multiple individuals, the latter via generalized
+	linear mixed models. For single individuals, Bayesian computation
+	may be carried out with recourse to simulation. We describe a
+	rejection algorithm that, unlike Markov chain Monte Carlo,
+	produces independent samples from the posterior and allows
+	straightforward calculation of Bayes factors for model
+	comparison. We also illustrate how prior distributions may be
+	specified in terms of model-free pharmacokinetic parameters of
+	interest. The methods are applied to data from 12 individuals
+	following administration of the antiasthmatic agent theophylline.",
+	journal  = "Biometrics",
+	volume   =  64,
+	number   =  2,
+	pages    = "620--626",
+	month    =  "June",
+	year     =  2008,
+	language = "en"
+}
+
+@article{international2009estimation,
+	title={Estimation of the warfarin dose with clinical and pharmacogenetic data},
+	author={International Warfarin Pharmacogenetics Consortium},
+	journal={New England Journal of Medicine},
+	volume={360},
+	number={8},
+	pages={753--764},
+	year={2009},
+	publisher={Mass Medical Soc}
+}
+
+% The entry below contains non-ASCII chars that could not be converted
+% to a LaTeX equivalent.
+@article{Xue2017-mp,
+	title   = "Theory‐based pharmacokinetics and pharmacodynamics of {S}‐ and
+	{R}‐warfarin and effects on international normalized ratio:
+	influence of body size, composition and genotype in cardiac
+	surgery patients",
+	author  = "Xue, Ling and Holford, Nick and Ding, Xiao‐liang and Shen, Zhen‐ya
+	and Huang, Chen‐rong and Zhang, Hua and Zhang, Jing‐jing and Guo,
+	Zhe‐ning and Xie, Cheng and Zhou, Ling and Chen, Zhi‐yao and Liu,
+	Lin‐sheng and Miao, Li‐yan",
+	journal = "British Journal of Clinical Pharmacology",
+	volume  =  83,
+	number  =  4,
+	pages   = "823--835",
+	year    =  2017
+}
+
+@BOOK{Gelman2013-hd,
+	title     = "Bayesian Data Analysis, Third Edition",
+	author    = "Gelman, Andrew and Carlin, John B and Stern, Hal S and Dunson,
+	David B and Vehtari, Aki and Rubin, Donald B",
+	abstract  = "Now in its third edition, this classic book is widely considered
+	the leading text on Bayesian methods, lauded for its accessible,
+	practical approach to analyzing data and solving research
+	problems. Bayesian Data Analysis, Third Edition continues to
+	take an applied approach to analysis using up-to-date Bayesian
+	methods. The authors---all leaders in the statistics
+	community---introduce basic concepts from a data-analytic
+	perspective before presenting advanced methods. Throughout the
+	text, numerous worked examples drawn from real applications and
+	research emphasize the use of Bayesian inference in practice.
+	New to the Third Edition Four new chapters on nonparametric
+	modeling Coverage of weakly informative priors and
+	boundary-avoiding priors Updated discussion of cross-validation
+	and predictive information criteria Improved convergence
+	monitoring and effective sample size calculations for iterative
+	simulation Presentations of Hamiltonian Monte Carlo, variational
+	Bayes, and expectation propagation New and revised software code
+	The book can be used in three different ways. For undergraduate
+	students, it introduces Bayesian inference starting from first
+	principles. For graduate students, the text presents effective
+	current approaches to Bayesian modeling and computation in
+	statistics and related fields. For researchers, it provides an
+	assortment of Bayesian methods in applied statistics. Additional
+	materials, including data sets used in the examples, solutions
+	to selected exercises, and software instructions, are available
+	on the book's web page.",
+	publisher = "CRC Press",
+	month     =  "November",
+	year      =  2013,
+	language  = "en"
+}
+
+@ARTICLE{Brooks2016-li,
+	title    = "Population Pharmacokinetic Modelling and Bayesian Estimation of
+	Tacrolimus Exposure: Is this Clinically Useful for Dosage
+	Prediction Yet?",
+	author   = "Brooks, Emily and Tett, Susan E and Isbel, Nicole M and Staatz,
+	Christine E",
+	abstract = "This review summarises the available data on the population
+	pharmacokinetics of tacrolimus and use of Maximum A Posteriori
+	(MAP) Bayesian estimation to predict tacrolimus exposure and
+	subsequent drug dosage requirements in solid organ transplant
+	recipients. A literature search was conducted which identified 56
+	studies that assessed the population pharmacokinetics of
+	tacrolimus based on non-linear mixed effects modelling and 14
+	studies that assessed the predictive performance of MAP Bayesian
+	estimation of tacrolimus area under the plasma concentration-time
+	curve (AUC) from time zero to the end of the dosing interval.
+	Studies were most commonly undertaken in adult kidney transplant
+	recipients and investigated the immediate-release formulation.
+	The pharmacokinetics of tacrolimus were described using one- and
+	two-compartment disposition models with first-order elimination
+	in 61 and 39 \% of population pharmacokinetic studies,
+	respectively. Variability in tacrolimus whole blood apparent
+	clearance amongst transplant recipients was most commonly related
+	to cytochrome P450 (CYP) 3A5 genotype (rs776746), patient
+	haematocrit, patient weight, post-operative day and hepatic
+	function (aspartate aminotransferase). Bias, as calculated using
+	estimation of the mean predictive error (MPE) or mean percentage
+	predictive error (MPPE) associated with prediction of the
+	tacrolimus AUC, ranged from -15 to 9.95 \%. Imprecision, as
+	calculated through estimation of the root mean squared error
+	(RMSE) or mean absolute prediction error (MAPE), was generally
+	much poorer overall, ranging from 0.81 to 40. r values ranged
+	from 0.27 to 0.99 \%. Of the Bayesian forecasting strategies that
+	used two or more tacrolimus concentrations, 71 \% showed bias of
+	10 \% or less; however, only 39 \% showed imprecision of 10 \% or
+	less. The combination of sampling times at 0, 1 and 3 h post-dose
+	consistently showed bias and imprecision values of less than 15
+studies to date have examined how closely MAP Bayesian
+	dosage predictions of tacrolimus actually achieve target AUC by
+	comparing dosage prediction from one occasion with a future
+	measured AUC. Further research involving larger prospective
+	studies including more diverse transplant groups and the
+	extended-release formulation of tacrolimus is needed. Several
+	questions require further examination, including the following.
+	Do Bayesian forecasting methods currently use the most
+	appropriate population pharmacokinetic models and optimal
+	sampling times for dosage prediction? Does Bayesian forecasting
+	perform well when applied to make dosage predictions on a
+	subsequent occasion? How can Bayesian forecasting be simplified
+	for use in the clinical setting? And, are patient outcomes
+	improved with dosage prediction based on Bayesian forecasting
+	compared with trough concentration monitoring?",
+	journal  = "Clin. Pharmacokinet.",
+	volume   =  55,
+	number   =  11,
+	pages    = "1295--1335",
+	month    =  "November",
+	year     =  2016,
+	language = "en"
+}
+
+@article{sturkenboom2015pharmacokinetic,
+	title={Pharmacokinetic modeling and optimal sampling strategies for therapeutic drug monitoring of rifampin in patients with tuberculosis},
+	author={Sturkenboom, Marieke GG and Mulder, Leonie W and de Jager, Arthur and van Altena, Richard and Aarnoutse, Rob E and de Lange, Wiel CM and Proost, Johannes H and Kosterink, Jos GW and van der Werf, Tjip S and Alffenaar, Jan-Willem C},
+	journal={Antimicrobial agents and chemotherapy},
+	volume={59},
+	number={8},
+	pages={4907--4913},
+	year={2015},
+	publisher={Am Soc Microbiol}
+}
+
+@article{sturkenboom2021population,
+	title={Population pharmacokinetics and Bayesian dose adjustment to advance TDM of anti-TB drugs},
+	author={Sturkenboom, Marieke GG and M{\"a}rtson, Anne-Grete and Svensson, Elin M and Sloan, Derek J and Dooley, Kelly E and van den Elsen, Simone HJ and Denti, Paolo and Peloquin, Charles A and Aarnoutse, Rob E and Alffenaar, Jan-Willem C},
+	journal={Clinical pharmacokinetics},
+	volume={60},
+	number={6},
+	pages={685--710},
+	year={2021},
+	publisher={Springer}
+}
+
+@article{kruizinga2022population,
+	title={Population pharmacokinetics of clonazepam in saliva and plasma: Steps towards noninvasive pharmacokinetic studies in vulnerable populations},
+	author={Kruizinga, Matthijs D and Zuiker, Rob GJA and Bergmann, Kirsten R and Egas, Annelies C and Cohen, Adam F and Santen, Gijs WE and van Esdonk, Michiel J},
+	journal={British journal of clinical pharmacology},
+	volume={88},
+	number={5},
+	pages={2236--2245},
+	year={2022},
+	publisher={Wiley Online Library}
+}
+
+@article{gibert2022development,
+	title={Development of a Bayesian estimation tool to determine the optimal duration of apixaban discontinuation before a high-bleeding risk procedure},
+	author={Gibert, Audrick and Lanoisel{\'e}e, Julien and Janisset, Luc and Pernod, Gilles and Ollier, Edouard and Delavenne, Xavier},
+	journal={Fundamental \& Clinical Pharmacology},
+	year={2022},
+	publisher={Wiley Online Library}
+}
+
+@misc{Betancourt2017-ak,
+	title={A Conceptual Introduction to {Hamiltonian Monte Carlo}},
+	author={Michael Betancourt},
+	year={2017},
+	note = {arXiv:1701.02434 [stat.ME]},
+	eprint={1701.02434},
+	archivePrefix={arXiv},
+	primaryClass={stat.ME}
+}
+
+@article{Beaton2018-el,
+	title   = "Su1495 - Apixaban and Rosuvastatin Pharmacokinetics in
+	Nonalcoholic Fatty Liver Disease",
+	author  = "Beaton, Melanie D and Tirona, Rommel G and Strapp, Ruth and Ramu,
+	Mala and Schwarz, Ute and Kim, Richard and Aljudaibi, Bandar and
+	Kassam, Zahra",
+	journal = "Gastroenterology",
+	volume  =  154,
+	number  =  6,
+	pages   = "S--1158",
+	year    =  2018
+}
+
+% The entry below contains non-ASCII chars that could not be converted
+% to a LaTeX equivalent.
+@ARTICLE{Nguyen2016-pg,
+	title    = "A limited sampling strategy based on maximum a posteriori
+	Bayesian estimation for a five-probe phenotyping cocktail",
+	author   = "Nguyen, Thu Thuy and B{\'e}nech, Henri and Pruvost, Alain and
+	Lenuzza, Natacha",
+	abstract = "PURPOSE: Cocktail approach using a combination of probes to
+	phenotype several cytochromes P450 or transporters is of high
+	interest in anticipating drug--drug interactions and personalized
+	medicine. Its clinical use remains however limited by the
+	intensive sampling scheme required to obtain phenotyping indexes
+	(PI) which consists in calculating the area under the
+	concentration--time curves. We proposed to use maximum a
+	posteriori Bayesian estimation (MAPBE) that incorporates
+	available information from the whole population to derive PI from
+	a few individual observations. The performance of a limited
+	sampling strategy (LSS) based on MAPBE was evaluated for a
+	five-probe cocktail. METHODS: The studied cocktail included
+	midazolam, tolbutamide, caffeine, dextromethorphan, omeprazole
+	and their relevant metabolites. Prior information for MAPBE was
+	obtained by nonlinear mixed-effect modelling of data from a pilot
+	study. Sampling times were chosen based on optimal design theory
+	using the Bayesian Fisher information matrix. Through a
+	simulation study, we investigated the predicted PI in terms of
+	bias and imprecision for varying number and timing of samples.
+	RESULTS: Some three-point Bayesian designs gave mean prediction
+	errors in [−5 \%, 5 \%], root mean square errors below 30 \% for
+	all probes, except dextromethorphan whose model should be
+	consolidated further with additional data. This approach gave
+	overall less outlier predicted values than single-point metrics
+	and was more flexible to the timing of the latest sampling.
+	CONCLUSIONS: MAPBE is accurate for predicting simultaneously
+	several PI while being flexible in terms of integrating clinical
+	constraints. Therefore, LSS based on MAPBE could help reduce the
+	time of presence in hospital for individuals to be phenotyped.",
+	journal  = "Eur. J. Clin. Pharmacol.",
+	volume   =  72,
+	number   =  1,
+	pages    = "39--51",
+	month    =  jan,
+	year     =  2016,
+	language = "en"
+}
+
+@article{Wakefield1996-yy,
+	title   = "The Bayesian Analysis of Population Pharmacokinetic Models",
+	author  = "Wakefield, Jon",
+	journal = "Journal of the American Statistical Association",
+	volume  =  91,
+	number  =  433,
+	pages   = "62--75",
+	year    =  1996
+}
+
+@ARTICLE{Caldwell2007-mi,
+	title    = "Evaluation of genetic factors for warfarin dose prediction",
+	author   = "Caldwell, Michael D and Berg, Richard L and Zhang, Kai Qi and
+	Glurich, Ingrid and Schmelzer, John R and Yale, Steven H and
+	Vidaillet, Humberto J and Burmester, James K",
+	abstract = "OBJECTIVES: Warfarin is a commonly prescribed anticoagulant drug
+	used to prevent thromboses that may arise as a consequence of
+	orthopedic and vascular surgery or underlying cardiovascular
+	disease. Warfarin is associated with a notoriously narrow
+	therapeutic window where small variations in dosing may result in
+	hemorrhagic or thrombotic complications. To ultimately improve
+	dosing of warfarin, we evaluated models for stable maintenance
+	dose that incorporated both clinical and genetic factors. METHOD:
+	A model was constructed by evaluating the contribution to dosing
+	variability of the following clinical factors: age, gender, body
+	surface area, and presence or absence of prosthetic heart valves
+	or diabetes. The model was then sequentially expanded by
+	incorporating polymorphisms of cytochrome P450 (CYP) 2C9; vitamin
+	K 2,3 epoxide reductase complex, subunit 1 (VKORC1); gamma
+	carboxylase; factor VII; and apolipoprotein (Apo) E genes.
+	RESULTS: Of genetic factors evaluated in the model, CYP2C9 and
+	VKORC1 each contributed substantially to dose variability, and
+	together with clinical factors explained 56\% of the individual
+	variability in stable warfarin dose. In contrast, gamma
+	carboxylase, factor VII and Apo E polymorphisms contributed
+	little to dose variability. CONCLUSION: The importance of CYP2C9
+	and VKORC1 to patient-specific dose of warfarin has been
+	confirmed, while polymorphisms of gamma carboxylase, factor VII
+	and Apo E genes did not substantially contribute to predictive
+	models for stable warfarin dose.",
+	journal  = "Clin. Med. Res.",
+	volume   =  5,
+	number   =  1,
+	pages    = "8--16",
+	month    =  mar,
+	year     =  2007,
+	language = "en"
+}
+
+@article{Salvatier2016-pq,
+	title   = "Probabilistic programming in Python using {PyMC3}",
+	author  = "Salvatier, John and Wiecki, Thomas V and Fonnesbeck, Christopher",
+	journal = "PeerJ Computer Science",
+	volume  =  2,
+	pages   = "e55",
+	year    =  2016
+}
+
+@ARTICLE{Matthew_D_Hoffman2014-in,
+	title   = "The {No-U-Turn} Sampler: Adaptively Setting Path Lengths in
+	{Hamiltonian Monte Carlo}",
+	author  = "Hoffman, Mathew and Gelman, Andrew",
+	journal = "Journal of Machine Learning Research",
+	volume = 15,
+	pages = "1593--1623",
+	year    =  2014
+}
+
+@INPROCEEDINGS{Tripuraneni2017-oh,
+	title     = "Magnetic {Hamiltonian Monte Carlo}",
+	booktitle = "Proceedings of the 34th International Conference on Machine
+	Learning - Volume 70",
+	author    = "Tripuraneni, Nilesh and Rowland, Mark and Ghahramani, Zoubin and
+	Turner, Richard",
+	publisher = "JMLR.org",
+	pages     = "3453--3461",
+	series    = "ICML'17",
+	month     =  aug,
+	year      =  2017,
+	location  = "Sydney, NSW, Australia"
+}
+
+@ARTICLE{Byon2019-gf,
+	title    = "Apixaban: A Clinical Pharmacokinetic and Pharmacodynamic Review",
+	author   = "Byon, Wonkyung and Garonzik, Samira and Boyd, Rebecca A and
+	Frost, Charles E",
+	abstract = "Apixaban is an oral, direct factor Xa inhibitor that inhibits
+	both free and clot-bound factor Xa, and has been approved for
+	clinical use in several thromboembolic disorders, including
+	reduction of stroke risk in non-valvular atrial fibrillation,
+	thromboprophylaxis following hip or knee replacement surgery, the
+	treatment of deep vein thrombosis or pulmonary embolism, and
+	prevention of recurrent deep vein thrombosis and pulmonary
+	embolism. The absolute oral bioavailability of apixaban is ~
+	50\%. Food does not have a clinically meaningful impact on the
+	bioavailability. Apixaban exposure increases dose proportionally
+	for oral doses up to 10 mg. Apixaban is rapidly absorbed, with
+	maximum concentration occurring 3-4 h after oral administration,
+	and has a half-life of approximately 12 h. Elimination occurs via
+	multiple pathways including metabolism, biliary excretion, and
+	direct intestinal excretion, with approximately 27\% of total
+	apixaban clearance occurring via renal excretion. The
+	pharmacokinetics of apixaban are consistent across a broad range
+	of patients, and apixaban has limited clinically relevant
+	interactions with most commonly prescribed medications, allowing
+	for fixed dosages without the need for therapeutic drug
+	monitoring. The pharmacodynamic effect of apixaban is closely
+	correlated with apixaban plasma concentration. This review
+	provides a summary of the pharmacokinetic, pharmacodynamic,
+	biopharmaceutical, and drug-drug interaction profiles of
+	apixaban. Additionally, the population-pharmacokinetic analyses
+	of apixaban in both healthy subjects and in the target patient
+	populations are discussed.",
+	journal  = "Clin. Pharmacokinet.",
+	volume   =  58,
+	number   =  10,
+	pages    = "1265--1279",
+	month    =  oct,
+	year     =  2019,
+	language = "en"
+}
+
+@book{Neal1996-vn,
+	title   = "Bayesian Learning for Neural Networks",
+	author  = "Neal, Radford M",
+	series = "Lecture Notes in Statistics",
+	year    =  1996,
+	publisher = "Springer",
+	address = "New York"
+}
+
+@article{Gabry2019-iv,
+	title   = "Visualization in Bayesian workflow",
+	author  = "Gabry, Jonah and Simpson, Daniel and Vehtari, Aki and Betancourt,
+	Michael and Gelman, Andrew",
+	journal = "Journal of the Royal Statistical Society: Series A (Statistics in
+	Society)",
+	volume  =  182,
+	number  =  2,
+	pages   = "389--402",
+	year    =  2019
+}
+
+@ARTICLE{Stifft2020-uq,
+	title    = "A limited sampling strategy to estimate exposure of once-daily
+	modified release tacrolimus in renal transplant recipients using
+	linear regression analysis and comparison with Bayesian
+	population pharmacokinetics in different cohorts",
+	author   = "Stifft, Frank and Vandermeer, Franciscus and Neef, Cees and van
+	Kuijk, Sander and Christiaans, Maarten H L",
+	abstract = "PURPOSE: Tacrolimus has a narrow therapeutic window. Measuring
+	trough level (C) as surrogate for drug exposure (AUC) in renal
+	transplant recipients has limitations. Therefore, limited
+	sampling strategies (LSS's) have been developed. For the newer
+	modified release, once-daily formulation (Tac QD) LSS's are based
+	on either linear regression analysis (LRA) or population
+	pharmacokinetics with maximum a posteriori Bayesian (MAPB)
+	estimation. The predictive performances of both methods were
+	compared, also to LSS's as described in literature. METHODS:
+	LSS's (maximally three sampling time points) were developed for
+	Tac QD from full 24-h sampling by LRA in 27 Caucasian, stable
+	renal transplant recipients. Performance for accuracy (mean
+	absolute prediction error < 10\%) and precision (root mean
+	squared error < 15\%) was quantified also after MAPB estimation
+	in two independent groups (early and late post-transplant, n = 12
+	each). RESULTS: LRA determined a single 8 hours post-dose
+	measurement (C) to fulfil predefined criteria for accuracy (MAPE
+	3.41\%) and precision (RMSE 4.28\%). The best LSS contained C, C
+	and C for the stable (MAPE 2.42\%, RMSE 3.1\%) and the early
+	post-transplant group (MAPE 2.46\%, RMSE 3.14\%). LRA did not
+	include C for any LSS, unless it was forced into the model. MAPB
+	estimation showed similar performance. CONCLUSIONS: In renal
+	transplant patients, sampling in the elimination phase (C)
+	accurately predicted Tac QD exposure, contrary to C. The 3-point
+	sampling C C and C had the best performance and is also valid
+	early post-transplant. These LSS's were similarly predictive with
+	MAPB estimation. Dried blood spot could facilitate late sampling
+	in clinical practice.",
+	journal  = "Eur. J. Clin. Pharmacol.",
+	volume = 76,
+	number = 5,
+	pages = "685--693",
+	month    =  "May",
+	year     =  2020,
+	keywords = "Kidney transplantation; Limited sampling strategy;
+	Pharmacokinetics; Tacrolimus; Therapeutic drug monitoring",
+	language = "en"
+}
+
+@article{Preijers2019-kc,
+	title   = "Pharmacokinetic-guided dosing of factor {VIII} concentrate in a
+	morbidly obese severe haemophilia A patient undergoing orthopaedic
+	surgery",
+	author  = "Preijers, Tim and Laros-vanGorkom, Britta A P and Math{\^o}t, Ron
+	A A and Cnossen, Marjon H",
+	journal = "BMJ Case Reports",
+	volume  =  12,
+	number  =  1,
+	pages   = "bcr--2018",
+	year    =  2019
+}
+
+@article{gao2021population,
+	title={Population pharmacokinetics of high-dose methotrexate in Chinese pediatric patients with acute lymphoblastic leukemia},
+	author={Gao, Xuan and Qian, Xiao-Wen and Zhu, Xiao-Hua and Yu, Yi and Miao, Hui and Meng, Jian-Hua and Jiang, Jun-Ye and Wang, Hong-Sheng and Zhai, Xiao-Wen},
+	journal={Frontiers in Pharmacology},
+	volume={12},
+	pages={1791},
+	year={2021},
+	publisher={Frontiers}
+}
+
+@article{luque2019population,
+	title={Population pharmacokinetics of anidulafungin in critically ill patients},
+	author={Luque, S and Hope, W and Campillo, N and Mu{\~n}oz-Berm{\'u}dez, R and Sorli, L and Barcel{\'o}-Vidal, J and Gonz{\'a}lez-Colominas, E and Alvarez-Lerma, F and Masclans, JR and Montero, M and others},
+	journal={Antimicrobial Agents and Chemotherapy},
+	volume={63},
+	number={7},
+	pages={e00378--19},
+	year={2019},
+	publisher={Am Soc Microbiol}
+}
+
+@article{touma2015meta,
+	title={A meta-analysis of randomized controlled trials of the risk of bleeding with apixaban versus vitamin K antagonists},
+	author={Touma, Lahoud and Filion, Kristian B and Atallah, Renee and Eberg, Maria and Eisenberg, Mark J},
+	journal={The American journal of cardiology},
+	volume={115},
+	number={4},
+	pages={533--541},
+	year={2015},
+	publisher={Elsevier}
+}
+
+
+@ARTICLE{Zhu2017-rk,
+	title    = "Development of a novel individualized warfarin dose algorithm
+	based on a population pharmacokinetic model with improved
+	prediction accuracy for {Chinese} patients after heart valve
+	replacement",
+	author   = "Zhu, Yu-Bin and Hong, Xian-Hua and Wei, Meng and Hu, Jing and
+	Chen, Xin and Wang, Shu-Kui and Zhu, Jun-Rong and Yu, Feng and
+	Sun, Jian-Guo",
+	abstract = "The gene-guided dosing strategy of warfarin generally leads to
+	over-dose in patients at doses lower than 2 mg/kg, and only 50\%
+	of individual variability in daily stable doses can be explained.
+	In this study, we developed a novel population pharmacokinetic
+	(PK) model based on a warfarin dose algorithm for Han Chinese
+	patients with valve replacement for improving the dose prediction
+	accuracy, especially in patients with low doses. The individual
+	pharmacokinetic (PK) parameter - apparent clearance of S- and
+	R-warfarin (CLs) was obtained after establishing and validating
+	the population PK model from 296 recruited patients with valve
+	replacement. Then, the individual estimation of CLs, VKORC1
+	genotypes, the steady-state international normalized ratio (INR)
+	values and age were used to describe the maintenance doses by
+	multiple linear regression for 144 steady-state patients. The
+	newly established dosing algorithm was then validated in an
+	independent group of 42 patients and was compared with other
+	dosing algorithms for the accuracy and precision of prediction.
+	The final regression model developed was as follows:
+	Dose=-0.023$\times$AGE+1.834$\times$VKORC1+0.952$\times$INR+2.156$\times$CLs
+	(the target INR value ranges from 1.8 to 2.5). The validation of
+	the algorithm in another group of 42 patients showed that the
+	individual variation rate (71.6\%) was higher than in the
+	gene-guided dosing models. The over-estimation rate in patients
+	with low doses (<2 mg/kg) was lower than the other dosing
+	methods. This novel dosing algorithm based on a population PK
+	model improves the predictive performance of the maintenance dose
+	of warfarin, especially for low dose (<2 mg/d) patients.",
+	journal  = "Acta Pharmacol. Sin.",
+	volume   =  38,
+	number   =  3,
+	pages    = "434--442",
+	month    =  mar,
+	year     =  2017,
+	language = "en"
+}
+
+@book{Lin1988-pr,
+	title  = "Mathematics Applied to Deterministic Problems in the Natural
+	Sciences",
+	author = "Lin, C C and Segel, L A",
+	year   =  1988,
+	publisher = {SIAM},
+	address = "Philadelphia"
+}
+
+@ARTICLE{Sohrabi2017-zv,
+	title    = "Multi-objective feature selection for warfarin dose prediction",
+	author   = "Sohrabi, Mohammad Karim and Tajik, Alireza",
+	abstract = "With increasing the application of decision support systems in
+	various fields, using such systems in different aspects of
+	medical science has been growing. Drug's dose prediction is one
+	of the most important issues which can be improved using decision
+	support systems. In this paper, a new multi-objective feature
+	approach has been proposed to support warfarin dose prediction
+	decision. Warfarin is an anticoagulant normally used in the
+	prevention of the formation of clots. This research was conducted
+	on 553 patients during 2013-2015 who were candidates for using
+	warfarin and their INR was in the target range. Features
+	affecting dose was implemented and evaluated, which were clinical
+	and genetic characteristics extracted, and new methods of feature
+	selection based on multi-objective optimization methods such as
+	the Non-dominated Sorting Genetic Algorithm-II (NSGA-II) and
+	Multi-Objective Particle Swarm Optimization (MOPSO) along with
+	the evaluation of artificial neural networks were used.
+	Multi-objective optimization methods have more accuracy and
+	performance compared to the classic methods of feature selection.
+	Furthermore, multi-objective particle swarm optimization
+	algorithm has higher precision than Non-dominated Sorting Genetic
+	Algorithm-II. With a choice of seven features Mean Square Error
+	(MSE), root mean square error (RMSE) and mean absolute error
+	(MAE) were 0.011, 0.1 and 0.109 for MOPSO, respectively.",
+	journal  = "Comput. Biol. Chem.",
+	volume   =  69,
+	pages    = "126--133",
+	month    =  aug,
+	year     =  2017,
+	keywords = "Artificial neural networks; Feature selection; Multi-objective
+	optimization; Warfarin",
+	language = "en"
+}
+
+
+@article{gulilat2020drug,
+	title={Drug interactions and pharmacogenetic factors contribute to variation in apixaban concentration in atrial fibrillation patients in routine care},
+	author={Gulilat, Markus and Keller, Denise and Linton, Bradley and Pananos, A Demetri and Lizotte, Daniel and Dresser, George K and Alfonsi, Jeffrey and Tirona, Rommel G and Kim, Richard B and Schwarz, Ute I},
+	journal={Journal of Thrombosis and Thrombolysis},
+	volume={49},
+	number={2},
+	pages={294--303},
+	year={2020},
+	publisher={Springer US}
+}
+
+@article{ohara2019differences,
+	title={Differences in warfarin pharmacodynamics and predictors of response among three racial populations},
+	author={Ohara, Minami and Suzuki, Yasuhiko and Shinohara, Saki and Gong, Inna Y and Schmerk, Crystal L and Tirona, Rommel G and Schwarz, Ute I and Wen, Ming-Shien and Lee, Ming Ta Michael and Mihara, Kiyoshi and others},
+	journal={Clinical pharmacokinetics},
+	volume={58},
+	number={8},
+	pages={1077--1089},
+	year={2019},
+	publisher={Springer}
+}
+
+@article{schwarz2008genetic,
+	title={Genetic determinants of response to warfarin during initial anticoagulation},
+	author={Schwarz, Ute I and Ritchie, Marylyn D and Bradford, Yuki and Li, Chun and Dudek, Scott M and Frye-Anderson, Amy and Kim, Richard B and Roden, Dan M and Stein, C Michael},
+	journal={New England Journal of Medicine},
+	volume={358},
+	number={10},
+	pages={999--1008},
+	year={2008},
+	publisher={Mass Medical Soc}
+}
+
+
+ ---------------------------------
+|				        paper 2     				|
+---------------------------------
+
+@Inbook{Martin2016,
+	author="Martin, Janet
+	and Lal, Avtar
+	and Moodie, Jessica
+	and Zhu, Fang
+	and Cheng, Davy",
+	editor="Sampietro-Colom, Laura
+	and Martin, Janet",
+	title="Hospital-Based HTA and Know4Go at MEDICI in London, Ontario, Canada",
+	bookTitle="Hospital-Based Health Technology Assessment: The Next Frontier for Health Technology Assessment",
+	year="2016",
+	publisher="Springer International Publishing",
+	address="Cham",
+	pages="127--152",
+	isbn="978-3-319-39205-9"
+}
+
+@article{morse2015personalized,
+	title={Is personalized medicine a dream or a reality?},
+	author={Morse, Bridget L and Kim, Richard B},
+	journal={Critical reviews in clinical laboratory sciences},
+	volume={52},
+	number={1},
+	pages={1--11},
+	year={2015},
+	publisher={Taylor \& Francis}
+}
+
+@article{wigle2019prospective,
+	title={Prospective cohort study of the impact of hospital-wide dihydropyrimidine dehydrogenase (DPYD) genotype testing for fluoropyrimidine-based chemotherapy on adverse events and hospital costs.},
+	author={Wigle, Theodore John and Povitz, Brandi and Teft, Wendy and Legan, Robin and Lenehan, John Gordon and Gulilat, Markus and Nevison, Stephanie and Kritzinger, Justin and Punaganty, Veera and Keller, Denise and others},
+	year={2019},
+	journal={American Society of Clinical Oncology}
+}
+
+@article{kasztura2019cost,
+	title={Cost-effectiveness of precision medicine: a scoping review},
+	author={Kasztura, Miriam and Richard, Aude and Bempong, Nefti-Eboni and Loncar, Dejan and Flahault, Antoine},
+	journal={International journal of public health},
+	volume={64},
+	number={9},
+	pages={1261--1271},
+	year={2019},
+	publisher={Springer}
+}
+
+@article{di2017personalized,
+	title={Personalized medicine in Europe: not yet personal enough?},
+	author={Di Paolo, Antonello and Sarkozy, Fran{\c{c}}ois and Ryll, Bettina and Siebert, Uwe},
+	journal={BMC health services research},
+	volume={17},
+	number={1},
+	pages={1--9},
+	year={2017},
+	publisher={BioMed Central}
+}
+
+@article{frohlich2018hype,
+	title={From hype to reality: data science enabling personalized medicine},
+	author={Fr{\"o}hlich, Holger and Balling, Rudi and Beerenwinkel, Niko and Kohlbacher, Oliver and Kumar, Santosh and Lengauer, Thomas and Maathuis, Marloes H and Moreau, Yves and Murphy, Susan A and Przytycka, Teresa M and others},
+	journal={BMC medicine},
+	volume={16},
+	number={1},
+	pages={1--15},
+	year={2018},
+	publisher={BioMed Central}
+}
+
+@article{looff2016economic,
+	title={Economic evaluations of pharmacogenetic and pharmacogenomic screening tests: a systematic review. Second update of the literature},
+	author={Looff, Margot de and Wilffert, Bob and Boersma, Cornelis and Annemans, Lieven and Vegter, Stefan and Boven, Job FM van and Postma, Maarten J},
+	journal={PloS one},
+	volume={11},
+	number={1},
+	pages={e0146262},
+	year={2016},
+	publisher={Public Library of Science San Francisco, CA USA}
+}
+
+@article{shabaruddin2015economic,
+	title={Economic evaluations of personalized medicine: existing challenges and current developments},
+	author={Shabaruddin, Fatiha H and Fleeman, Nigel D and Payne, Katherine},
+	journal={Pharmacogenomics and personalized medicine},
+	volume={8},
+	pages={115},
+	year={2015},
+	publisher={Dove Press}
+}
+
+@article{rogowski2015concepts,
+	title={Concepts of ‘personalization’in personalized medicine: implications for economic evaluation},
+	author={Rogowski, Wolf and Payne, Katherine and Schnell-Inderst, Petra and Manca, Andrea and Rochau, Ursula and Jahn, Beate and Alagoz, Oguzhan and Leidl, Reiner and Siebert, Uwe},
+	journal={Pharmacoeconomics},
+	volume={33},
+	number={1},
+	pages={49--59},
+	year={2015},
+	publisher={Springer}
+}
+
+@article{elliott2008understanding,
+	title={Understanding medication compliance and persistence from an economics perspective},
+	author={Elliott, Rachel A and Shinogle, Judith A and Peele, Pamela and Bhosle, Monali and Hughes, Dyfrig A},
+	journal={Value in health},
+	volume={11},
+	number={4},
+	pages={600--610},
+	year={2008},
+	publisher={Elsevier}
+}
+
+@article{lee2020assessment,
+	title={Assessment of parking fees at National Cancer Institute--designated cancer treatment centers},
+	author={Lee, Anna and Shah, Kanan and Chino, Fumiko},
+	journal={JAMA oncology},
+	volume={6},
+	number={8},
+	pages={1295--1297},
+	year={2020},
+	publisher={American Medical Association}
+}
+
+@article{houts1984nonmedical,
+	title={Nonmedical costs to patients and their families associated with outpatient chemotherapy},
+	author={Houts, Peter S and Lipton, Allan and Harvey, Harold A and Martin, Barbara and Simmonds, Mary A and Dixon, Richard H and Longo, Santo and Andrews, Thomas and Gordon, Robert A and Meloy, John and others},
+	journal={Cancer},
+	volume={53},
+	number={11},
+	pages={2388--2392},
+	year={1984},
+	publisher={Wiley Online Library}
+}
+
+@article{obermeyer2019dissecting,
+	title={Dissecting racial bias in an algorithm used to manage the health of populations},
+	author={Obermeyer, Ziad and Powers, Brian and Vogeli, Christine and Mullainathan, Sendhil},
+	journal={Science},
+	volume={366},
+	number={6464},
+	pages={447--453},
+	year={2019},
+	publisher={American Association for the Advancement of Science}
+}
+
+@article{barocas2016big,
+	title={Big data's disparate impact},
+	author={Barocas, Solon and Selbst, Andrew D},
+	journal={Calif. L. Rev.},
+	volume={104},
+	pages={671},
+	year={2016},
+	publisher={HeinOnline}
+}
+\\
+@article{lum2016predict,
+	title={To predict and serve?},
+	author={Lum, Kristian and Isaac, William},
+	journal={Significance},
+	volume={13},
+	number={5},
+	pages={14--19},
+	year={2016},
+	publisher={Wiley Online Library}
+}
+
+
+@misc{ajunwa2020paradox,
+	title={The Paradox of Automation as Anti-Bias Intervention, 41 Cardozo, L},
+	author={Ajunwa, Ifeoma},
+	journal={Available at SSRN 2746078},
+	year={2020},
+	publisher={Rev}
+}
+
+@article{wiens2019no,
+	title={Do no harm: a roadmap for responsible machine learning for health care},
+	author={Wiens, Jenna and Saria, Suchi and Sendak, Mark and Ghassemi, Marzyeh and Liu, Vincent X and Doshi-Velez, Finale and Jung, Kenneth and Heller, Katherine and Kale, David and Saeed, Mohammed and others},
+	journal={Nature medicine},
+	volume={25},
+	number={9},
+	pages={1337--1340},
+	year={2019},
+	publisher={Nature Publishing Group}
+}
+
+@article{gong2011prospective,
+	title={Prospective evaluation of a pharmacogenetics-guided warfarin loading and maintenance dose regimen for initiation of therapy},
+	author={Gong, Inna Y and Tirona, Rommel G and Schwarz, Ute I and Crown, Natalie and Dresser, George K and LaRue, Samantha and Langlois, Nicole and Lazo-Langner, Alejandro and Zou, Guangyong and Roden, Dan M and others},
+	journal={Blood, The Journal of the American Society of Hematology},
+	volume={118},
+	number={11},
+	pages={3163--3171},
+	year={2011},
+	publisher={American Society of Hematology Washington, DC}
+}
+
+@misc{zhang2021identifying,
+	title={Identifying Decision Points for Safe and Interpretable Reinforcement Learning in Hypotension Treatment}, 
+	author={Kristine Zhang and Yuanheng Wang and Jianzhun Du and Brian Chu and Leo Anthony Celi and Ryan Kindle and Finale Doshi-Velez},
+	year={2021},
+	eprint={2101.03309},
+	archivePrefix={arXiv},
+	primaryClass={cs.LG}
+}
+
+@article{engelhardt2021importance,
+	title={The importance of modeling patient state in reinforcement learning for precision medicine},
+	author={Engelhardt, Barbara E and Prasad, Niranjani and Cheng, Li-Fang and Chivers, Corey and Draugelis, Michael and Li, Kai and Doshi-Velez, Finale},
+	year={2021}
+}
+
+@incollection{martin2016hospital,
+	title={Hospital-Based HTA and Know4Go at MEDICI in London, Ontario, Canada},
+	author={Martin, Janet and Lal, Avtar and Moodie, Jessica and Zhu, Fang and Cheng, Davy},
+	booktitle={Hospital-Based Health Technology Assessment},
+	pages={127--152},
+	year={2016},
+	publisher={Springer}
+}
+
+@book{chakraborty2013statistical,
+	title={Statistical methods for dynamic treatment regimes},
+	author={Chakraborty, Bibhas},
+	year={2013},
+	publisher={Springer}
+}
+
+@article{byon2019apixaban,
+	title={Apixaban: a clinical pharmacokinetic and pharmacodynamic review},
+	author={Byon, Wonkyung and Garonzik, Samira and Boyd, Rebecca A and Frost, Charles E},
+	journal={Clinical pharmacokinetics},
+	volume={58},
+	number={10},
+	pages={1265--1279},
+	year={2019},
+	publisher={Springer}
+}
+
+@InBook{lizotte17reinforcement,
+	editor = {Marie Davidian and Brian Everitt and Ron S. Kenett and Geert Molenberghs and Walter Piegorsch and Fabrizio Ruggeri},
+	title = {Wiley StatsRef},
+	chapter = {Reinforcement Learning},
+	publisher = {Wiley},
+	year = {2017},
+	note = {3000 words},
+	role = {I wrote this invited encyclopedia entry with the goal of providing an overview of reinforcement learning from both statistical and computer science viewpoints.}}
+
+
+@book{berger2013statistical,
+	title={Statistical decision theory and Bayesian analysis},
+	author={Berger, James O},
+	year={2013},
+	publisher={Springer Science \& Business Media}
+}
+
+@book{tsiatis2019dynamic,
+	title={Dynamic Treatment Regimes: Statistical Methods for Precision Medicine},
+	author={Tsiatis, A.A. and Davidian, M. and Holloway, S.T. and Laber, E.B.},
+	isbn={9781498769785},
+	lccn={2019038385},
+	series={Chapman \& Hall/CRC Monographs on Statistics \& Applied Probability},
+	url={https://books.google.ca/books?id=FD0PEAAAQBAJ},
+	year={2019},
+	publisher={CRC Press}
+}
+
+@article{tirona2018apixaban,
+	title={Apixaban and rosuvastatin pharmacokinetics in nonalcoholic fatty liver disease},
+	author={Tirona, Rommel G and Kassam, Zahra and Strapp, Ruth and Ramu, Mala and Zhu, Catherine and Liu, Melissa and Schwarz, Ute I and Kim, Richard B and Al-Judaibi, Bandar and Beaton, Melanie D},
+	journal={Drug Metabolism and Disposition},
+	volume={46},
+	number={5},
+	pages={485--492},
+	year={2018},
+	publisher={ASPET}
+}
+
+@inproceedings{pananos2020comparisons,
+	title={Comparisons between Hamiltonian Monte Carlo and maximum a posteriori for a Bayesian model for Apixaban induction dose \& dose personalization},
+	author={Pananos, A Demetri and Lizotte, Daniel J},
+	booktitle={Machine Learning for Healthcare Conference},
+	pages={397--417},
+	year={2020},
+	organization={PMLR}
+}
+
+@misc{betancourt2018conceptual,
+	title={A Conceptual Introduction to Hamiltonian Monte Carlo}, 
+	author={Michael Betancourt},
+	year={2018},
+	eprint={1701.02434},
+	archivePrefix={arXiv},
+	primaryClass={stat.ME}
+}
+
+@book{brooks2011handbook,
+	title={Handbook of markov chain monte carlo},
+	author={Brooks, Steve and Gelman, Andrew and Jones, Galin and Meng, Xiao-Li},
+	year={2011},
+	publisher={CRC press}
+}
+
+@article{gelman2015stan,
+	title={Stan: A probabilistic programming language for Bayesian inference and optimization},
+	author={Gelman, Andrew and Lee, Daniel and Guo, Jiqiang},
+	journal={Journal of Educational and Behavioral Statistics},
+	volume={40},
+	number={5},
+	pages={530--543},
+	year={2015},
+	publisher={Sage Publications Sage CA: Los Angeles, CA}
+}
+
+@article{gulilat2020drug,
+	title={Drug interactions and pharmacogenetic factors contribute to variation in apixaban concentration in atrial fibrillation patients in routine care},
+	author={Gulilat, Markus and Keller, Denise and Linton, Bradley and Pananos, A Demetri and Lizotte, Daniel and Dresser, George K and Alfonsi, Jeffrey and Tirona, Rommel G and Kim, Richard B and Schwarz, Ute I},
+	journal={Journal of thrombosis and thrombolysis},
+	volume={49},
+	number={2},
+	pages={294--303},
+	year={2020},
+	publisher={Springer}
+}
+
+@article{vehtari2019rank,
+	title={Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC},
+	author={Vehtari, Aki and Gelman, Andrew and Simpson, Daniel and Carpenter, Bob and Burkner, Paul-Christian},
+	journal={arXiv preprint arXiv:1903.08008},
+	year={2019}
+}
+
+@article{zhao2012estimating,
+	title={Estimating individualized treatment rules using outcome weighted learning},
+	author={Zhao, Yingqi and Zeng, Donglin and Rush, A John and Kosorok, Michael R},
+	journal={Journal of the American Statistical Association},
+	volume={107},
+	number={499},
+	pages={1106--1118},
+	year={2012},
+	publisher={Taylor \& Francis}
+}
+
+
+@article{chen2016personalized,
+	title={Personalized dose finding using outcome weighted learning},
+	author={Chen, Guanhua and Zeng, Donglin and Kosorok, Michael R},
+	journal={Journal of the American Statistical Association},
+	volume={111},
+	number={516},
+	pages={1509--1521},
+	year={2016},
+	publisher={Taylor \& Francis}
+}
+
+
+@article{laber2015tree,
+	title={Tree-based methods for individualized treatment regimes},
+	author={Laber, Eric B and Zhao, Ying-Qi},
+	journal={Biometrika},
+	volume={102},
+	number={3},
+	pages={501--514},
+	year={2015},
+	publisher={Oxford University Press}
+}
+
+@article{lee2019optimizing,
+	title={Optimizing natural killer cell doses for heterogeneous cancer patients on the basis of multiple event times},
+	author={Lee, Juhee and Thall, Peter F and Rezvani, Katy},
+	journal={Journal of the Royal Statistical Society: Series C (Applied Statistics)},
+	volume={68},
+	number={2},
+	pages={461--474},
+	year={2019},
+	publisher={Wiley Online Library}
+}
+
+@article{li2020utility,
+	title={A utility approach to individualized optimal dose selection using biomarkers},
+	author={Li, Pin and Taylor, Jeremy MG and Kong, Spring and Jolly, Shruti and Schipper, Matthew J},
+	journal={Biometrical Journal},
+	volume={62},
+	number={2},
+	pages={386--397},
+	year={2020},
+	publisher={Wiley Online Library}
+}
+
+@article{park2021single,
+	title={A single-index model with a surface-link for optimizing individualized dose rules},
+	author={Park, Hyung and Petkova, Eva and Tarpey, Thaddeus and Ogden, R Todd},
+	journal={Journal of Computational and Graphical Statistics},
+	pages={1--10},
+	year={2021},
+	publisher={Taylor \& Francis}
+}
+
+@article{rich2014simulating,
+	title={Simulating sequential multiple assignment randomized trials to generate optimal personalized warfarin dosing strategies},
+	author={Rich, Benjamin and Moodie, Erica EM and Stephens, David A},
+	journal={Clinical Trials},
+	volume={11},
+	number={4},
+	pages={435--444},
+	year={2014},
+	publisher={SAGE Publications Sage UK: London, England}
+}
+
+@article{rich2016optimal,
+	title={Optimal individualized dosing strategies: A pharmacologic approach to developing dynamic treatment regimens for continuous-valued treatments},
+	author={Rich, Benjamin and Moodie, Erica EM and Stephens, David A},
+	journal={Biometrical Journal},
+	volume={58},
+	number={3},
+	pages={502--517},
+	year={2016},
+	publisher={Wiley Online Library}
+}
+
+@article{schulz2021doubly,
+	title={Doubly robust estimation of optimal dosing strategies},
+	author={Schulz, Juliana and Moodie, Erica EM},
+	journal={Journal of the American Statistical Association},
+	volume={116},
+	number={533},
+	pages={256--268},
+	year={2021},
+	publisher={Taylor \& Francis}
+}
+
+ ---------------------------------
+|				        paper 3     				|
+---------------------------------
+@article{morse2015personalized,
+	title={Is personalized medicine a dream or a reality?},
+	author={Morse, Bridget L and Kim, Richard B},
+	journal={Critical reviews in clinical laboratory sciences},
+	volume={52},
+	number={1},
+	pages={1--11},
+	year={2015},
+	publisher={Taylor \& Francis}
+}
+
+@article{cirincione2018population,
+	title={Population pharmacokinetics of apixaban in subjects with nonvalvular atrial fibrillation},
+	author={Cirincione, Brenda and Kowalski, Kenneth and Nielsen, Jace and Roy, Amit and Thanneer, Neelima and Byon, Wonkyung and Boyd, Rebecca and Wang, Xiaoli and Leil, Tarek and LaCreta, Frank and others},
+	journal={CPT: pharmacometrics \& systems pharmacology},
+	volume={7},
+	number={11},
+	pages={728--738},
+	year={2018},
+	publisher={Wiley Online Library}
+}
+
+@article{ueshima2018population,
+	title={Population pharmacokinetics and pharmacogenomics of apixaban in Japanese adult patients with atrial fibrillation},
+	author={Ueshima, Satoshi and Hira, Daiki and Kimura, Yuuma and Fujii, Ryo and Tomitsuka, Chiho and Yamane, Takuya and Tabuchi, Yohei and Ozawa, Tomoya and Itoh, Hideki and Ohno, Seiko and others},
+	journal={British journal of clinical pharmacology},
+	volume={84},
+	number={6},
+	pages={1301--1312},
+	year={2018},
+	publisher={Wiley Online Library}
+}
+
+@misc{BMSmonograph,
+	title = { Eliquis (apixaban) prescribing information},
+	howpublished = {\url{http://packageinserts.bms.com/pi/pi_eliquis.pdf}},
+	note = {Accessed: 2022-01-07}
+}
+
+@article{vu2021critical,
+	title={Critical Analysis of Apixaban Dose Adjustment Criteria},
+	author={Vu, Anh and Qu, Tao T and Ryu, Rachel and Nandkeolyar, Shuktika and Jacobson, Alan and Hong, Lisa T},
+	journal={Clinical and Applied Thrombosis/Hemostasis},
+	volume={27},
+	pages={10760296211021158},
+	year={2021},
+	publisher={SAGE Publications Sage CA: Los Angeles, CA}
+}
+
+
+@article{byon2019apixaban,
+	title={Apixaban: a clinical pharmacokinetic and pharmacodynamic review},
+	author={Byon, Wonkyung and Garonzik, Samira and Boyd, Rebecca A and Frost, Charles E},
+	journal={Clinical pharmacokinetics},
+	volume={58},
+	number={10},
+	pages={1265--1279},
+	year={2019},
+	publisher={Springer}
+}
+
+@article{sukumar2019apixaban,
+	title={Apixaban concentrations with lower than recommended dosing in older adults with atrial fibrillation},
+	author={Sukumar, Smrithi and Gulilat, Markus and Linton, Bradley and Gryn, Steven E and Dresser, George K and Alfonsi, Jeffrey E and Schwarz, Ute I and Kim, Richard B and Schwartz, Janice B},
+	journal={Journal of the American Geriatrics Society},
+	volume={67},
+	number={9},
+	pages={1902--1906},
+	year={2019},
+	publisher={Wiley Online Library}
+}
+
+@article{gulilat2020drug,
+	title={Drug interactions and pharmacogenetic factors contribute to variation in apixaban concentration in atrial fibrillation patients in routine care},
+	author={Gulilat, Markus and Keller, Denise and Linton, Bradley and Pananos, A Demetri and Lizotte, Daniel and Dresser, George K and Alfonsi, Jeffrey and Tirona, Rommel G and Kim, Richard B and Schwarz, Ute I},
+	journal={Journal of thrombosis and thrombolysis},
+	volume={49},
+	number={2},
+	pages={294--303},
+	year={2020},
+	publisher={Springer}
+}
+
+@article{upreti2013effect,
+	title={Effect of extremes of body weight on the pharmacokinetics, pharmacodynamics, safety and tolerability of apixaban in healthy subjects},
+	author={Upreti, Vijay V and Wang, Jessie and Barrett, Yu Chen and Byon, Wonkyung and Boyd, Rebecca A and Pursley, Janice and LaCreta, Frank P and Frost, Charles E},
+	journal={British journal of clinical pharmacology},
+	volume={76},
+	number={6},
+	pages={908--916},
+	year={2013},
+	publisher={Wiley Online Library}
+}
+
+@article{frost2013safety,
+	title={Safety, pharmacokinetics and pharmacodynamics of multiple oral doses of apixaban, a factor X a inhibitor, in healthy subjects},
+	author={Frost, Charles and Nepal, Sunil and Wang, Jessie and Schuster, Alan and Byon, Wonkyung and Boyd, Rebecca A and Yu, Zhigang and Shenker, Andrew and Barrett, Yu Chen and Mosqueda-Garcia, Rogelio and others},
+	journal={British journal of clinical pharmacology},
+	volume={76},
+	number={5},
+	pages={776--786},
+	year={2013},
+	publisher={Wiley Online Library}
+}
+
+@article{frost2013apixaban,
+	title={Apixaban, an oral, direct factor X a inhibitor: Single dose safety, pharmacokinetics, pharmacodynamics and food effect in healthy subjects},
+	author={Frost, Charles and Wang, Jessie and Nepal, Sunil and Schuster, Alan and Barrett, Yu Chen and Mosqueda-Garcia, Rogelio and Reeves, Richard A and LaCreta, Frank},
+	journal={British journal of clinical pharmacology},
+	volume={75},
+	number={2},
+	pages={476--487},
+	year={2013},
+	publisher={Wiley Online Library}
+}
+
+@article{altman1989bootstrap,
+	title={Bootstrap investigation of the stability of a Cox regression model},
+	author={Altman, Douglas G and Andersen, Per Kragh},
+	journal={Statistics in medicine},
+	volume={8},
+	number={7},
+	pages={771--783},
+	year={1989},
+	publisher={Wiley Online Library}
+}
+
+@article{smith2018step,
+	title={Step away from stepwise},
+	author={Smith, Gary},
+	journal={Journal of Big Data},
+	volume={5},
+	number={1},
+	pages={1--12},
+	year={2018},
+	publisher={Springer}
+}
+
+@article{whittingham2006we,
+	title={Why do we still use stepwise modelling in ecology and behaviour?},
+	author={Whittingham, Mark J and Stephens, Philip A and Bradbury, Richard B and Freckleton, Robert P},
+	journal={Journal of animal ecology},
+	volume={75},
+	number={5},
+	pages={1182--1189},
+	year={2006},
+	publisher={Wiley Online Library}
+}
+
+@book{harrell2015regression,
+	title={Regression modeling strategies: with applications to linear models, logistic and ordinal regression, and survival analysis},
+	author={Harrell, Frank E and others},
+	volume={3},
+	year={2015},
+	publisher={Springer}
+}
+
+@article{mitchell1988bayesian,
+	title={Bayesian variable selection in linear regression},
+	author={Mitchell, Toby J and Beauchamp, John J},
+	journal={Journal of the american statistical association},
+	volume={83},
+	number={404},
+	pages={1023--1032},
+	year={1988},
+	publisher={Taylor \& Francis}
+}
+
+@article{carvalho2010horseshoe,
+	title={The horseshoe estimator for sparse signals},
+	author={Carvalho, Carlos M and Polson, Nicholas G and Scott, James G},
+	journal={Biometrika},
+	volume={97},
+	number={2},
+	pages={465--480},
+	year={2010},
+	publisher={Oxford University Press}
+}
+
+
+@article{piironen2017sparsity,
+	title={Sparsity information and regularization in the horseshoe and other shrinkage priors},
+	author={Piironen, Juho and Vehtari, Aki},
+	journal={Electronic Journal of Statistics},
+	volume={11},
+	number={2},
+	pages={5018--5051},
+	year={2017},
+	publisher={Institute of Mathematical Statistics and Bernoulli Society}
+}
+
+@article{tibshirani1996regression,
+	title={Regression shrinkage and selection via the lasso},
+	author={Tibshirani, Robert},
+	journal={Journal of the Royal Statistical Society: Series B (Methodological)},
+	volume={58},
+	number={1},
+	pages={267--288},
+	year={1996},
+	publisher={Wiley Online Library}
+}
+
+ian,
+	title={The Bayesian analysis of population pharmacokinetic models},
+	author={Wakefield, Jon},
+	journal={Journal of the American Statistical Association},
+	volume={91},
+	number={433},
+	pages={62--75},
+	year={1996},
+	publisher={Taylor \& Francis}
+}
+
+@article{salway2008gamma,
+	title={Gamma generalized linear models for pharmacokinetic data},
+	author={Salway, Ruth and Wakefield, Jon},
+	journal={Biometrics},
+	volume={64},
+	number={2},
+	pages={620--626},
+	year={2008},
+	publisher={Wiley Online Library}
+}
+
+@article{vakkalagadda2016effect,
+	title={Effect of rifampin on the pharmacokinetics of apixaban, an oral direct inhibitor of factor Xa},
+	author={Vakkalagadda, Blisse and Frost, Charles and Byon, Wonkyung and Boyd, Rebecca A and Wang, Jessie and Zhang, Donglu and Yu, Zhigang and Dias, Clapton and Shenker, Andrew and LaCreta, Frank},
+	journal={American Journal of Cardiovascular Drugs},
+	volume={16},
+	number={2},
+	pages={119--127},
+	year={2016},
+	publisher={Springer}
+}
+
+@book{gelman1995bayesian,
+	title={Bayesian data analysis},
+	author={Gelman, Andrew and Carlin, John B and Stern, Hal S and Rubin, Donald B},
+	year={1995},
+	publisher={Chapman and Hall/CRC}
+}
+
+
+
+
+@inproceedings{pananos2020comparisons,
+	title={Comparisons between Hamiltonian Monte Carlo and maximum a posteriori for a Bayesian model for Apixaban induction dose \& dose personalization},
+	author={Pananos, A Demetri and Lizotte, Daniel J},
+	booktitle={Machine Learning for Healthcare Conference},
+	pages={397--417},
+	year={2020},
+	organization={PMLR}
+}
+
+@article{gelman2015stan,
+	title={Stan: A probabilistic programming language for Bayesian inference and optimization},
+	author={Gelman, Andrew and Lee, Daniel and Guo, Jiqiang},
+	journal={Journal of Educational and Behavioral Statistics},
+	volume={40},
+	number={5},
+	pages={530--543},
+	year={2015},
+	publisher={Sage Publications Sage CA: Los Angeles, CA}
+}
+
+
+@book{gelman2006data,
+	title={Data analysis using regression and multilevel/hierarchical models},
+	author={Gelman, Andrew and Hill, Jennifer},
+	year={2006},
+	publisher={Cambridge university press}
+}
+
+
+@article{tirona2018apixaban,
+	title={Apixaban and rosuvastatin pharmacokinetics in nonalcoholic fatty liver disease},
+	author={Tirona, Rommel G and Kassam, Zahra and Strapp, Ruth and Ramu, Mala and Zhu, Catherine and Liu, Melissa and Schwarz, Ute I and Kim, Richard B and Al-Judaibi, Bandar and Beaton, Melanie D},
+	journal={Drug Metabolism and Disposition},
+	volume={46},
+	number={5},
+	pages={485--492},
+	year={2018},
+	publisher={ASPET}
+}
+
+@inproceedings{stein1956inadmissibility,
+	title={Inadmissibility of the usual estimator for the mean of a multivariate normal distribution},
+	author={Stein, Charles and others},
+	booktitle={Proceedings of the Third Berkeley symposium on mathematical statistics and probability},
+	volume={1},
+	number={1},
+	pages={197--206},
+	year={1956}
+}
+
+@incollection{james1992estimation,
+	title={Estimation with quadratic loss},
+	author={James, William and Stein, Charles},
+	booktitle={Breakthroughs in statistics},
+	pages={443--460},
+	year={1992},
+	publisher={Springer}
+}
+
+
+
+@misc{gelman_bayesian_2020,
+	title = {Bayesian {Workflow}},
+	url = {http://arxiv.org/abs/2011.01808},
+	abstract = {The Bayesian approach to data analysis provides a powerful way to handle uncertainty in all observations, model parameters, and model structure using probability theory. Probabilistic programming languages make it easier to specify and fit Bayesian models, but this still leaves us with many options regarding constructing, evaluating, and using these models, along with many remaining challenges in computation. Using Bayesian inference to solve real-world problems requires not only statistical skills, subject matter knowledge, and programming, but also awareness of the decisions made in the process of data analysis. All of these aspects can be understood as part of a tangled workflow of applied Bayesian statistics. Beyond inference, the workflow also includes iterative model building, model checking, validation and troubleshooting of computational problems, model understanding, and model comparison. We review all these aspects of workflow in the context of several examples, keeping in mind that in practice we will be fitting many models for any given problem, even if only a subset of them will ultimately be relevant for our conclusions.},
+	urldate = {2022-06-20},
+	publisher = {arXiv},
+	author = {Gelman, Andrew and Vehtari, Aki and Simpson, Daniel and Margossian, Charles C. and Carpenter, Bob and Yao, Yuling and Kennedy, Lauren and Gabry, Jonah and Bürkner, Paul-Christian and Modrák, Martin},
+	month = nov,
+	year = {2020},
+	note = {Number: arXiv:2011.01808
+	arXiv:2011.01808 [stat]},
+	keywords = {Statistics - Methodology},
+	annote = {Comment: 77 pages, 35 figures},
+	file = {arXiv Fulltext PDF:/Users/demetripananos/Zotero/storage/FLMLELSE/Gelman et al. - 2020 - Bayesian Workflow.pdf:application/pdf;arXiv.org Snapshot:/Users/demetripananos/Zotero/storage/32BIRAXP/2011.html:text/html},
+}
+
+@inproceedings{sarma2020prior,
+	title={Prior setting in practice: Strategies and rationales used in choosing prior distributions for Bayesian analysis},
+	author={Sarma, Abhraneel and Kay, Matthew},
+	booktitle={Proceedings of the 2020 chi conference on human factors in computing systems},
+	pages={1--12},
+	year={2020}
+}
