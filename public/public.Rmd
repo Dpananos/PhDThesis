@@ -60,7 +60,7 @@ Morse and Kim identify 4 goals of PM:
 
   1) Identify drugs for which excess variation in response is key issue to treatment
   2) **Identify factors driving this variation**
-  3) **"Right amount, drug, right patient, right time"**
+  3) **"Right amount, right drug, right patient, right time"**
   4) Aid in prevention of adverse events associated with said drugs
 
 ### Excess Variation Motivates Fine Tuning
@@ -126,8 +126,7 @@ Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2)
 * 1 Compartment PK model with first order elimination and absorption.
 * Prior distributions derived from a 2019 review on apixaban pharmacokinetics.
 * Each patient gets their own parameters through a random effect
-$$y(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^{-k_a(t-\delta)}-e^{-k_e(t-\delta)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$
-
+$$y(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^{-k_a(t-\delta)}-e^{-k_e(t-\delta)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$$$ \log(Cl_j) \sim \mathcal{N}(\beta_{0, Cl}, \sigma^2_{Cl}) $$$$ \log(t_{\max, j}) \sim \mathcal{N}(\beta_{0, t_{\max}}, \sigma^2_{t_{\max}}) $$$$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}(\beta_{0, \alpha}, \sigma^2_\alpha) $$$$ \delta_j \sim \operatorname{Beta}(\mu \kappa \>, (1-\mu) \kappa) $$
 
 ### Modelling Results 
 
@@ -139,17 +138,96 @@ $$y(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^
 
 ### Checking Decision Quality
 
-* Decide on a risk threshold, $C$.
-* Use model(s) to determine the dose, $D$, such that $P(y(T)>C) = R$.
-* If every patient is given this dose, then $R \times 100$ patients should exceed threshold.
-* Determine a sort of "calibration" for decision
+* Model fits well, now how do we check decision quality?
+* Look at predictions
+* Look at decisions under uncertainty
+  * Pick a time, $T$ (e.g. time to max concentration)
+  * Pick a concentration threshold, $C$, we would like to keep concentration under.
+  * Pick a desired risk level, $R$.
+  * Select a dose so that $P\Big(y(T) > C\Big) = R$
 
 ### Checking Decision Quality
 
-![[Left] Calibration for dosing to avoid excessively large max concentration. [Right] Calibration for dosing to avoid excessively low trough concentration.](../figures/fig8.png)
+* If select a dose for every patient such that they have probability $R$ of exceeding the threshold, then approximately $R\times 100$ patients should exceed the threshold.
+* Check the calibration of dosing decisions using models fit by MAP and HMC.
 
+### Prediction Error Very Similar
 
+* Prediction error is very similar, no reason to prefer one over the other.
 
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+library(kableExtra)
 
+tribble(
+  ~"Loss", ~'HMC', ~"MAP",
+  "MSE (Sd)", "6.67 (15.93)", "8.57 (19.93)",
+  "MAE (Sd)", "1.71 (1.94)", "1.97 (2.17)",
+  "MAPE (Sd)",  "0.04 (0.03)", "0.05 (0.03)"
+) %>% 
+  kbl(format = 'latex') %>% 
+  kable_styling(bootstrap_options = 'striped')
+```
+
+### Calibration is Very Different
+
+* HMC very well calibrated, MAP not so much.
+* Remember, same model and same priors. Different decisions.
+* Why is this happening?
+
+![Calibration on decisions. [Left] Calibration for decision on max concentration.  [Right] Calibration on trough concentration.](../figures/fig8.png){width=80%}
+
+### Uncertainty is Larger in MAP Model
+
+* MAP results in excess uncertainty as compared to HMC.
+* Because decisions integrate over uncertainty, differences in uncertainty $\to$ differences in decisions.
+
+![19 of the 100 simulated patients who demonstrate excess variation.](../figures/intervals.png){width=95%}
+
+### Discussion
+
+* MAP leads to different decisions than HMC, even with more data than would be available in practice.
+  * To the extent that this would affect decisions depends on the loss.
+* MAP is fast and familiar to MLE, but it is not interchangeable with HMC for these types of models.
+* Recommend that if you are to use MAP, invest the time to compare against HMC.
+
+## Paper 2: Developing and Evaulating Pharmacokinetics-Driven Dynamic Personalized Medicine: A Framework and Case Study
+
+### Background
+
+* With respect to the third goal of PM (personalized dosing), many studies  regress stable dose onto pre-dose covariates (*static personalization*).
+
+* Need for dose titration has been reduced, but not eliminated.
+
+* Possibility to personalize the titration process too for optimal decision making (*dynamic personalization*).
+
+* Is the juice of dynamic personalization worth the squeeze?
+  * Are the possible gains from dynamic personalization worth imposing additional burden onto patients?
+
+### Framework
+
+* Have a PK model for a given drug, fit it on new data.
+* Use the model to simulate new patients (much like before)
+* Try different forms of personalization on these simulated subjects
+* Because we know the truth, determine the "return" from each form of personalization.
+
+### Model
+
+* Similar to last model, but now adjust for patient covariates.
+
+$$y(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^{-k_a(t-\delta)}-e^{-k_e(t-\delta)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$
+$$ \log(Cl_j) \sim \mathcal{N}\Big(\beta^{Cl}_{0, j} + \mathbf{x}^{Cl}_j \beta_{Cl}\>, \sigma^2_{Cl}\Big)$$
+$$ \log(t_{\max, j}) \sim \mathcal{N}\Big(\beta^{t_{\max}}_{0, j} + \mathbf{x}^{t_{\max}}_j \beta_{t_{\max}} \>, \sigma^2_{t_{\max}} \Big)$$
+$$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\beta^{\alpha}_{0, j} + \mathbf{x}^{\alpha}_j \beta_{\alpha} \>, \sigma^2_{\alpha} \Big)$$
+
+### Forms of Personalization
+
+* Goal: Keep patients within some concentration range
+* Not intended to be exhaustive, just demonstrative of capabilities
+* Range from
+  * No personalization
+  * Personalize on covariates
+  * Personalize on covariates + 1 measurement
+  * Sequentially optimal via Q learning.
 
 ### References
