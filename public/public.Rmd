@@ -5,6 +5,7 @@ fontsize: 10pt
 author: "Demetri Pananos M.Math" 
 date: "October 19 2022"
 bibliography: "thesis_bib.bib"
+csl: academic-medicine.csl
 output:
   beamer_presentation:
     slide_level: 3
@@ -45,7 +46,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Motivation
 
-* Different people react differently to the same drug, even if they match on important variables. This is can be an obstacle for optimal treatment:
+* Different people react differently to the same drug. 
+
+* Obstacle for optimal treatment:
 
   * Heightened response ($\to$ toxicity)
   * Lowered response ($\to$ inefficacy)
@@ -58,22 +61,23 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Morse and Kim identify 4 goals of PM:
 
-  1) Identify drugs for which excess variation in response is key issue to treatment
-  2) **Identify factors driving this variation**
-  3) **"Right amount, right drug, right patient, right time"**
-  4) Aid in prevention of adverse events associated with said drugs
+  1) Which drugs have excess variation?
+  2) **Which factors drive variation?**
+  3) **Personalize dose**
+  4) Prevent adverse events
 
 ### Excess Variation Motivates Fine Tuning
 
 * *Pharmacokinetics* (PK): Time course of drug concentrations in the body. 
   * Understand variation in concentration since drug concentration $\leftrightarrow$ drug exposure.
-* Many PK studies provide dose adjustment criteria based on modelling
-* Excess variation beyond that observed in clinical trials [@sukumar2019apixaban].  Motivates a "fine tuning" to population at hand.
+* Many PK studies provide dose adjustment criteria
+* Still excess variation in response [@sukumar2019apixaban].  
+* "Fine tune" to population at hand.
 
 ### How to "Fine Tune"
 
-* Bayesian statistics is one possible formalization of "fine tuning" previous modelling.
-* PM is about a sequence of decisions (about treatment).  Adopt a formalization of sequential decision making (dynamic treatment regimes (DTR)).
+* Bayesian statistics
+* Formalize sequential decision making with Dynamic Treatment Regimes (DTRs)
 * Decisions in PM are based on concentrations (PK).  Synergy between PK modelling and DTRs.
 
 ### This Thesis
@@ -84,32 +88,31 @@ Morse and Kim identify 4 goals of PM:
   
 Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2) and (3)} of personalized medicine.
 
-### Objectives & Contrubutions
+### Objectives & Contributions
 
-* Compare/contrast existing approaches to fitting Bayesian models with recent advancements in pursuit of fitting population PK models.
-  * One compartment model based on non-standard parameterization.  Simulation study demonstrating MAP leads to poorer calibrated decisions.
-* Develop a framework for evaluating the benefits of collecting additional information against burden put on patient.
-  * Framework for development of simulation-based evaluation of personalization based on PM combined with DTRs.
-* Demonstrate how PM researchers in academic centers can use all data available to them to study effects of variables on PK while also exploring new variables.
-  * Demonstration of how to combine observational and tightly controlled data. Comments on and reparameterizations to maintain exchangeability.
+* Compare/contrast existing approaches to fitting Bayesian models
+  * Simulation study on decision quality.
+* Framework for "is the juice worth the squeeze".
+  * Simulation-based evaluation of personalization based on PK combined with DTRs.
+* Demonstrate how PM researchers in academic centers can use all data available to them.
+  * Demonstration how to combine different types of data with comments on how to maintain exchangeability.
 
 ## Paper 1: Comparisons Between HMC and MAP for a Bayesian Model for Apixiban Induction Dose and Dose Personalization
 
 ### Background
 
-* Hamiltonian Monte Carlo (HMC) considered gold standard for sampling from a Bayesian model.  Theoretical understanding came within last 10 years.
-* Prior to that, Maximum A Posteriori (MAP) a popular method for fitting Bayesian models.
-* Theoretical arguments *against* using in some models, mostly based on differential geometric arguments.
+* Hamiltonian Monte Carlo (HMC) considered gold standard.
+* Prior to that, Maximum A Posteriori (MAP) a popular method.
+* Recently, theoretical arguments *against* using in some models.
 * Question:
   * Are decisions in PM greatly affected by choice of inference method?
   * Answer: Predictions of concentration are similar, but uncertainty is different.  This affects decision quality.
   
 ### Motivating Theory
 
-* Intuition for MAP is based on low dimensional thinking.
-* Theory for HMC says MAP should break down as number of parameters in the model increases.
-* For some PK models, number parameters might scale like $3N$.
-* Might effect estimates of concentration, might effect uncertainty estimates too.
+* Intuition for MAP starts in low dimensions
+* Theory: "As dimensionality $\uparrow$, MAP is poorer approximation".
+* For some PK models, number parameters $\propto 3 \times  \text{Number of subjects}$.
 
 ### Experiments
 
@@ -121,34 +124,41 @@ Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2)
   * Pick a dose so the trough concentration is not too small (inefficacy)
 
 
+### The (Real) Data
+
+![](../figures/table1.png)
+
 ### The Model
 
 * 1 Compartment PK model with first order elimination and absorption.
 * Prior distributions derived from a 2019 review on apixaban pharmacokinetics.
 * Each patient gets their own parameters through a random effect
-$$y(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^{-k_a(t-\delta)}-e^{-k_e(t-\delta)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$$$ \log(Cl_j) \sim \mathcal{N}(\beta_{0, Cl}, \sigma^2_{Cl}) $$$$ \log(t_{\max, j}) \sim \mathcal{N}(\beta_{0, t_{\max}}, \sigma^2_{t_{\max}}) $$$$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}(\beta_{0, \alpha}, \sigma^2_\alpha) $$$$ \delta_j \sim \operatorname{Beta}(\mu \kappa \>, (1-\mu) \kappa) $$
+$$C(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^{-k_a(t-\delta)}-e^{-k_e(t-\delta)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$$$ \log(Cl_j) \sim \mathcal{N}(\beta_{0, Cl}, \sigma^2_{Cl}) $$$$ \log(t_{\max, j}) \sim \mathcal{N}(\beta_{0, t_{\max}}, \sigma^2_{t_{\max}}) $$$$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}(\beta_{0, \alpha}, \sigma^2_\alpha) $$$$ \delta_j \sim \operatorname{Beta}(\mu \kappa \>, (1-\mu) \kappa) $$
+
+### The Model
+<center>
+
+![](../figures/model1.jpg){height=80%}
+
+</center>
 
 ### Modelling Results 
 
 ![[Left] Draws from the prior distribution.  [Center] Two patients from our dataset. [Right] Posterior fits for the latent concentration.](../figures/fig3.png)
 
-### How Does It Fit?
-
-![Diagnostics of the Bayesian model fit to real data.](../figures/diagnostics.png){width=80%}
 
 ### Checking Decision Quality
 
-* Model fits well, now how do we check decision quality?
-* Look at predictions
-* Look at decisions under uncertainty
-  * Pick a time, $T$ (e.g. time to max concentration)
-  * Pick a concentration threshold, $C$, we would like to keep concentration under.
+* Prediction Error
+* Decisions under uncertainty
+  * Pick a time, $T$ (e.g. $t_{\max}$)
+  * Pick a threshold, $c$
   * Pick a desired risk level, $R$.
-  * Select a dose so that $P\Big(y(T) > C\Big) = R$
+  * Select a dose so that $P\Big(C(T) > c\Big) = R$
 
 ### Checking Decision Quality
 
-* If select a dose for every patient such that they have probability $R$ of exceeding the threshold, then approximately $R\times 100$ patients should exceed the threshold.
+* Approximately $R\times 100$ patients should exceed the threshold.
 * Check the calibration of dosing decisions using models fit by MAP and HMC.
 
 ### Prediction Error Very Similar
@@ -186,8 +196,8 @@ tribble(
 
 ### Discussion
 
-* MAP leads to different decisions than HMC, even with more data than would be available in practice.
-  * To the extent that this would affect decisions depends on the loss.
+* MAP leads to different decisions than HMC.
+  * Affect on decisions depends on the loss.
 * MAP is fast and familiar to MLE, but it is not interchangeable with HMC for these types of models.
 * Recommend that if you are to use MAP, invest the time to compare against HMC.
 
@@ -195,39 +205,165 @@ tribble(
 
 ### Background
 
-* With respect to the third goal of PM (personalized dosing), many studies  regress stable dose onto pre-dose covariates (*static personalization*).
+* Many studies regress stable dose onto pre-dose covariates (*static personalization*).
 
 * Need for dose titration has been reduced, but not eliminated.
 
-* Possibility to personalize the titration process too for optimal decision making (*dynamic personalization*).
+* Personalize the titration process too for optimal decision making (*dynamic personalization*).
 
 * Is the juice of dynamic personalization worth the squeeze?
   * Are the possible gains from dynamic personalization worth imposing additional burden onto patients?
+  
+### Why Is This Important?
+
+* Circumstances for cost effectiveness of PM are unclear [@looff2016economic],[@shabaruddin2015economic].
+* Additional variability in QALY for some modes of PM [@kasztura2019cost]. Question if burden is worth payoff.
+* Need for PM to focus on needs, constraints, and utilities of patients [@rogowski2015concepts],[@di2017personalized].    
+* E.g. Frequent followup
+* Incorporating patient preferences $\to$ sustained adherence [@elliott2008understanding].
+
+* Framework we present produces some evidence for effectiveness of a range of modes of PM to inform organization-level decisions surrounding implementation.
+
+### Related Work
+
+* Other studies which apply Q-learning.
+* Most closest is Rich et. al [@rich2014simulating], who develop a SMART trial for optimal dose selection using pharmacokinetic data.
+* Main differences:
+  * Other studies often *estimate* the value function. 
+  * Our value function based on PK model. 
+  * Question now is "Is the value function based on PK the function we really want?"
+
 
 ### Framework
 
-* Have a PK model for a given drug, fit it on new data.
-* Use the model to simulate new patients (much like before)
-* Try different forms of personalization on these simulated subjects
-* Because we know the truth, determine the "return" from each form of personalization.
+Various Steps in the Framework:
 
-### Model
+ 1. Have a PK model for a given drug, fit it on real data.
+ 
+ 2. Use the model to simulate new patients (much like before).
+ 
+ 3. Try different forms of personalization on these simulated subjects.
+ 
+ 4. Because we know the truth, determine the "return" from each form of personalization.
 
-* Similar to last model, but now adjust for patient covariates.
 
-$$y(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^{-k_a(t-\delta)}-e^{-k_e(t-\delta)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$
+### Step 1. Model  & Step 2. Simulate
+
+* Similar to last model, but now adjust for patient covariates and allow for multiple doses.
+
+$$C(t)= \begin{cases}\frac{F \cdot D}{C l} \frac{k_e \cdot k_a}{k_e-k_a}\left(e^{-k_a(t-\delta)}-e^{-k_e(t-\delta)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$
+$$y(t) = \sum_{j=0} ^ {20} C(t-12j)H(t-12j)$$
+
 $$ \log(Cl_j) \sim \mathcal{N}\Big(\beta^{Cl}_{0, j} + \mathbf{x}^{Cl}_j \beta_{Cl}\>, \sigma^2_{Cl}\Big)$$
 $$ \log(t_{\max, j}) \sim \mathcal{N}\Big(\beta^{t_{\max}}_{0, j} + \mathbf{x}^{t_{\max}}_j \beta_{t_{\max}} \>, \sigma^2_{t_{\max}} \Big)$$
 $$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\beta^{\alpha}_{0, j} + \mathbf{x}^{\alpha}_j \beta_{\alpha} \>, \sigma^2_{\alpha} \Big)$$
 
-### Forms of Personalization
+### The Model 
+
+![](../figures/model2.jpg){height=80%}
+
+
+### Step 3. Forms of Personalization
 
 * Goal: Keep patients within some concentration range
-* Not intended to be exhaustive, just demonstrative of capabilities
-* Range from
-  * No personalization
-  * Personalize on covariates
-  * Personalize on covariates + 1 measurement
-  * Sequentially optimal via Q learning.
+* Not intended to be exhaustive, just demonstrative of capabilities:
+  * "One Size Fits All" dose
+  * "One Size Fits All" dose + 1 dose adjustment (based on measurement of concentration)
+  * Dose based on clinical variables
+  * Dose based on clinical variables + 1 dose adjustment
+  * Optimal Sampling Time (via Q Learning)
+  * Optimal Sequential Dosing (via Q Learning)
+  
+### Step 4: Determination of the Return
 
-### References
+![](../figures/viz_of_process.png)
+
+### Results
+
+* Modes of personalization which use more information result in lower regret
+* Point of diminishing returns
+* Would expect Q-learning to perform better when elimination rates were very low, meaning impact of decisions last longer.
+
+![](../figures/models_of_personalization_differences.png)
+
+### Conclusions
+
+TBD
+
+## Paper 3: Pooling Pharmacokinetic Information Using Hierarchical Models
+
+### Introduction
+
+* Personalized dosing is a goal of PM.
+* Sample size limitation for independent researchers
+* Models from RCTs may lack external validity
+* How can investigators use *all* data available for:
+  * Discovery
+  * Inference
+* In this work, pool data from *different* types of studies
+* Plus, simulation study to show how sparisty inducing priors can be used for discovery
+  
+### Background: Discovery
+
+* "Which variables should be in the model?".
+* Existing studies us variable selection.  Known deficiencies, including:
+  * Bias *away* from the null [@whittingham2006we]
+  * Exaggerated precision [@altman1989bootstrap]
+  * Uninterpretable p-values [@harrell2015regression]
+  * Low confidence to select correctly [@smith2018step].
+* Instead,  sparsity inducing priors
+* Bias *towards* the null can be a good thing for discovery
+
+### Background: Inference
+
+* Linear models in some studies
+* Known deficiencies:
+  * No variation due to other variables (e.g. elimination rate and kidney function)
+  * Poor when $t \leq t_{\max}$
+  * No integrating over uncertainty
+  * Under determination of effects
+* Instead, model the pharmacokinetics directly
+
+### Background: Heirarchical Model
+
+* Using data from different studies is an old idea.
+* Simply stacking data can violate exchangeability
+* Construct an exchangeable model
+
+### Data
+
+![](../figures/table_1_papr_3.jpg)
+  
+
+###  The Model
+
+* Exchangeability means one $\sigma$ per study.
+
+<center>
+
+![](../figures/model3.jpg){height=80%}
+
+</center>
+
+### Results
+
+![](../figures/simulation-results-1.png)
+
+### Results
+
+![](../figures/plot-model-predictions-1.png)
+
+### Results
+
+![](../figures/effect-estimates-1.png){height=80%}
+
+### Discussion
+
+* Can pool all data, just need to think about DGP
+* Many extensions, including between study variability in the effect of variables.
+* Posterior consistent with partially pooled models (i.e. regularization)
+* Limitations:
+  * Effect of NAFLD assumed 0
+  * Assumed time delay is 0 for sparsely sampled patients
+
+### References {.allowframebreaks} 
