@@ -40,6 +40,7 @@ header-includes:
 ---
 
 ```{r setup, include=FALSE}
+library(tidyverse)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -90,11 +91,11 @@ Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2)
 
 ### Objectives & Contributions
 
-* Compare/contrast existing approaches to fitting Bayesian models
+1. Compare/contrast existing approaches to fitting Bayesian models
   * Simulation study on decision quality.
-* Framework for "is the juice worth the squeeze".
+2. Framework for "is the juice worth the squeeze".
   * Simulation-based evaluation of personalization based on PK combined with DTRs.
-* Demonstrate how PM researchers in academic centers can use all data available to them.
+3. Demonstrate how PM researchers in academic centers can use all data available to them.
   * Demonstration how to combine different types of data with comments on how to maintain exchangeability.
 
 ## Paper 1: Comparisons Between HMC and MAP for a Bayesian Model for Apixiban Induction Dose and Dose Personalization
@@ -110,9 +111,58 @@ Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2)
   
 ### Motivating Theory
 
-* Intuition for MAP starts in low dimensions
+* Intuition: *Regions of high density affect expectations the most*
 * Theory: "As dimensionality $\uparrow$, MAP is poorer approximation".
-* For some PK models, number parameters $\propto 3 \times  \text{Number of subjects}$.
+* Dimensionality of some PK models  $\propto 3 \times  \text{Number of subjects}$.
+
+
+```{r, fig.height=3, fig.width=5, fig.align='center'}
+
+y <- 10
+n <- 50
+a <- 10
+b <- 90
+p <- seq(0, 1, 0.01)
+
+log_posterior <- \(x)  -dbinom(y, n, plogis(x), log=T) - dbeta(plogis(x), a, b, log = T)
+r <- optim(log_posterior, par=0, method='L-BFGS-B', hessian = T)
+
+logit_p <- seq(-5, 5, 0.01)
+log_post <- -log_posterior(logit_p)
+map_approx <- r$value - as.numeric(r$hessian)*(logit_p - r$par)^2
+post <- exp(log_post) / max(exp(log_post))
+mapp <- exp(map_approx) / max(exp(map_approx))
+
+tibble(
+  x = logit_p, 
+  log_posterior = log_post,
+  log_map_approx = map_approx,
+  posterior = post,
+  mapp = mapp
+) %>% 
+  pivot_longer(cols = log_posterior:mapp) %>% 
+  mutate(
+    which = if_else(name %in% c('posterior','mapp'), "Posterior", "Log Posterior"),
+    method = if_else(name %in% c('mapp','log_map_approx'), "MAP","True Posterior"),
+    x = if_else(which=="Posterior", plogis(x), x)
+  )  %>% 
+  ggplot(aes(x, value, color = method)) + 
+  geom_line() + 
+  facet_wrap(~which, scales = 'free') + 
+  theme_classic() + 
+  theme(
+    aspect.ratio = 1 / 1.61,
+    panel.grid.major = element_line(),
+    legend.position = 'top'
+  ) +
+  scale_color_brewer(palette = 'Set1') + 
+  labs(x='p',
+       y = "Density",
+       color = '',
+       subtitle = 'MAP vs. True Posterior for Conjugate Binomial Model',
+       caption = "Prior for p Beta(10, 90), y = 10, n = 100")
+
+```
 
 ### Experiments
 
@@ -127,20 +177,33 @@ $$ \overbrace{P(\tilde{y} \vert y)}^{\text{Posterior Pred.}} = \int_\theta \unde
   * Pick a dose so the trough concentration is not too small (inefficacy)
 
 
-### The (Real) Data
 
-![](../figures/table1.png)
+### Deriving the Concentration Function
+* 1 Compartment PK model with first order elimination and absorption.
+
+* Concentration of a drug at time $t$ is modelled as the solution to the ODE
+
+$$ \dfrac{dC}{dt} = \dfrac{FDk_a}{V}\exp(-k_a t) - k_e C(t) $$
+
+
+
+* Can solve this ODE, substituting $V = Cl/k_e$
+
+$$ C(t)=\frac{F D}{C l} \frac{k_e k_a}{k_e-k_a}\left(e^{-k_a t}-e^{-k_e t}\right) $$
+
+\centering
+![](../figures/pkcurves.png){height=33%}
+
 
 ### The Model
 
-* 1 Compartment PK model with first order elimination and absorption.
 * Prior distributions derived from a 2019 review on apixaban pharmacokinetics.
 * Each patient gets their own parameters through a random effect
 
 $$ y_{j}(t_i) \sim \operatorname{Lognormal}(C_j(t_i), \sigma^2_y) $$
 $$C_j(t)= \begin{cases}\frac{F \cdot D}{Cl_{j}} \frac{k_{e, j}\cdot k_{a, j}}{k_{e,j}-k_{a, j}}\left(e^{-k_{a, j}(t-\delta_j)}-e^{-k_{e, j}(t-\delta_j)}\right) & \delta \leq t \\ 0 & \text { else }\end{cases}$$
 $$ \log(Cl_j) \sim \mathcal{N}(\mu_{Cl}, \sigma^2_{Cl}) $$$$ \log(t_{\max, j}) \sim \mathcal{N}(\mu_{t_{\max}}, \sigma^2_{t_{\max}}) $$
-$$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}(\mu_{\alpha}, \sigma^2_\alpha) $$
+$$ \alpha_j \sim \operatorname{Beta}(2, 2) $$
 $$ \delta_j \sim \operatorname{Beta}(\phi \kappa \>, (1-\phi) \kappa) $$
 
 
@@ -157,7 +220,7 @@ $$ t_{\max} = \dfrac{\ln(k_e) - \ln(k_a)}{k_e - k_a} \implies k_a = \dfrac{1}{t_
 
 ### The Model
 
-* Consider $\theta_j = [Cl_j \>, t_{\max, j} \>, \alpha_j]^T$, $\sigma = [\sigma^2_{Cl}, \sigma^2_{t_{\max}}, \sigma^2_\alpha]^T$, and $\mu = [\mu_{Cl} \>, \mu_{t_{\max}} \>, \mu_\alpha]^T$.
+* Consider $\theta_j = [Cl_j \>, t_{\max, j} \>, \alpha_j]^T$, $\sigma = [\sigma^2_{Cl}, \sigma^2_{t_{\max}}]^T$, and $\mu = [\mu_{Cl} \>, \mu_{t_{\max}} \>]^T$.
 
 <center>
 
@@ -173,15 +236,15 @@ $$ t_{\max} = \dfrac{\ln(k_e) - \ln(k_a)}{k_e - k_a} \implies k_a = \dfrac{1}{t_
 ### Checking Decision Quality
 
 * Prediction Error
+
 * Decisions under uncertainty
   * Pick a time, $T$ (e.g. $t_{\max}$)
   * Pick a threshold, $c$
   * Pick a desired risk level, $R$.
   * Select a dose so that $P\Big(C(T) > c\Big) = R$
 
-### Checking Decision Quality
-
 * Approximately $R\times 100$ patients should exceed the threshold.
+
 * Check the calibration of dosing decisions using models fit by MAP and HMC.
 
 ### Prediction Error Very Similar
@@ -220,7 +283,6 @@ tribble(
 ### Discussion
 
 * MAP leads to different decisions than HMC.
-  * Affect on decisions depends on the loss.
 * MAP is fast and familiar to MLE, but it is not interchangeable with HMC for these types of models.
 * Recommend that if you are to use MAP, invest the time to compare against HMC.
 
@@ -228,33 +290,18 @@ tribble(
 
 ### Introduction
 
-* Many approaches to personalizing doses regress stable dose onto pre-dose covariates (**static personalization**).
-
-* Has reduced -- but not eliminated -- the need for "trial-and-error" adjustments to the dose.
-
-* Further opportunity to personalize the titration process (**dynamic personalization**).
+* Existing modes of personalization decrease trial-and-error, but do not completely eliminate it.
+* Is additional burden on patient and provider (e.g. gathering lab results, additional visits) "worth it"?
+* Question of burden is salient:
+  * Circumstances for cost effectiveness of PM are unclear [@looff2016economic],[@shabaruddin2015economic].
+  * Variability in QALY for some modes of PM [@kasztura2019cost].
+  * Need for PM to focus on constraints and utilities of patients to $\uparrow$ adherence and $\downarrow$ adverse events [@rogowski2015concepts],[@di2017personalized].    
 
 ### Introduction
 
-* Dynamic personalization imposes additional burden on patient.
-
-* "Is the juice worth the squeeze?"
-  * Do the benefits outweigh burden?
-  
-
-### Why Is This Important?
-
-* Circumstances for cost effectiveness of PM are unclear [@looff2016economic],[@shabaruddin2015economic].
-* Additional variability in QALY for some modes of PM [@kasztura2019cost]. Question if burden is worth payoff persists.
-* Need for PM to focus on constraints and utilities of patients [@rogowski2015concepts],[@di2017personalized].    
-* Incorporating patient preferences $\to$ sustained adherence [@elliott2008understanding].
-
-
-### Contribution
-
-* Framework for evaluation of various static and dynamic modes of personalization.
-
-* Can contribute evidence towards decisions on if a certain mode should be implemented
+* Framework for simulation-based evaluation of static and dynamic personalization based on PK models.
+* Generate evidence which can be used in system level decision making.
+* Demonstrate framework using data on apixaban.
 
 ### Related Work
 
@@ -264,19 +311,59 @@ tribble(
   * Other studies often *estimate* the value function. 
   * Our value function based on PK model. 
   * Question now is "Is the value function based on PK the function we really want?" 
-  
-  
-### Framework Outline
-
-1. Have a model of PK for your drug
-2. Simulate new patients from your model
-3. Select doses on these simulated subjects using selected modes
-4. Evaluate on their ability to achieve desired result
 
 
-We provide an example using apixaban.
+### Intuitive Idea
 
-###  Step 1. Model and Step 2.  Simulate
+### Q learning
+
+Little story to set the stage
+
+* Patient comes in and get's their clinical vars measured ($O_1$)
+* Dose is selected based on some decision rule ($A_1$)
+* Patient (possibly) returns for a blood measurement ($O_2$)
+* Dose is (possible) adjusted ($A_2$)
+* Value: "Proportion of time spent in some concentration range"
+
+
+### DTRs & Q learning
+
+* To learn from data, need formalism.
+* Observe patient in a "stage", $j$.
+* A "policy" is a sequence of decision rules $d = (d_1, \dots, d_k)$ each of which takes patient information, ($O_j$) and produces an action, $(A_j)$.
+* The "history", $H_j = (O_1, A_1, \dots, O_{j-1}, A_{j-1}, O_j)$.
+* Performance of a decision rule is given by "reward", $Y_j$.  The "value", $V_j$, is the expected sum of rewards
+
+$$ V^d_j(h_j)=E_d\left[\sum_{k=j}^K Y_k(H_j, A_k, O_{k+1}) \vert H_j = h_j \right] $$
+
+* A policy is said to be "optimal" if it achieves highest possible value among those under consideration.
+
+
+
+### Q learning
+
+* One way to estimate optimal policy, estimate the "Optimal Q function", $Q_j^{\text{opt}}$
+
+$$  Q_j^{\mathsf{opt}}(h_j, a_j) = E \left[ Y_j(h_j, a_j, O_{j+1}) + \max_a Q_{j+1}^{\mathsf{opt}}(H_{j+1}, a) | H_j = h_j, A_j = a_j
+ \right] $$
+ 
+* Interpretation: *The value if we took action $a_j$ now and acted optimally thereafter*. 
+
+
+
+### Q learning 
+
+![](../figures/viz_of_process.png)
+
+### Framework
+
+1. Model for PK of drug based on real data
+2. Simulate new patients from model
+3. Apply personalization to each simulated patient
+4. Evaluate "regret" (Maximum possible return - Achieved return).
+
+### Steps 1 and 2: Model & Simulate
+
 
 * Similar to before, but adjust for covariates and allow for multiple doses
 
@@ -296,9 +383,8 @@ $$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\mu_{\alpha, j} + \mathbf
 
 ![](../figures/model2.jpg){height=80%}
 
-### Step 3. Dose Selection
+### Step 3: Apply Personalization
 
-* Goal: Keep patients within some concentration range for as long as possible.
 * Not intended to be exhaustive, just demonstrative of capabilities:
   * "One Size Fits All" dose
   * "One Size Fits All" dose + 1 dose adjustment (based on measurement of concentration)
@@ -306,14 +392,10 @@ $$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\mu_{\alpha, j} + \mathbf
   * Dose based on clinical variables + 1 dose adjustment
   * Optimal Sampling Time (via Q Learning)
   * Optimal Sequential Dosing (via Q Learning)
-* Evaluate the "regret" (difference between maximal time in range and achieved time in range).
+  
+  
+### Step 4: Evaluate Regret
 
-### Step 4: Determination of the Return
-
-![](../figures/viz_of_process.png)
-
-
-### Results
 
 * Modes of personalization which use more information result in lower regret
 * Point of diminishing returns
@@ -321,71 +403,102 @@ $$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\mu_{\alpha, j} + \mathbf
 
 ![](../figures/models_of_personalization_differences.png)
 
+
 ### Conclusions
 
 * In our case study, covariate adjustment seems to do well enough without additional burden.
 * If apixaban were eliminated slower, maybe other forms would have improved.
-* Framework can produce evidence for the potential effectiveness and implementation of personalization that respects burden and potentially improves outcomes.
-  
+* Better idea of what the impact would be if we implemented a specific mode of personalization.
 
 
 ## Paper 3: Pooling Pharmacokinetic Information Using Hierarchical Models
 
 ### Introduction
 
-* Personalized dosing is a goal of PM.
-* Investigators may be able to collect data from some patients, but can be constrained in resources.
-* How can investigators use *all* data available for:
-  * Discovery
-  * Inference
-* In this work, pool data from *different* types of studies
-* Plus, simulation study to show how sparisty inducing priors can be used for discovery
-  
-### Background: Discovery
+* Independent PM researchers may be able to collect data from a population of interest.
+* Possible questions about new covariates not previously analyzed
+* How can researchers use *all* data available to them for inference and discovery?
 
-* "Which variables should be in the model?".
-* Existing studies us variable selection.  Known deficiencies, including:
-  * Bias *away* from the null [@whittingham2006we]
-  * Exaggerated precision [@altman1989bootstrap]
-  * Uninterpretable p-values [@harrell2015regression]
-  * Low confidence to select correctly [@smith2018step].
-* Instead,  sparsity inducing priors
-* Simulation study to demonstrate sparisty inducing priors on new covariate.
+### Background on Discovery
 
-### Background: Inference
-
-* Linear models in some studies
+* Discovery usually means "which variables should go in the model?"
+* Many existing studies use variants of stepwise regression [@cirincione2018population],[@ueshima2018population].
 * Known deficiencies:
-  * No variation due to other variables (e.g. elimination rate and kidney function)
-  * Poor when $t \leq t_{\max}$
-  * No integrating over uncertainty
-  * Under determination of effects
-* Instead, model the pharmacokinetics directly
+  * Bias *away* from the null [@whittingham2006we], exaggerated precision [@altman1989bootstrap], uninterpretable p-values [@harrell2015regression],       low confidence to select correctly [@smith2018step].
 
-### Background: Heirarchical Model
 
-* Using data from different studies is an old idea.
-* Simply stacking data can violate exchangeability
-* Construct an exchangeable model
+### Background on Inference
+
+* Some studies use linear models to study effects of variables on concentrations [@gulilat2020drug] [@vakkalagadda2016effect].
+* Good place to start, but known defficienes:
+  * No variation in PK parameters due to covariates, poor approximation when $t \leq t_{\max}$, under determination of effect.
+* Mixed effect PK models assume exchangeability of subjects.  Can be violated if not careful when pooling studies.
+ 
+### Contribution
+
+* What is the thing common between :
+  * Tightly controlled clinical study
+  * Observational data from a personalized medicine clinic.
+* Its the dynamics!  Basics of PK works the same for subjects.
+* Should be able to translate knowledge across groups.  
+* Demonstration of sparsity inducing priors for discovery
+  * Application to concomitant medication
+  * Simulation study 
 
 ### Data
 
+* Data from 2 sources:
+  * Repeatedly sampled $\to$ clinical study
+  * Sparsely sampled $\to$ PM clinic (observational)
+
 ![](../figures/table_1_papr_3.jpg)
+
+### Combining Data
+
+* Want to assume *something* is common between the two data, but what?
+  * Effect of covariates on PK parameters
+* "Can't we just stack the data"?
+  * No!  Need to consider exchangeability
+* *Exchangeability*: $X_1, \dots, X_N$ are exchangeable $\iff$ $P(X_1, \dots, X_N) = P(X_{\sigma(1)}, \dots, X_{\sigma(N)})$.
+  * *Conditioned on the covariates, we have no other way of determining which subject belongs to which study*
+* Stacking data $\to$ non-exchangeable model
+  * Can bias estimates, affect precision, and uncertainty.
   
+### Maintaining Exchangeability
 
-###  The Model
+* Non-exchangeable because residual variance is larger in sparsely sampled data
+  * Mixture of measurement variability and between subject variability
+* Simply add a study specific measurement error term
 
-* Exchangeability means one $\sigma_y$ per study.
+$$ y_{i,j,s} \sim \operatorname{Lognormal}\Big( \log(C_{j, s}(t_i)), \sigma_s \Big)  \>.$$
 
-<center>
+### The Model
 
-![](../figures/model3.jpg){height=80%}
 
-</center>
+$$ \small C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} k_{e, j, s} k_{a, j, s}}{\mathit{Cl}_{j, s}(k_{e, j, s} - k_{a, j, s})} \Bigg( e^{-k_{a, j, s}(t_i - \delta_{j, s})} - e^{-k_{e, j, s}(t_i - \delta_{j, s})} \Bigg)  & \delta_{j, s} \leq t_i \\ 0 & \mbox{else} \end{cases}$$
+\begin{align}
+ \log(\mathit{Cl}_{j, s}) &= \mu_{\mathit{Cl}} + \mathbf{x}_{j, s}^{\mathit{Cl}} \beta_{\mathit{Cl}}\\
+ \log(t_{\max,j, s}) &= \mu_{t} + \mathbf{x}_{j, s}^{t} \beta_{t} \\
+ \operatorname{logit}(\alpha_{j, s}) &= \mu_{\alpha} + \mathbf{x}_{j, s}^\alpha \beta_{\alpha}\\
+ \operatorname{logit}(F_{j, s}) &= \mu_{F} + \mathbf{x}_{j, s}^{F} \beta_{F}
+\end{align}
 
-### Results
+
+ $$c_{0, j, 1} = 0 \quad \forall j$$
+ $$\delta_{j, 2} = 0 \quad \forall j$$
+
+### Simulation Study
+
+* Simulate scenario similar to ours
+* $p(\beta_F) =  \operatorname{Laplace}(0, \tau_F)$
+* $p(\tau_F) =  \operatorname{Normal}(0, 0.25)$
 
 ![](../figures/simulation-results-1.png)
+
+### The Model 
+
+
+![](../figures/model3.jpg){height=80%}
 
 ### Results
 
@@ -395,40 +508,142 @@ $$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\mu_{\alpha, j} + \mathbf
 
 ![](../figures/effect-estimates-1.png){height=80%}
 
-### Discussion
+### Discussion &  Conclusion
 
-* Can pool all data, just need to think about DGP
-* Many extensions, including between study variability in the effect of variables.
-* Posterior consistent with partially pooled models (i.e. regularization)
-* Limitations:
-  * Effect of NAFLD assumed 0
-  * Assumed time delay is 0 for sparsely sampled patients
-
-
-## Conclusion & Discussion of Thesis
-
-### Discussion
-
-* Compare/contrast existing approaches to fitting Bayesian models
-  * HMC leads to better decisions that more popular MAP.
-* Framework for "is the juice worth the squeeze".
-  * Simulation-based evaluation of personalization based on PK combined with DTRs.
-* Demonstrate how PM researchers in academic centers can use all data available to them.
-  * Careful considerations of how to pool PK data while maitaining exchangeabiliuty and exploring new variables.
+* Model combines data from different studies, allowing investigators to pool data resources
+* Sparse priors used for discovery, exchanging bias for variance
+* Estimates of effects consistent with other hierarchical models: regularization towards the null
+* Limitation
+  * Missing data (e.g. NAFLD)
+  * Assumption that time delay was 0 in sparse data.
+  * Possible inappropriateness of extrapolation of effect from repeatedly sampled data to sparsely sampled data.
   
   
-### Themes
+## Thesis Conclusion
 
-* Need to simulate plausible data and evaluate models on their intended use
-* Diminishing returns on persnaliztion and the need to incorporate patient preferences
-* Need for efficient use of data resources in study of PM
+### Discussion
 
+* Goals of this thesis: address factors driving between patient variability in drug response and optimal dose selection
+1. HMC leads to better calibrated decisions in PM
+2. Framework for combining PK models with DTR for comparison of modes of personalization
+3. Pool data by considering what is the same between datasets while also accounting for study specific details.
+
+
+### Key Themes
+
+* Need to simulate plausible data and evaluate models on intended use.
+* Diminishing returns on personalization, need to incorporate patient preferences
+* Need for efficient use fo data resources in PM
 
 ### Future Work
 
-* Further refinement of PK model to be consistent with expert knowledge
-* Learn a better value function through inverse re-inforcement learning
-* Multiple imputation methods for pooling data in the case where different variables are recorded in different studies.
-
-
 ### References {.allowframebreaks} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
