@@ -41,7 +41,7 @@ header-includes:
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, cache=TRUE)
 ```
 
 
@@ -93,9 +93,9 @@ Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2)
 
 1. Compare/contrast existing approaches to fitting Bayesian models
   * Simulation study on decision quality.
-2. Framework for "is the juice worth the squeeze".
+2. A way to compare different forms of personalized medicine
   * Simulation-based evaluation of personalization based on PK combined with DTRs.
-3. Demonstrate how PM researchers in academic centers can use all data available to them.
+3. Combine all data available to PM researchers for use in inference and discovery
   * Demonstration how to combine different types of data with comments on how to maintain exchangeability.
 
 ## Paper 1: Comparisons Between HMC and MAP for a Bayesian Model for Apixiban Induction Dose and Dose Personalization
@@ -111,6 +111,7 @@ Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2)
   
 ### Motivating Theory
 
+* $\log(P(\theta \vert y)) \approx \log(P(\widehat{\theta} \vert y  )) + \dfrac{1}{2}(\theta - \widehat{\theta})^2 \dfrac{d^2}{d\theta^2}\log(P(\theta \vert y)) \Big\vert_{\theta=\widehat{\theta}}$
 * Intuition: *Regions of high density affect expectations the most*
 * Theory: "As dimensionality $\uparrow$, MAP is poorer approximation".
 * Dimensionality of some PK models  $\propto 3 \times  \text{Number of subjects}$.
@@ -118,7 +119,7 @@ Hence, this thesis is most closely aligned with goals \textcolor{uwo-purple}{(2)
 
 ```{r, fig.height=3, fig.width=5, fig.align='center'}
 
-y <- 10
+y <- 1
 n <- 50
 a <- 10
 b <- 90
@@ -127,9 +128,9 @@ p <- seq(0, 1, 0.01)
 log_posterior <- \(x)  -dbinom(y, n, plogis(x), log=T) - dbeta(plogis(x), a, b, log = T)
 r <- optim(log_posterior, par=0, method='L-BFGS-B', hessian = T)
 
-logit_p <- seq(-5, 5, 0.01)
+logit_p <- seq(qlogis(0.01), qlogis(0.25), 0.01)
 log_post <- -log_posterior(logit_p)
-map_approx <- r$value - as.numeric(r$hessian)*(logit_p - r$par)^2
+map_approx <- r$value - as.numeric(r$hessian)/2*(logit_p - r$par)^2
 post <- exp(log_post) / max(exp(log_post))
 mapp <- exp(map_approx) / max(exp(map_approx))
 
@@ -146,8 +147,8 @@ tibble(
     method = if_else(name %in% c('mapp','log_map_approx'), "MAP","True Posterior"),
     x = if_else(which=="Posterior", plogis(x), x)
   )  %>% 
-  ggplot(aes(x, value, color = method)) + 
-  geom_line() + 
+  ggplot(aes(x, value, color = method, linetype=method)) + 
+  geom_line(alpha = 0.75) + 
   facet_wrap(~which, scales = 'free') + 
   theme_classic() + 
   theme(
@@ -155,12 +156,14 @@ tibble(
     panel.grid.major = element_line(),
     legend.position = 'top'
   ) +
+  guides(linetype='none')+
+  scale_linetype_manual(values = c(2, 1)) +
   scale_color_brewer(palette = 'Set1') + 
   labs(x='p',
        y = "Density",
        color = '',
        subtitle = 'MAP vs. True Posterior for Conjugate Binomial Model',
-       caption = "Prior for p Beta(10, 90), y = 10, n = 100")
+       caption = "Prior for p Beta(10, 90), y = 1, n = 50")
 
 ```
 
@@ -183,16 +186,38 @@ $$ \overbrace{P(\tilde{y} \vert y)}^{\text{Posterior Pred.}} = \int_\theta \unde
 
 * Concentration of a drug at time $t$ is modelled as the solution to the ODE
 
-$$ \dfrac{dC}{dt} = \dfrac{FDk_a}{V}\exp(-k_a t) - k_e C(t) $$
+$$ \dfrac{dC}{dt} = \dfrac{FDk_a}{V}\exp(-k_a t) - k_e C(t)  \quad  C(0) = 0$$
 
-
-
-* Can solve this ODE, substituting $V = Cl/k_e$
 
 $$ C(t)=\frac{F D}{C l} \frac{k_e k_a}{k_e-k_a}\left(e^{-k_a t}-e^{-k_e t}\right) $$
 
-\centering
-![](../figures/pkcurves.png){height=33%}
+
+
+```{r, fig.height=2, fig.width=2*1.61, fig.align='center'}
+f <- function(t, a){
+  1/(a-1) * ( exp(-t) - exp(-a*t))
+}
+
+crossing(t = seq(0, 12, 0.1),
+         a = seq(0.2, 0.8, 0.2)) |> 
+  mutate(y = f(t, a)) |> 
+  ggplot(aes(t, y, color = factor(a))) + 
+  geom_line() +
+  theme_classic() + 
+  theme(
+        aspect.ratio = 1/1.61,
+        panel.grid.major = element_line(),
+        ) + 
+  scale_color_brewer(palette = "RdBu") +
+  labs(
+    y = expression(C(t)),
+    x = expression(t),
+    color = expression( alpha == frac(k[e],k[a]))
+  )
+```
+
+
+<!-- ![](../figures/pkcurves.png){height=33%} -->
 
 
 ### The Model
@@ -303,27 +328,19 @@ tribble(
 * Generate evidence which can be used in system level decision making.
 * Demonstrate framework using data on apixaban.
 
-### Related Work
-
-* Other studies which apply Q-learning.
-* Rich et. al [@rich2014simulating] develop a SMART trial for optimal dose selection using pharmacokinetic data.
-* Main differences:
-  * Other studies often *estimate* the value function. 
-  * Our value function based on PK model. 
-  * Question now is "Is the value function based on PK the function we really want?" 
-
-
 ### Intuitive Idea
 
-### Q learning
+![](../figures/dtrs.png)
+
+### A Story
 
 Little story to set the stage
 
-* Patient comes in and get's their clinical vars measured ($O_1$)
-* Dose is selected based on some decision rule ($A_1$)
-* Patient (possibly) returns for a blood measurement ($O_2$)
-* Dose is (possible) adjusted ($A_2$)
-* Value: "Proportion of time spent in some concentration range"
+* Patient comes in and get's their clinical vars measured 
+* Dose is selected based on some decision rule 
+* Patient (possibly) returns for a blood measurement 
+* Dose is (possible) adjusted
+* Goal: "Keep the patient's concentration in a specific range for as long as possible."
 
 
 ### DTRs & Q learning
@@ -348,12 +365,6 @@ $$  Q_j^{\mathsf{opt}}(h_j, a_j) = E \left[ Y_j(h_j, a_j, O_{j+1}) + \max_a Q_{j
  \right] $$
  
 * Interpretation: *The value if we took action $a_j$ now and acted optimally thereafter*. 
-
-
-
-### Q learning 
-
-![](../figures/viz_of_process.png)
 
 ### Framework
 
@@ -455,8 +466,6 @@ $$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\mu_{\alpha, j} + \mathbf
 
 ### Combining Data
 
-* Want to assume *something* is common between the two data, but what?
-  * Effect of covariates on PK parameters
 * "Can't we just stack the data"?
   * No!  Need to consider exchangeability
 * *Exchangeability*: $X_1, \dots, X_N$ are exchangeable $\iff$ $P(X_1, \dots, X_N) = P(X_{\sigma(1)}, \dots, X_{\sigma(N)})$.
@@ -487,6 +496,11 @@ $$ \small C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} 
  $$c_{0, j, 1} = 0 \quad \forall j$$
  $$\delta_{j, 2} = 0 \quad \forall j$$
 
+### The Model 
+
+
+![](../figures/model3.jpg){height=80%}
+
 ### Simulation Study
 
 * Simulate scenario similar to ours
@@ -494,11 +508,6 @@ $$ \small C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} 
 * $p(\tau_F) =  \operatorname{Normal}(0, 0.25)$
 
 ![](../figures/simulation-results-1.png)
-
-### The Model 
-
-
-![](../figures/model3.jpg){height=80%}
 
 ### Results
 
@@ -536,6 +545,10 @@ $$ \small C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} 
 * Need for efficient use fo data resources in PM
 
 ### Future Work
+
+* PK Model
+* Reward function which better reflects reality; inverse reinforcement learning
+* Bayesian imputation methods
 
 ### References {.allowframebreaks} 
 
