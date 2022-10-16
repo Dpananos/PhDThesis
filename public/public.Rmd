@@ -130,7 +130,7 @@ r <- optim(log_posterior, par=0, method='L-BFGS-B', hessian = T)
 
 logit_p <- seq(qlogis(0.01), qlogis(0.25), 0.01)
 log_post <- -log_posterior(logit_p)
-map_approx <- r$value - as.numeric(r$hessian)/2*(logit_p - r$par)^2
+map_approx <- -r$value - as.numeric(r$hessian)/2*(logit_p - r$par)^2
 post <- exp(log_post) / max(exp(log_post))
 mapp <- exp(map_approx) / max(exp(map_approx))
 
@@ -199,7 +199,7 @@ f <- function(t, a){
 }
 
 crossing(t = seq(0, 12, 0.1),
-         a = seq(0.2, 0.8, 0.2)) |> 
+         a = c(0.15, 0.3, 0.4, 0.6, 0.8)) |> 
   mutate(y = f(t, a)) |> 
   ggplot(aes(t, y, color = factor(a))) + 
   geom_line() +
