@@ -1,0 +1,13 @@
+Corrections
+
+Throughout: sometime the word "data" is treated as a singular ("the data is" or the "the data was"), and other times it is treated as plural ("the data are" or "the data were"). At the risk of sounding pedantic, I'd say that "data" is plural but I will not insist you agree. I will, however, ask that you keep it consistent.
+
+P40: strong suggestion to revise the first sentence on the page---the one that actually begins on P39.
+
+P43, second paragraph: has "L-BFGS" been introduced somewhere earlier? Maybe I missed it, but if not, then please explain acronym.
+
+P59: has the DPYD acronym been explained? Also, middle of page uppercase W on Warfarin?
+
+Top of P73: O-learning? Q-learning maybe?
+
+

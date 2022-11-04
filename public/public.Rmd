@@ -428,7 +428,7 @@ $$ \operatorname{logit}(\alpha_j) \sim \mathcal{N}\Big(\mu_{\alpha, j} + \mathbf
 
 * Independent PM researchers may be able to collect data from a population of interest.
 * Possible questions about new covariates not previously analyzed
-* How can researchers use *all* data available to them for inference and discovery?
+* How can researchers use *all* data available to them -- even if they come from very different studies -- for inference and discovery?
 
 ### Background on Discovery
 
@@ -486,10 +486,10 @@ $$ y_{i,j,s} \sim \operatorname{Lognormal}\Big( \log(C_{j, s}(t_i)), \sigma_s \B
 
 $$ \small C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} k_{e, j, s} k_{a, j, s}}{\mathit{Cl}_{j, s}(k_{e, j, s} - k_{a, j, s})} \Bigg( e^{-k_{a, j, s}(t_i - \delta_{j, s})} - e^{-k_{e, j, s}(t_i - \delta_{j, s})} \Bigg)  & \delta_{j, s} \leq t_i \\ 0 & \mbox{else} \end{cases}$$
 \begin{align}
- \log(\mathit{Cl}_{j, s}) &= \mu_{\mathit{Cl}} + \mathbf{x}_{j, s}^{\mathit{Cl}} \beta_{\mathit{Cl}}\\
- \log(t_{\max,j, s}) &= \mu_{t} + \mathbf{x}_{j, s}^{t} \beta_{t} \\
- \operatorname{logit}(\alpha_{j, s}) &= \mu_{\alpha} + \mathbf{x}_{j, s}^\alpha \beta_{\alpha}\\
- \operatorname{logit}(F_{j, s}) &= \mu_{F} + \mathbf{x}_{j, s}^{F} \beta_{F}
+ \log(\mathit{Cl}_{j, s}) &\sim \mathcal{N}(\mu_{\mathit{Cl}} + \mathbf{x}_{j, s}^{\mathit{Cl}} \beta_{\mathit{Cl}}, \sigma^2_{Cl})\\
+ \log(t_{\max,j, s}) &\sim \mathcal{N}(\mu_{t} + \mathbf{x}_{j, s}^{t} \beta_{t}, \sigma^2_{t}) \\
+ \operatorname{logit}(\alpha_{j, s}) &\sim \mathcal{N}(\mu_{\alpha} + \mathbf{x}_{j, s}^\alpha \beta_{\alpha}, \sigma^2_{\alpha})\\
+ \operatorname{logit}(F_{j, s}) &\sim \mathcal{N}(\mu_{F} + \mathbf{x}_{j, s}^{F} \beta_{F}, \sigma^2_F)
 \end{align}
 
 
@@ -549,6 +549,8 @@ $$ \small C_{j, s}(t_i) =  \begin{cases} c_{0, j, s} + \dfrac{D_{j, s} F_{j, s} 
 * PK Model
 * Reward function which better reflects reality; inverse reinforcement learning
 * Bayesian imputation methods
+
+## Fin
 
 ### References {.allowframebreaks} 
 

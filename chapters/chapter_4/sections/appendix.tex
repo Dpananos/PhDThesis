@@ -1,12 +1,12 @@
 \section{Appendix}
 \subsection{Model Priors}
-Time to max concentration values for patient $j$ are drawn from a log normal distribution
+Time to maximum concentration values for patient $j$ are drawn from a log normal distribution
 
 \begin{equation}\label{eq:eq_6}
 t_{\mathit{max}, j} \vert \mu_t, \sigma_t \sim \operatorname{LogNormal}(\mu_t, \sigma_t)
 \end{equation}
 
-\noindent and $\alpha$ is drawn from a weakly informative beta prior to prevent degenerate cases when $\alpha$  is 0 or 1
+\noindent and $\alpha$ is drawn from a weakly informative beta prior to prevent degenerate cases when $\alpha$  is 0 or 1.  When $\alpha$ is near 0 or 1, concentration profiles become very extreme (either resulting in very fast elimination of apixaban or very slow elimination of apixaban).  To honestly reflect the uncertainty in the value of $\alpha$ while also discouraging very extreme concentration profiles from our prior model, we model $\alpha$ as
 
 \begin{equation}\label{eq:eq_7}
 \alpha_j \sim \operatorname{Beta}(2,2)  \>.
@@ -72,19 +72,19 @@ t_{\mathit{max}, j} \vert \mu_t, \sigma_t \sim \operatorname{LogNormal}(\mu_t, \
 
 \subsubsection*{Priors for Model Hyperparameters}
 
-Estimates of the time to max concentration for apixaban place the population median $t_{\mathit{max}}$ near 3.3 hours post dose  \cite{Byon2019-gf}. Assuming the median and the mean are similar, this provides information for $\mu_t$ and so we use specify 
+Estimates of the time to maximum concentration for apixaban place the population median $t_{\mathit{max}}$ near 3.3 hours post dose  \cite{Byon2019-gf}. Assuming the median and the mean are similar, this provides information for $\mu_t$ and so we use specify 
 
 \begin{equation}\label{eq:eq_10}
  p(\mu_t) = \operatorname{Normal}(\ln(3.3), 0.25)
 \end{equation}
 
-\noindent The standard deviation of the prior for $\mu_t$ was selected via prior predictive checks in which profiles are drawn and priors are assessed as realistic or not.  We choose to err on the side of caution and inflate the uncertainty in this estimate to account for population differences between the measured patients in the data and the patients used in studies to determine the estimates of $t_{\mathit{max}}$. The population variability of $t_{\mathit{max}}$ was modeled as
+\noindent The standard deviation of the prior for $\mu_t$ was selected via prior predictive checks in which profiles are drawn and priors are assessed as realistic or not.  Byon et. al \cite{Byon2019-gf} recreate a table from \cite{frost2013apixaban} which lists the median, min, and maximum estimated time to max concentration for apixaban. Hyperparameters for the prior on $t_{\max}$ were chosen so as to produce minimum and maximum concentrations which were similar in prior predictive simulations.   The population variability of $t_{\mathit{max}}$ was modelled as
 
 \begin{equation}\label{eq:eq_11}
 p(\sigma_t) = \operatorname{Gamma}(10,100)
 \end{equation}
 
-\noindent Using these priors, we recover similar median, min, and max $t_{\mathit{max}}$ values as reported by \cite{Byon2019-gf}. Similarly, we model the population mean and variability for the clearance rate as
+\noindent again, using prior predictive checks to ensure that the resulting draws were comparable to those listed in \cite{Byon2019-gf} and \cite{frost2013apixaban}. Using these priors, we recover similar median, min, and maximum $t_{\mathit{max}}$ values as reported by \cite{Byon2019-gf}. Similarly, we model the population mean and variability for the clearance rate as
 
 \begin{align}
 	p(\mu_{\mathit{Cl}}) &= \operatorname{Normal}(\ln(3.3), 0.15) \label{eq:eq_12} \\

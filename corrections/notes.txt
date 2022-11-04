@@ -1,0 +1,166 @@
+MAP/HMC difference is probaby skew induced by the log-normal assumption on the posterior
+
+
+== Erica:
+
+What assumptions would you feel comfortable with to use paper 2?
+D: Close correlation of PK and PD. OK for Apixaban, might not be for others.
+
+Table 4.1 and 4.2 - are they not stark? They seem stark.
+
+Figure 4.5 - didn't show expectation - they may not 
+
+Figure 4.6 - Seems like some of the doses from HMC are kind of big? How do we feel about that?
+
+[ Interesting case for apixaban - *low* doses might be the bigger risk. ]
+
+D: Might need to run a trial to feel better. But there is a risk of inefficacy. Need to account for that.
+
+How to improve calibration of HMC?
+
+D: Probably more variables and more data.
+
+Is the noise inherent to MAP or could it be somehow "fine-tuned?"
+
+[MAP/HMC difference is probaby skew induced by the log-normal assumption on the posterior]
+
+Why Q-learning?
+
+D: We know the dynamics of the system here, we felt that it fit well.
+
+Erica: Doubly-robust estimation. G-estimation.
+
+[Thanks for pushing on the doubly-robust, etc. thing; I explained that to him but you know how it goes. I think we're in an interesting setting where there's strong assumed causal connection between dose and concentration, but maybe not for everything else.]
+
+== Geoff Wild:
+
+WTF is dimensionless time?
+
+D: It's time relative to another units
+
+What's the statement about priors on nondimensionalized thing?
+
+D: Just wanted to indicate that the parameter means something.
+
+p.62 Equation 5.2. Can you explain what this means?
+
+D: Working backwards.
+
+In chapter 4. The authors identify similarities early on, but then act surprised at the end of the chapter.
+
+D: The fact that there are discrepancies is not surprising but the magnitudes.
+
+Chapter 5. Assuming perfect adherence to a schedule of doses, find that placing undue burden on patients probably isn't paying off. How much does that payoff depend on patient adherence? [The effect of the DTR might not just be through the drug, it might be on adherence.]
+
+== Ava:
+
+Sources for priors? How were they adopted? E.g. on P.56, chose to err on the side of caution and inflate the uncertainty in tmax to account for possilbe differences.
+
+D: [Explained sources]
+
+Why less precise about alpha? Was the less-precise prior allowing the model to converge.
+
+D: Main reason was to try to make it as broad as possible but not too close to unreasonable values.
+
+***Expand on rationale for priors.***
+
+A: Assumed absorbtion and elimination don't change over time. You acknowledge that it might not hold some times. Can you talk more about that? 
+
+*** [Grapefruit juice.] ***
+
+D: I did assume that. It's probably not true.
+
+A: What was the sample size in the case study? What does it mean if you sample 36 people, sample up to 1000 people? Are the covariate relationships amplified? Maybe the covariate relationships look too good to be true? Essentially, overfitting?
+
+*** Could we be overfitting here? What if the uncertainty in the posterior is too small. ***
+
+D: Could be. Should go back to the PK people as well to think about plausability.
+
+== John:
+
+J: Abstract: "More reliable by sampling from" - is it the sampling that's different or the parameterization that's different?
+
+*** D: should have said better calibration probably. ***
+*** D: parameterization is needed for the model to work ***
+
+*** J: On p.29 you talk about different methods. O-learning Q-learning, G-estimation*** -> in the literature review
+
+J: p.49 - Talk about flipping between doseage and risk. WHat does that mean?
+
+*** D: We basically need to invert the mapping from risk to dose. (could explain a bit more?) ***
+
+Clarify:
+
+*** J: "The bias can ... combatting overfitting, and hedge estimates of novel effects." Explain? ***
+
+*** p.92 seventh last line "where that change occurs is underdetermined" ***
+
+
+======== ROUND 2 =========
+
+Erica: 
+
+Focus on Paper 3
+
+E: Mentioned the idea of combining, talking about variables not included in previous studies. If you really did have something missing, what would you do?
+
+D: IF it's NMAR or the distributions are very different then probably not much you could do.
+
+E: You do see these different characteristics - one of the samples have NAFLD. Seems like a big deal. Is it a big deal?
+
+D: Valid concern. In the previous study they didn't find it so we decided not to worry about it.
+
+E: Single versus repeated measurements. In the single measurement study, you lose identifiability. Were you assuming that the two groups had different variances, or that you couldn't disentangle.
+
+D: Couldn't disentangle was the main issue.
+
+E: Did you generate different variances? 
+
+D: Assumed that variances were the same. Good thought - should think about that.
+
+E: Is that "exchangeability?" 
+
+*** D: Should think about that. Think about whether it's truly different *units* or different *sampling.* ***
+
+Jeff:
+
+J: Game theory/defection thread. Is there scope for expanding this to games of patients vs. physicians? Or others?
+
+[ Does everybody have the same rewards, or do they have different rewards? 
+  The effect of the overall intervention may not be the effect assumed that happens at the "micro-level"
+]
+
+J: MAP - high dimensions bad. Could do dimensionality reduction?
+
+D: Maybe; we don't worry about it too much.
+
+*** J: Chapter 4. You use some data. Provenance? *** [make clear in text]
+
+D: p.112 - honest uncertainty is preferable to exaggerated precision. Heavy duty. Explain?
+
+Ava:
+
+*** Study 3, p.92 elimination rate changing over time. ***
+
+A: Optimization differs depending on perspective. Can you comment on how things could be different?
+
+***A: Use "policy" in paper 2. Word "policy" maybe should be replaced with "practice guideline" or similar.***
+
+John:
+
+J: In Chapter 6, you use the word "regularization." Can you explain?
+
+***J Comment: In the first paper, you have this diagram beforehand. Could go into the paper. Maybe see about that.***
+
+=== Lightning Round ===
+
+Erica:
+
+When I fit a random effects model, the actual random effects are not parameters. Cuts down parameter space.
+
+So when you count dimesionality - do you include random effects?
+
+A lot of work that folks do is not that personal. It's more stratification. The random effects are nuisance if you're going to stratify, but not if you're actually going to respond to them as part of the treatments - like for example measuring people.
+
+
+

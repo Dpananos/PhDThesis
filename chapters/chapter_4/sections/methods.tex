@@ -14,16 +14,49 @@ To achieve our three objectives of 1) developing a new Bayesian pharmacokinetic 
 \end{table}
 
 
-\noindent Since participants were given a single dose of apixaban in a fasted state, we use a single-compartment pharmacokinetic model with first order absorption and elimination.  The solution to the differential equation describing mass transit, and consequently the concentration function, is then
+\noindent Since participants were given a single dose of apixaban in a fasted state, we use a single-compartment pharmacokinetic model with first order absorption and elimination. The model can be written as a differential equation, namely
 
-
-\begin{equation} \label{eq:eq_1}
-y(t) =  \begin{cases}  \dfrac{F \cdot D}{\mathit{Cl}} \dfrac{k_e \cdot k_a}{k_e - k_a}\Bigg( e^{-k_a (t-\delta)} - e^{-k_e(t-\delta)} \Bigg)  & \delta \leq t\\\\ 0 & \mbox{else} \end{cases}
+\begin{equation}
+	\dfrac{dC}{dt} = \dfrac{FDk_ak_e}{Cl}\exp(-k_at) - k_e C(t) \>, C(0) = 0 \>.
 \end{equation}
 
-\noindent Here, $D$ is the size of the dose in mg, $F$ is the bioavailability (fixed to 0.5 for apixaban \cite{Byon2019-gf}), $\mathit{Cl}$ is the clearance rate in units litres per hour, $k_a$ is the rate constant of absorption into the volume of distribution in units 1/hours, and $k_e$ is the elimination rate constant in units 1/hours. We include a time delay, $\delta$, to relax the assumption that absorption begins immediately after ingestion.  Parameters are modelled using random effects, with some population mean and variance (which is estimated from the data). 
+\noindent Here, $D$ is the size of the dose in mg, $F$ is the bioavailability (fixed to 0.5 for apixaban \cite{Byon2019-gf}), $\mathit{Cl}$ is the clearance rate in units litres per hour, $k_a$ is the rate constant of absorption into the volume of distribution in units 1/hours, and $k_e$ is the elimination rate constant in units 1/hours.  The differential equation can be non-dimensionalized by letting $\tau$ and $y(\tau)$ be the non-dimensional quantities, and letting $C(t) = k_ek_a FD y(\tau) / Cl$ and $t = \tau/k_a$.  The non-dimensionalized differential equation is then
 
-Priors for $k_e$ and $k_a$ are not defined explicitly.  Rather, our model puts priors on the time to max concentration, which can be expressed as a function of the parameters in \cref{eq:eq_1}
+\begin{equation}
+	\dfrac{dy(\tau)}{d\tau} = \exp(-\tau) - \alpha y(\tau) \>.
+\end{equation}
+
+
+\noindent Here, $\alpha = k_e / k_a$ is the ratio of elimination and absorption rates, and is dimensionless.  The differential equation's qualitative behaviour depends solely on this ratio, with all parameterizations in which $\alpha$ is constant displaying the same qualitative behaviour.  The remaining variables $Cl$, $D$, and $F$ only serve to scale the solution vertically.  The solution to this differential equation (obtained via integrating factors or the Laplace Transform) is
+
+\begin{equation}\label{key}
+	y(\tau) = \dfrac{1}{\alpha -1} \Big( \exp(-\tau) - \exp(-\alpha \tau) \Big)
+\end{equation}
+
+\noindent After solving the differential equation and converting back to dimensional variables, the solution to the differential equation describing mass transit, and consequently the concentration function, is then
+
+\begin{equation}\label{onecompartment_PKPD}
+	C(t) = \dfrac{F D}{Cl}\dfrac{k_ek_a}{k_e - k_a}\Big(e^{-k_at} - e^{-k_et}\Big) \>.
+\end{equation}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics{figures/pkcurves.png}
+	\caption[Non-dimensionalized solutions to pharmacokinetic differential equation] {Non-dimensionalized concentration plotted against non-dimensionalized time.  The process non-dimensionalizing the differential equation removes all units from the model, allowing for qualitative comparisons of the solution under different families of parameterization.  Here, it is shown that all parametrizations in which $\alpha = k_e/ka = 0.15$ elicit larger concentrations than those parameterizations in which $\alpha=0.4$ conditioned on $FD/V$ remaining constant.}
+	\label{fig:pkcureves}
+\end{figure}
+
+
+For our model, we use a slightly modified version of this function
+
+\begin{equation} \label{eq:eq_1}
+C(t) =  \begin{cases}  \dfrac{F \cdot D}{\mathit{Cl}} \dfrac{k_e \cdot k_a}{k_e - k_a}\Bigg( e^{-k_a (t-\delta)} - e^{-k_e(t-\delta)} \Bigg)  & \delta \leq t\\\\ 0 & \mbox{else} \end{cases}
+\end{equation}
+
+\noindent We include a time delay, $\delta$, to relax the assumption that absorption begins immediately after ingestion.  Parameters are modelled using random effects, with some population mean and variance (which is estimated from the data). 
+
+Priors for $k_e$ and $k_a$ are not defined explicitly.  Rather, our model puts priors on the time to maximum concentration, which can be expressed as a function of the parameters in \cref{eq:eq_1}
 
 \begin{equation}\label{eq:eq_2}
  t_{\mathit{max}} = \dfrac{\ln(k_a) - \ln(k_e)}{k_a - k_e}
@@ -35,7 +68,8 @@ Priors for $k_e$ and $k_a$ are not defined explicitly.  Rather, our model puts p
 \alpha  = \dfrac{k_e}{k_a} \>.
 \end{equation}
 
-\noindent We choose to place a prior on the quantity $\alpha$ because it arises when non-dimensionalizing \cite{holmes2009introduction} the differential equation governing mass transit of the drug in and out of the volume of distribution.  The plasma concentration function is a version of the “flip-flop” model \cite{Wakefield1996-yy, Salway2008-gi}, since different parameterizations of this model can yield the same curve, leading to model un-identifiability. To ensure the model is identifiable, we require $k_e<k_a$ as has been done in previous Bayesian analyses of this model \cite{Wakefield1996-yy, Salway2008-gi}. This requirement bounds $\alpha$ to the unit interval.  In principle, information on the elimination rate constant could be obtained by performing a linear regression on the log concentration values in the latter half of the concentration profiles where the drug is being eliminated from the body. To preserve as much data as possible for model fitting, we forgo this approach.  These two sets of equations are used to parameterize the absorption and elimination rate constants as follows
+\noindent We choose to place a prior on the quantity $\alpha$ because it arises when non-dimensionalizing \cite{holmes2009introduction} the differential equation governing mass transit of the drug in and out of the volume of distribution.  The plasma concentration function is a version of the “flip-flop” model \cite{Wakefield1996-yy, Salway2008-gi}, since different parameterizations of this model can yield the same curve, leading to model un-identifiability. To ensure the model is identifiable, we require $k_e<k_a$ as has been done in previous Bayesian analyses of this model \cite{Wakefield1996-yy, Salway2008-gi}. This requirement bounds $\alpha$ to the unit interval. Using a standard parameterization of the model (in terms of $k_e$ and $k_a$) resulted in poor sampling behaviour as indicated by the sampling diagnostics.  In particular, because of an unenforceable constraint that $k_e < k_a$ or $k_a < k_e$, the model suffered from poor mixing as indicated by the Gelman-Rubin diagnostic $\hat{R}$. Wakefield approached the problem of identifiability by \cite{wakefield1992bayesian} by placing priors on $k_a$, and $V$ (the volume of distribution for the drug) and $Cl$ for patients separately, (thereby allowing him to solve for $k_e$), however there was insufficient prior information on $k_a$ and $V$ for apixaban.
+Placing a relatively non-informative prior determined through prior predictive checks on $\alpha$ and using the estimate of time to maximum concentration ($t_{\max}$, for which there was prior information) allowed us to solve for either $k_e$ or $k_a$ and then use the relationship $\alpha = k_e / k_a$ to solve for the remaining rate constant.  This rectified the poor mixing behaviour and facilitated sampling with HMC.  In principle, information on the elimination rate constant could be obtained by performing a linear regression on the log concentration values in the latter half of the concentration profiles where the drug is being eliminated from the body. To preserve as much data as possible for model fitting, we forgo this approach.  These two sets of equations are used to parameterize the absorption and elimination rate constants as follows
 \begin{align}
 	k_a &= \dfrac{1}{t_{\mathit{max}}} \dfrac{\ln(\alpha)}{\alpha-1} \label{eq:eq_4} \\
 	k_e &= k_a \alpha \label{eq:eq_5}
@@ -146,7 +180,7 @@ Priors for $k_e$ and $k_a$ are not defined explicitly.  Rather, our model puts p
 %	C_{j}(t) \vert \mathit{Cl}_{j}, k_{a,j}, k_{a,j}, \delta_j &\sim \operatorname{LogNormal}(\ln(y(t)), \sigma_y)  \label{eq:eq_17}
 %\end{align}
 
-Details on the prior distributions for each parameter and the model likelihood can be found in the supplementary material.  We also include a summary of the model's posterior as well as details on simulating data from the model's posterior predictive distribution to generate pseudopatients for use in our experiments.
+Details on the prior distributions for each parameter and the model likelihood can be found in the appendix.  We also include a summary of the model's posterior as well as details on simulating data from the model's posterior predictive distribution to generate pseudopatients for use in our experiments.
 
 \subsection*{Model Fitting and Diagnostics}
 
@@ -174,6 +208,6 @@ We use Stan’s optimization capabilities to compute the MAP estimates.  The L-B
 The results from both  HMC and MAP yield samples from the approximate posterior of $\mathit{Cl}_{j}$, $k_{e,j}$, $k_{a,j}$, and $\delta_j$ for each of the $j$ patients.  For any given posterior sample, these parameters can be combined to compute a predicted concentration for patient $j$ at time $t$ by using \cref{eq:eq_1}.   We determine a personalized dose size by evaluating the pseudopatients’ concentration function under different dose sizes $D$ and then computing posterior probabilities of failing to surpass concentration thresholds.  When we have posterior samples, \cref{eq:eq_1} turns into a function of the dose size and time conditioned on patient. 
 
 
-We perform two experiments to compare HMC and MAP.  In our first experiment, we determine the posterior probability of failing to exceed a concentration of 20 ng/ml 12 hours post dose for each pseudopatient across a variety of dose sizes. We choose 20 ng/ml as our threshold for this experiment because the median concentration at 12 hours post dose  in the data from \cite{Beaton2018-el} is approximately 20 ng/ml. In our second experiment, we determine the posterior probability that the max concentration fails to exceed 80 ng/ml.  We choose 80 ng/ml as our threshold for this experiment because the median max concentration in the data is 79 ng/ml (though it is important to note that it is unlikely that these patients were observed exactly at the time which the peak concentration was achieved).  These quantities represent two different ways of assessing a patient's risk of being below a given threshold.  The chosen threshold is arbitrary, but our method generalizes to any threshold.  For each experiment, the risks are computed across a grid of dose sizes of 0 mg to 60 mg, yielding risk as a function of dose size.  For each pseudopatient, we interpolate these estimates using a monotone Hermite spline and then invert the risk curve; the inverted risk curve maps risk to dose. This allows us to determine a dose size which produces a specified risk level.
+We perform two experiments to compare HMC and MAP.  In our first experiment, we determine the posterior probability of failing to exceed a concentration of 20 ng/ml 12 hours post dose for each pseudopatient across a variety of dose sizes. We choose 20 ng/ml as our threshold for this experiment because the median concentration at 12 hours post dose  in the data from \cite{Beaton2018-el} is approximately 20 ng/ml. In our second experiment, we determine the posterior probability that the maximum concentration fails to exceed 80 ng/ml.  We choose 80 ng/ml as our threshold for this experiment because the median maximum concentration in the data is 79 ng/ml (though it is important to note that it is unlikely that these patients were observed exactly at the time which the peak concentration was achieved).  These quantities represent two different ways of assessing a patient's risk of being below a given threshold.  The chosen threshold is arbitrary, but our method generalizes to any threshold.  For each experiment, the risks are computed across a grid of dose sizes of 0 mg to 60 mg, yielding risk as a function of dose size.  For each pseudopatient, we interpolate these estimates using a monotone Hermite spline and then invert the risk curve; the inverted risk curve maps risk to dose. This allows us to determine a dose size which produces a specified risk level.
 
 

@@ -4,33 +4,7 @@ This chapter represents joint work with Dr.\ Dan Lizotte presented at  Machine L
 
 The motivation for the work came from researching the implementation of Hamiltonian Monte Carlo as well as researching Bayesian approaches in pharmacokinetics.  Many pharmacokinetic studies which used Bayesian techniques also used Maximum A Posteriori to fit their models.  My research into Hamiltonian Monte Carlo signalled a possible detriment to use of Maximum A Posteriori, and so I decided to implement a toy pharmacokinetic model using both to see for myself.
 
-The work in the following chapter presents a Bayesian model for apixaban pharmacokinetics.  This model is an atypical parameterization which involves placing a prior on a non-dimensional parameter which results from the non-dimensionalization of the differential equation for mass transit of a drug presented in chapter 2.  The differential equation can be non-dimensionalized by letting $\tau$ and $y(\tau)$ be the non-dimensional quantities, and letting $C(t) = k_ek_a FD y(\tau) / Cl$ and $t = \tau/k_a$.  The non-dimensionalized differential equation is then
 
-\begin{equation}
-	\dfrac{dy(\tau)}{d\tau} = \exp(-\tau) - \alpha y(\tau)
-\end{equation}
-
-\noindent Here, $\alpha = k_e / k_a$ is the ratio of elimination and absorption rates, and is dimensionless.  The differential equation's qualitative behaviour depends solely on this ratio, with all parameterizations in which $\alpha$ is constant displaying the same qualitative behaviour.  The remaining variables $Cl$, $D$, and $F$ only serve to scale the solution vertically.  The solution to this differential equation (obtained via integrating factors or the Laplace Transform) is
-
-\begin{equation}\label{key}
-	y(\tau) = \dfrac{1}{\alpha -1} \Big( \exp(-\tau) - \exp(-\alpha \tau) \Big)
-\end{equation}
-
-\noindent which can be transformed back into dimensional variables to yield 
-
-\begin{equation}\label{onecompartment_PKPD}
-	C(t) = \dfrac{F D}{Cl}\dfrac{k_ek_a}{k_e - k_a}\Big(e^{-k_at} - e^{-k_et}\Big) \>.
-\end{equation}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics{figures/pkcurves.png}
-	\caption[Non-dimensionalized solutions to pharmacokinetic differential equation] {Non-dimensionalized concentration plotted against non-dimensionalized time.  The process non-dimensionalizing the differential equation removes all units from the model, allowing for qualitative comparisons of the solution under different families of parameterization.  Here, it is shown that all parametrizations in which $\alpha = k_e/ka = 0.15$ elicit larger concentrations than those parameterizations in which $\alpha=0.4$ conditioned on $FD/V$ remaining constant.}
-	\label{fig:pkcureves}
-\end{figure}
-
-Using a standard parameterization of the model (in terms of $k_e$ and $k_a$) resulted in poor sampling behaviour as indicated by the sampling diagnostics.  In particular, because of an unenforceable constraint that $k_e < k_a$ or $k_a < k_e$, the model suffered from poor mixing as indicated by the Gelman-Rubin diagnostic $\hat{R}$.  The problem of non-identifiability in this model is well known.  Wakefield approached the problem of identifiability by \cite{wakefield1992bayesian} by placing priors on $k_a$, and $V$ (the volume of distribution for the drug) and $Cl$ for patients separately, (thereby allowing him to solve for $k_e$), however there was insufficient prior information on $k_a$ and $V$ for apixaban.
-Placing a relatively non-informative prior determined through prior predictive checks on $\alpha$ and using the estimate of time to max concentration ($t_{\max}$, for which there was prior information) allowed me to solve for either $k_e$ or $k_a$ and then use the relationship $\alpha = k_e / k_a$ to solve for the remaining rate constant.  This rectified the poor mixing behaviour and facilitated sampling with HMC.  These details were not included in the paper as published but represent an important component of the contribution.
 
 \newpage
 
