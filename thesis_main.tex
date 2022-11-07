@@ -389,15 +389,14 @@
 \begin{preliminary}
 	
 	%% This generates the title page from the information given above.
-	\maketitle
-	\addcontentsline{toc}{chapter}{Certificate of Examination}
-	\makecert
-	\newpage
+
+
+
+
 	%\addcontentsline{toc}{chapter}{Co-Authorship Statement}
 	%\coauthor{\makecoauthor}  %comment this out if none
 	%\newpage
-	\addcontentsline{toc}{chapter}{Acknowlegements}
-	\acknowlege{\makeacknowlege}	%as above
+
 	\addcontentsline{toc}{chapter}{Abstract}
 	\Large\begin{center}\textbf{Abstract}\end{center}\normalsize
 	%%  ***  Put your Abstract here.   ***
@@ -408,6 +407,19 @@
 	\vfill
 	\textbf{Keywords:} Bayesian Statistics, Pharmacokinetics, Hierarchical Model, Personalized Medicine
 	\newpage
+	\addcontentsline{toc}{chapter}{Lay Summary}
+	\Large\begin{center}\textbf{Lay Summary}\end{center}\normalsize
+	%%  ***  Put your Abstract here.   ***
+	%% (150 words for M.Sc. and 350 words for Ph.D.)
+	
+Patients can react to a drug differently just by virtue of being different people, and this between-patient variability in drug response is an obstacle to optimal treatment. Pharmacokinetic modelling offers one approach to studying drug response, often with covariate focused dose adjustment criteria being reported along side pharmacokinetic modelling. However, excess variation in concentrations continues to be reported despite the use of these criteria, bringing into question optimal dosing strategies for some drugs. This thesis provides methods for creating Bayesian pharmacokinetic models for two purposes: inference into the effects of covariates on concentrations and optimal sequential decision making for dose size. The thesis addresses three objectives: To compare existing approaches to fitting Bayesian models with recent advancements in pursuit of fitting population pharmacokinetic models, to develop a framework for evaluating the benefits of collecting additional information for use in personalization, and to demonstrate how academic personalized medicine researchers can use all data available to them to study effects of clinical variables on pharmacokinetics. To this end, the thesis makes three research contributions. First, a simulation study demonstrating that inferences using popular inference methods in pharmacokinetic research can lead to different and poorer calibrated decisions as compared to newer inference methods. The model presented in the simulation study was developed using a specific parameterization achieved through non-dimensionalization of the differential equation governing the mass transit of the drug and enables more reliable inference by sampling using Hamiltonian Monte Carlo as compared to a standard parameterization. Second, a unified framework for the development and simulation based evaluation of personalization based on pharmacokinetic modelling combined with dynamic treatment regimes. Lastly, a demonstration of how investigators can fit Bayesian pharmacokinetic models with the aim of accurate modelling of pharmacokinetics and exploration of novel variables using data from heterogeneous sources. These contributions provide methodologies do address two central goals of personalized medicine -- identification of factors driving between patient variability in drug response, and selection of an optimal dose -- and can enable a richer set of personalized decisions to be made.
+	
+	\vfill
+	\newpage
+	
+	
+	\addcontentsline{toc}{chapter}{Acknowlegements}
+	\acknowlege{\makeacknowlege}	%as above
 	\tableofcontents\newpage
 	\newpage
 	\addcontentsline{toc}{chapter}{List of Figures}
